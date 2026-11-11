@@ -1661,6 +1661,12 @@
         // ==========================================
         // ด่านที่ 8, 9, 10: จับให้ได้ (Catch Me - Clicking Hand Game)
         // ==========================================
+        // ⚙️ ตัวแปรสำหรับปรับแต่งเกมจับสัตว์ (มึงปรับแต่งตรงนี้ได้เลยตามใจชอบ):
+        const CATCH_ME_CONFIG = {
+            speedMultiplier: 0.25, // ตัวคูณความเร็วของสัตว์ทั้งหมด (ค่าเริ่มต้น 0.5 เดินช้ากำลังดีสำหรับเด็ก, 1.0 คือความเร็วเดิม, ปรับลดเหลือ 0.3-0.4 ถ้าอยากให้ช้าลงอีก)
+        };
+        window.CATCH_ME_CONFIG = CATCH_ME_CONFIG; // ปรับสดผ่าน Console ได้ด้วย
+
         let catchMeActive = false;
         let catchAnimalsList = [];
         let catchAnimId = null;
@@ -1820,8 +1826,12 @@
                 catchAnimalsList.forEach(a => {
                     if (a.caught) return;
 
-                    a.x += a.vx;
-                    a.y += a.vy;
+                    const mult = (typeof CATCH_ME_CONFIG !== 'undefined' && CATCH_ME_CONFIG.speedMultiplier !== undefined) 
+                        ? CATCH_ME_CONFIG.speedMultiplier 
+                        : 0.5;
+
+                    a.x += a.vx * mult;
+                    a.y += a.vy * mult;
 
                     // ชนขอบสะท้อนกลับ
                     if (a.x < 35) { a.x = 35; a.vx = Math.abs(a.vx); }
