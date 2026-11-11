@@ -27,6 +27,7 @@ const FLASHLIGHT_CONFIG = {
 
 ---
 
-## 2. สถานะความพร้อมของไฟล์ในระบบ
-1. `index.html`: เพิ่มตัวแปร `FLASHLIGHT_CONFIG` รองรับการปรับความฟุ้ง (`feather`) และวงตรวจจับ (`detectRadius`) เรียบร้อย
-2. `ReviewIDE.md`: บันทึกข้อมูลและคู่มือการปรับแต่งตัวแปรครบถ้วน
+## 2. อัปโหลดขึ้น GitHub Repository
+- **Remote URL:** `https://github.com/Thianrawit/AnubanCom.git`
+- **Branch:** `main`
+- **สถานะ:** Stage ไฟล์ทั้งหมด (โค้ดเว็บ `index.html`, ไฟล์เสียง `audio/`, สคริปต์ `scripts/`, และรูปภาพ `images/`) ทำการ Commit และ Push ขึ้นรีโมตเรียบร้อย 100%
