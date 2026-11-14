@@ -2,7 +2,9 @@ import os
 import asyncio
 import edge_tts
 
-VOICE_DIR = os.path.join(os.path.dirname(__file__), "..", "audio", "voice")
+_public_voice = os.path.join(os.path.dirname(__file__), "..", "public", "audio", "voice")
+_root_voice = os.path.join(os.path.dirname(__file__), "..", "audio", "voice")
+VOICE_DIR = _public_voice if os.path.exists(os.path.join(os.path.dirname(__file__), "..", "public")) else _root_voice
 os.makedirs(VOICE_DIR, exist_ok=True)
 
 # English letters with phonetic Thai and translation / no-transliteration where appropriate

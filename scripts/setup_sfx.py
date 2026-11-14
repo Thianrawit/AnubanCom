@@ -11,7 +11,9 @@ import json
 import urllib.request
 import urllib.parse
 
-SFX_DIR = os.path.join(os.path.dirname(__file__), "..", "audio", "sfx")
+_public_sfx = os.path.join(os.path.dirname(__file__), "..", "public", "audio", "sfx")
+_root_sfx = os.path.join(os.path.dirname(__file__), "..", "audio", "sfx")
+SFX_DIR = _public_sfx if os.path.exists(os.path.join(os.path.dirname(__file__), "..", "public")) else _root_sfx
 os.makedirs(SFX_DIR, exist_ok=True)
 
 FREESOUND_API_KEY = os.environ.get("FREESOUND_API_KEY", "")

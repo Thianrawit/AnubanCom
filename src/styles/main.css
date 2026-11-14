@@ -1,0 +1,152 @@
+body {
+    font-family: 'Mali', 'Prompt', sans-serif;
+    background-color: #f0fdf4;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.bounce-hover:hover {
+    transform: scale(1.06) rotate(1deg);
+}
+
+.drag-item {
+    cursor: grab;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    touch-action: none;
+}
+
+.drag-item:active, .dragging {
+    cursor: grabbing;
+    transform: scale(1.15) rotate(-3deg);
+    z-index: 50;
+}
+
+.drop-zone {
+    transition: all 0.2s ease;
+}
+
+.drop-zone.hovered {
+    transform: scale(1.06);
+    border-color: #10b981 !important;
+    background-color: #ecfdf5 !important;
+}
+
+/* Animations */
+@keyframes pop {
+    0% { transform: scale(0.6); opacity: 0; }
+    70% { transform: scale(1.15); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.pop-anim {
+    animation: pop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+}
+
+.float-anim {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0px rgba(245, 158, 11, 0); }
+    50% { transform: scale(1.15); box-shadow: 0 0 20px rgba(245, 158, 11, 0.9); }
+}
+
+.key-hint {
+    animation: pulse-glow 1.2s infinite ease-in-out;
+    background-color: #fef3c7 !important;
+    border-color: #f59e0b !important;
+    color: #b45309 !important;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+}
+.animate-shake {
+    animation: shake 0.3s ease-in-out;
+}
+
+/* Finger Tap Animation Hint (Loop after 5s idle - Vector Fist with Index Finger) */
+@keyframes fingerPressLoop {
+    0% {
+        opacity: 0;
+        transform: translateY(-40px) scale(0.95);
+    }
+    20% {
+        opacity: 1;
+        transform: translateY(-8px) scale(1);
+    }
+    40% {
+        opacity: 1;
+        transform: translateY(4px) scale(0.92);
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+    }
+    80% {
+        opacity: 0.9;
+        transform: translateY(4px) scale(0.92);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.95);
+    }
+}
+
+.finger-pointer-anim {
+    animation: fingerPressLoop 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.35));
+}
+
+/* Mouse Drag Guide Overlay Animations */
+@keyframes mouseClickPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(0.92); }
+}
+
+@keyframes leftClickGlow {
+    0%, 100% { fill: #ef4444; }
+    50% { fill: #dc2626; }
+}
+
+.mouse-left-pressed {
+    animation: leftClickGlow 0.8s ease-in-out infinite;
+}
+
+/* Flashlight Torch Game Effect */
+#flashlightCanvas {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 20;
+}
+
+/* Catch Me Animal Game Real Native Cursor */
+.catcher-cursor {
+    cursor: default !important;
+}
+
+.catcher-cursor:active, .catcher-fist {
+    cursor: default !important;
+}
+
+/* Canvas Tracing / Paint Styling */
+#tracingCanvas {
+    touch-action: none;
+    cursor: crosshair;
+}
+
+.color-btn.active {
+    transform: scale(1.2);
+    ring: 4px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
