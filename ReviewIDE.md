@@ -542,6 +542,20 @@
   - สรุปการเปลี่ยนแปลง: 138 files changed, 4,118 insertions(+), 966 deletions(-)
   - ดำเนินการ `git push origin main` สำเร็จลุล่วง 100% ขึ้นสู่ `https://github.com/Thianrawit/AnubanCom.git`
 
+---
+
+## 16. บันทึกการเปลี่ยน Icon เว็บเป็น `icon-kid.webp` และอัปเดตขึ้น GitHub (15 พฤศจิกายน 2026)
+
+- **การปรับปรุง Icon เว็บ**:
+  - เพิ่ม Favicon & Apple Touch Icon ใน `<head>` ของ `index.html` ให้ชี้ไปที่ `/assets/icons/icon-kid.webp`
+  - สร้างไฟล์ Favicon มาตรฐาน `public/favicon.ico` และ `dist/favicon.ico` จาก `icon-kid.webp` หลากความละเอียด (16x16, 32x32, 48x48, 64x64) รองรับทุกบราวเซอร์
+  - เปลี่ยนไอคอนแบรนด์หลักของเว็บในแถบ Header (`#headerIcon`) จากจอยเกมเดิมเป็นรูปเด็กน่ารัก 3 มิติ `assets/icons/icon-kid.webp`
+  - อัปเดต `src/main.js` ให้แสดง `icon-kid.webp` ในหน้าเมนูหลัก
+- **การคอมไพล์และผลการ Push ขึ้น GitHub**:
+  - บิลด์ผ่านคำสั่ง `npm.cmd run build` ผ่าน 100% ไร้ Error
+  - ทำการ Git Commit และ `git push origin main` สำเร็จ 100%
+
+
 
 
 

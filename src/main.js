@@ -141,7 +141,7 @@ export function showMainMenu() {
     document.getElementById('resetBtn')?.classList.add('hidden');
 
     const headerIcon = document.getElementById('headerIcon');
-    if (headerIcon) headerIcon.src = 'assets/icons/icon-gamepad.webp';
+    if (headerIcon) headerIcon.src = 'assets/icons/icon-kid.webp';
 }
 
 export function openSubmenu(menuType) {
