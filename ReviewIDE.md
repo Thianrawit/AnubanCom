@@ -163,6 +163,28 @@
 
 ---
 
+## 6. บันทึกการแก้ไขปัญหาการรันเกมบน GitHub Pages (14 พฤศจิกายน 2026)
+
+### ปัญหาที่พบ (Issue Analysis):
+- เมื่อโปรเจกต์ถูก Refactor เป็นสถาปัตยกรรม **Modular ES6 (Vite)** ไฟล์ `index.html` ที่อยู่ที่รูทไดเรกทอรีจะทำงานเป็น Development Entry Point ซึ่งมีการเรียกโมดูล ES6 เช่น `import './styles/main.css'`
+- เว็บเบราว์เซอร์ไม่สามารถรันคำสั่ง JS `import` ดึงไฟล์ CSS ตรงๆ ได้โดยไม่มี Bundler (จะเกิดข้อผิดพลาด `MIME type 'text/css'`)
+- การตั้งค่าเดิมของ GitHub Pages เป็นแบบ "Deploy from a branch" (main / root) ซึ่งชี้ไปที่ `index.html` ดิบ ทำให้เปิดบนเว็บแล้วหน้าจอไม่โหลดหรือไม่ทำงาน
+- โค้ดสำหรับรันจริง (Production Build) ถูกคอมไพล์รวมทุกอย่างไว้ในโฟลเดอร์ `dist/` ซึ่งถูก `.gitignore` ไว้
+
+### การแก้ไขและปรับปรุง:
+1. **ติดตั้ง GitHub Actions Automated Deployment Workflow:**
+   - สร้างไฟล์ `.github/workflows/deploy.yml` เพื่อให้ GitHub เป็นผู้ทำ Automated Build & Deploy อัตโนมัติในระบบคลาวด์
+   - ขั้นตอนใน Workflow:
+     1. Checkout โค้ดล่าสุดบน branch `main`
+     2. ติดตั้ง Node.js v20 พร้อมทำ Caching
+     3. รัน `npm ci` และ `npm run build` ด้วย Vite
+     4. อัปโหลดและนำโฟลเดอร์ `dist/` ส่งมอบขึ้น GitHub Pages ผ่าน `actions/deploy-pages@v4` โดยตรง
+2. **การตั้งค่าฝั่งผู้ใช้:**
+   - เพียงแค่เข้าไปที่ **Settings ➔ Pages ➔ Source** และเลือกเป็น **`GitHub Actions`** เว็บไซต์จะถูกบิลด์และใช้งานได้ 100% โดยอัตโนมัติทุกครั้งที่มีการ push โค้ด
+
+
+---
+
 ## 5. บันทึกการจัดทำเอกสารแนวคิดการออกแบบ (Design.md) (14 พฤศจิกายน 2026)
 
 ### รายละเอียดการจัดทำ:
