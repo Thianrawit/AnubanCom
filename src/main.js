@@ -35,6 +35,9 @@ import { renderCatchMeLevel } from './levels/mouse/lv13-15-catch.js';
 import { initKeyboardLevel, handlePhysicalKeyInput, isKeyboardActive } from './levels/keyboard/keyboardEngine.js';
 import { initKeyMiniGame, handleKeyMiniGameInput, isKeyMiniGameActive } from './levels/keyboard/keyMiniGames.js';
 
+// PWA Install Manager
+import { initPWA, updatePwaInstallUI, installAppToDevice, hideIosGuideModal } from './core/pwa.js';
+
 // Application State
 let currentMode = 'mouse'; // 'mouse' | 'keyboard' | 'keyboard-mini'
 let currentKeyboardSubmode = 'thai'; // 'thai' | 'english' | 'number'
@@ -371,6 +374,7 @@ export function playCurrentUnlockedLevel() {
 
 // Settings Handlers
 export function openSettingsModal() {
+    updatePwaInstallUI();
     showSettingsModal();
 }
 
@@ -419,6 +423,8 @@ window.lockAllMouseLevels = lockAllMouseLevels;
 window.showLockedModal = showLockedModal;
 window.hideLockedModal = hideLockedModal;
 window.playCurrentUnlockedLevel = playCurrentUnlockedLevel;
+window.installAppToDevice = installAppToDevice;
+window.hideIosGuideModal = hideIosGuideModal;
 
 // Initialize Security Guard and Key Routing
 registerKeyHandler(
@@ -435,6 +441,7 @@ initSecurity();
 
 // Initial page load
 window.addEventListener('DOMContentLoaded', () => {
+    initPWA();
     loadUnlockedMouseLevel();
     updateMouseCardsUI();
     showMainMenu();

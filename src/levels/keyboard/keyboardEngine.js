@@ -87,18 +87,18 @@ function renderKeyboardLayout(board) {
 
     keyboardRows.forEach(row => {
         const rowDiv = document.createElement('div');
-        rowDiv.className = "flex justify-center gap-1 sm:gap-1.5 w-full";
+        rowDiv.className = "flex justify-center gap-0.5 sm:gap-1.5 w-full";
 
         row.forEach(char => {
             const btn = document.createElement('button');
             const isKeyInDict = !!activeDict[char];
             if (isKeyInDict) {
-                btn.className = `vk-key text-xs sm:text-base md:text-lg font-extrabold bg-white hover:bg-amber-100 text-slate-700 min-w-[28px] sm:min-w-[42px] md:min-w-[48px] h-9 sm:h-11 md:h-12 px-1 sm:px-2 rounded-xl shadow-sm border-2 border-slate-200 flex justify-center items-center transition active:scale-90 relative`;
+                btn.className = `vk-key text-[11px] sm:text-base md:text-lg font-extrabold bg-white hover:bg-amber-100 text-slate-700 min-w-[22px] sm:min-w-[42px] md:min-w-[48px] h-8 sm:h-11 md:h-12 px-0.5 sm:px-2 rounded-lg sm:rounded-xl shadow-sm border sm:border-2 border-slate-200 flex justify-center items-center transition active:scale-90 relative`;
                 btn.dataset.char = char;
                 btn.innerText = char;
                 btn.onclick = () => handleInputChar(char);
             } else {
-                btn.className = `text-[10px] sm:text-sm font-bold bg-slate-200/50 text-slate-400 min-w-[26px] sm:min-w-[38px] md:min-w-[44px] h-9 sm:h-11 md:h-12 px-0.5 sm:px-1.5 rounded-xl border border-slate-200/60 flex justify-center items-center cursor-default select-none opacity-40`;
+                btn.className = `text-[9px] sm:text-sm font-bold bg-slate-200/50 text-slate-400 min-w-[20px] sm:min-w-[38px] md:min-w-[44px] h-8 sm:h-11 md:h-12 px-0.5 sm:px-1.5 rounded-lg sm:rounded-xl border border-slate-200/60 flex justify-center items-center cursor-default select-none opacity-40`;
                 btn.innerText = char;
                 btn.disabled = true;
             }

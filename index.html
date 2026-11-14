@@ -2,11 +2,19 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>เกมสนุกฝึกเมาส์และคีย์บอร์ด (Kids Learning Game)</title>
-    <!-- Web App Favicon & Touch Icon -->
+    <!-- Web App Favicon & Apple Touch Icons -->
     <link rel="icon" type="image/webp" href="/assets/icons/icon-kid.webp">
-    <link rel="apple-touch-icon" href="/assets/icons/icon-kid.webp">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/icon-kid-192.png">
+    <link rel="apple-touch-icon" href="/assets/icons/icon-kid-512.png">
+    <!-- PWA Manifest & Mobile Capability Tags -->
+    <link rel="manifest" href="./manifest.webmanifest">
+    <meta name="theme-color" content="#10b981">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="อนุบาลคอม">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Prompt & Mali -->
@@ -20,39 +28,39 @@
     <!-- Main Application Stylesheet -->
     <link rel="stylesheet" href="./src/styles/main.css">
 </head>
-<body class="bg-emerald-50 text-slate-800 min-h-screen flex flex-col items-center justify-between p-2 sm:p-4 select-none">
+<body class="bg-emerald-50 text-slate-800 min-h-screen flex flex-col items-center justify-between p-1.5 sm:p-4 select-none overflow-x-hidden">
 
 <!-- Header Navigation -->
-    <header class="w-full max-w-5xl mx-auto px-4 py-3 flex justify-between items-center z-10">
-        <div class="flex items-center gap-3 cursor-pointer" onclick="showMainMenu()">
-            <div class="bg-amber-400 p-2 sm:p-2.5 rounded-2xl shadow-lg float-anim flex items-center justify-center">
-                <img id="headerIcon" src="assets/icons/icon-kid.webp" alt="kid logo" class="w-8 h-8 sm:w-9 sm:h-9 inline-block object-contain" />
+    <header class="w-full max-w-5xl mx-auto px-2 sm:px-4 py-2 sm:py-3 flex justify-between items-center z-10 gap-2">
+        <div class="flex items-center gap-2 sm:gap-3 cursor-pointer shrink-0" onclick="showMainMenu()">
+            <div class="bg-amber-400 p-1.5 sm:p-2.5 rounded-2xl shadow-lg float-anim flex items-center justify-center shrink-0">
+                <img id="headerIcon" src="assets/icons/icon-kid.webp" alt="kid logo" class="w-7 h-7 sm:w-9 sm:h-9 inline-block object-contain" />
             </div>
             <div>
-                <h1 class="text-xl sm:text-2xl font-extrabold text-slate-700 leading-tight flex items-center gap-1">
+                <h1 class="text-base sm:text-2xl font-extrabold text-slate-700 leading-tight flex items-center gap-1">
                     เกมหรรษาอนุบาล
-                    <img src="assets/icons/icon-sparkles.webp" alt="sparkles" class="w-6 h-6 inline-block object-contain animate-pulse" />
+                    <img src="assets/icons/icon-sparkles.webp" alt="sparkles" class="w-5 h-5 sm:w-6 sm:h-6 inline-block object-contain animate-pulse shrink-0" />
                 </h1>
-                <p class="text-xs text-slate-500 font-bold">ฝึกทักษะเมาส์และคีย์บอร์ด</p>
+                <p class="text-[10px] sm:text-xs text-slate-500 font-bold hidden xs:block">ฝึกทักษะเมาส์และคีย์บอร์ด</p>
             </div>
         </div>
 
         <!-- Controls & Level Selector -->
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1.5 sm:gap-2">
             <!-- Settings Button -->
-            <button id="settingsBtn" onclick="openSettingsModal()" class="bg-white hover:bg-slate-100 text-slate-700 border-2 border-slate-200 p-2 sm:px-3 rounded-2xl font-bold shadow-sm transition active:scale-95 flex items-center gap-1.5" title="ตั้งค่าระบบ">
-                <img src="assets/icons/icon-gear.webp" alt="gear" class="w-5 h-5 inline-block object-contain" />
+            <button id="settingsBtn" onclick="openSettingsModal()" class="bg-white hover:bg-slate-100 text-slate-700 border-2 border-slate-200 p-1.5 sm:px-3 sm:py-2 rounded-2xl font-bold shadow-sm transition active:scale-95 flex items-center gap-1.5" title="ตั้งค่าระบบ">
+                <img src="assets/icons/icon-gear.webp" alt="gear" class="w-5 h-5 inline-block object-contain shrink-0" />
                 <span class="hidden sm:inline text-sm">ตั้งค่า</span>
             </button>
 
             <!-- Mode Selector Dropdown (Hidden on Main Menu) -->
-            <select id="levelSelect" onchange="changeLevel(this.value)" class="hidden bg-white border-2 border-purple-300 text-purple-700 text-xs sm:text-sm font-bold py-2 px-2.5 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400 cursor-pointer">
+            <select id="levelSelect" onchange="changeLevel(this.value)" class="hidden bg-white border-2 border-purple-300 text-purple-700 text-xs sm:text-sm font-bold py-1.5 px-2 sm:py-2 sm:px-2.5 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400 cursor-pointer max-w-[125px] sm:max-w-xs truncate">
                 <!-- Dynamically populated based on mode -->
             </select>
 
             <!-- Reset Button -->
-            <button id="resetBtn" onclick="resetCurrentLevel()" class="hidden bg-white hover:bg-rose-50 text-rose-500 border-2 border-rose-200 p-2 sm:px-3 rounded-2xl font-bold shadow-sm transition active:scale-95 flex items-center gap-1" title="เริ่มด่านนี้ใหม่">
-                <i class="fa-solid fa-rotate-right text-lg"></i>
+            <button id="resetBtn" onclick="resetCurrentLevel()" class="hidden bg-white hover:bg-rose-50 text-rose-500 border-2 border-rose-200 p-1.5 sm:px-3 sm:py-2 rounded-2xl font-bold shadow-sm transition active:scale-95 flex items-center gap-1" title="เริ่มด่านนี้ใหม่">
+                <i class="fa-solid fa-rotate-right text-base sm:text-lg"></i>
                 <span class="hidden sm:inline text-sm">เริ่มใหม่</span>
             </button>
         </div>
@@ -100,11 +108,13 @@
 
         <!-- MOUSE LEVEL SELECTION CARDS MENU (15 LEVELS) -->
         <div id="mouseMenuScreen" class="w-full flex flex-col items-center justify-center py-2 pop-anim hidden">
-            <div class="text-center mb-3">
-                <span class="bg-sky-100 text-sky-700 text-xs font-extrabold px-3 py-1 rounded-full border border-sky-300">หมวดหมู่: ฝึกใช้เมาส์ (15 ด่าน)</span>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-700 mt-1 flex items-center justify-center gap-1.5">
+            <div class="flex flex-col items-center justify-center text-center gap-2 mb-3 sm:mb-4 px-2">
+                <span class="inline-flex items-center gap-1.5 bg-sky-100 text-sky-800 text-xs sm:text-sm font-extrabold px-3.5 py-1.5 rounded-full border border-sky-300 shadow-sm leading-normal">
+                    หมวดหมู่: ฝึกใช้เมาส์ (15 ด่าน)
+                </span>
+                <h2 class="text-xl sm:text-3xl font-extrabold text-slate-700 leading-normal flex items-center justify-center gap-2">
                     เลือกด่านที่ต้องการเล่น
-                    <img src="assets/icons/icon-mouse-device.webp" alt="mouse" class="w-7 h-7 inline-block object-contain" />
+                    <img src="assets/icons/icon-mouse-device.webp" alt="mouse" class="w-6 h-6 sm:w-7 sm:h-7 inline-block object-contain shrink-0" />
                 </h2>
             </div>
 
@@ -259,24 +269,26 @@
 
         <!-- KEYBOARD LEVEL SELECTION CARDS MENU (4 CATEGORIES) -->
         <div id="keyboardMenuScreen" class="w-full flex flex-col items-center justify-center py-4 pop-anim hidden">
-            <div class="text-center mb-6">
-                <span class="bg-emerald-100 text-emerald-700 text-xs font-extrabold px-3 py-1 rounded-full border border-emerald-300">หมวดหมู่: ฝึกคีย์บอร์ด (4 หมวด)</span>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-700 mt-1 flex items-center justify-center gap-1.5">
+            <div class="flex flex-col items-center justify-center text-center gap-2 mb-6 px-3">
+                <span class="inline-flex items-center gap-1.5 bg-emerald-100 text-emerald-800 text-xs sm:text-sm font-extrabold px-3.5 py-1.5 rounded-full border border-emerald-300 shadow-sm leading-normal">
+                    หมวดหมู่: ฝึกคีย์บอร์ด (4 หมวด)
+                </span>
+                <h2 class="text-xl sm:text-3xl font-extrabold text-slate-700 leading-normal flex items-center justify-center gap-2">
                     เลือกโหมดการพิมพ์
-                    <img src="assets/icons/icon-keyboard.webp" alt="keyboard" class="w-7 h-7 inline-block object-contain" />
+                    <img src="assets/icons/icon-keyboard.webp" alt="keyboard" class="w-6 h-6 sm:w-7 sm:h-7 inline-block object-contain shrink-0" />
                 </h2>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-4xl px-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-4xl px-3 pt-3">
                 <!-- 1. หมวดมินิเกม (ภาพล้วน) - แนะนำสำหรับผู้เริ่มต้น -->
                 <button onclick="openKeyMiniGamesMenu()" class="bounce-hover bg-gradient-to-b from-rose-50 to-amber-50 hover:from-rose-100 hover:to-amber-100 border-4 border-rose-300 rounded-3xl p-5 shadow-xl flex flex-col items-center text-center transition relative">
                     <span class="absolute -top-3 bg-rose-500 text-white text-[10px] font-black px-3 py-0.5 rounded-full shadow flex items-center gap-1"><img src="assets/icons/icon-star-gold.webp" alt="star" class="w-3.5 h-3.5 inline-block object-contain" /> แนะนำสำหรับเริ่มต้น</span>
                     <div class="w-20 h-20 bg-rose-100 rounded-full flex justify-center items-center mb-3 p-3 gap-1">
                         <img src="assets/icons/icon-dino-egg-4.webp" alt="dino" class="w-10 h-10 inline-block object-contain bounce-hover" />
-                        <img src="assets/icons/icon-train.webp" alt="train" class="w-10 h-10 inline-block object-contain bounce-hover" />
+                        <img src="assets/icons/icon-bee.webp" alt="bee" class="w-10 h-10 inline-block object-contain bounce-hover" />
                     </div>
                     <h3 class="text-lg font-extrabold text-rose-600 mb-1">มินิเกม (ภาพล้วน)</h3>
-                    <p class="text-slate-500 text-xs font-bold mb-4">ฟักไข่หรรษา, กระต่ายกระโดด Spacebar และรถไฟลูกศร 4 ทิศ</p>
+                    <p class="text-slate-500 text-xs font-bold mb-4">ฟักไข่หรรษา, กระต่ายกระโดด Spacebar และผึ้งน้อยลูกศร 4 ทิศ</p>
                     <span class="mt-auto bg-rose-500 text-white font-bold text-xs sm:text-sm px-4 py-2 rounded-full shadow flex items-center justify-center gap-1.5">
                         เลือกเกมย่อย <img src="assets/icons/icon-arrow-right.webp" alt="arrow" class="w-4 h-4 inline-block object-contain" />
                     </span>
@@ -326,23 +338,25 @@
 
         <!-- KEYBOARD VISUAL MINI-GAMES SUBMENU (3 MINI-GAMES) -->
         <div id="keyboardMiniMenuScreen" class="w-full flex flex-col items-center justify-center py-4 pop-anim hidden">
-            <div class="text-center mb-6">
-                <span class="bg-rose-100 text-rose-700 text-xs font-extrabold px-3 py-1 rounded-full border border-rose-300">หมวดมินิเกมคีย์บอร์ด (ภาพล้วน)</span>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-700 mt-1 flex items-center justify-center gap-2">
+            <div class="flex flex-col items-center justify-center text-center gap-2 mb-6 px-3">
+                <span class="inline-flex items-center gap-1.5 bg-rose-100 text-rose-800 text-xs sm:text-sm font-extrabold px-3.5 py-1.5 rounded-full border border-rose-300 shadow-sm leading-normal">
+                    หมวดมินิเกมคีย์บอร์ด (ภาพล้วน)
+                </span>
+                <h2 class="text-xl sm:text-3xl font-extrabold text-slate-700 leading-normal flex items-center justify-center gap-2">
                     เลือกมินิเกมที่อยากเล่น
-                    <img src="assets/icons/icon-sparkles.webp" alt="sparkles" class="w-7 h-7 inline-block object-contain animate-pulse" />
+                    <img src="assets/icons/icon-sparkles.webp" alt="sparkles" class="w-6 h-6 sm:w-7 sm:h-7 inline-block object-contain animate-pulse shrink-0" />
                 </h2>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 w-full max-w-3xl px-4">
                 <!-- มินิเกม 1: ฟักไข่หรรษา (Any-Key) -->
-                <button onclick="startKeyMiniGame('egg')" class="bounce-hover bg-white hover:bg-amber-50 border-4 border-amber-300 rounded-3xl p-6 shadow-xl flex flex-col items-center text-center transition">
-                    <div class="w-24 h-24 bg-amber-100 rounded-full flex justify-center items-center mb-3 p-3 relative gap-1">
-                        <img src="assets/icons/icon-dino-egg-1.webp" alt="dino egg" class="w-10 h-10 inline-block object-contain" />
-                        <img src="assets/icons/icon-dino-egg-4.webp" alt="baby dino" class="w-10 h-10 inline-block object-contain" />
-                        <span class="absolute -bottom-1 -right-1 bg-amber-400 text-amber-950 text-xs font-black px-2 py-0.5 rounded-lg border-2 border-white shadow flex items-center gap-1"><img src="assets/icons/icon-keyboard.webp" alt="key" class="w-3.5 h-3.5 inline-block object-contain" /> ปุ่มใดก็ได้</span>
+                <button onclick="startKeyMiniGame('egg')" class="bounce-hover bg-white hover:bg-amber-50 border-4 border-amber-300 rounded-3xl p-5 sm:p-6 shadow-xl flex flex-col items-center text-center transition">
+                    <div class="w-20 h-20 sm:w-24 sm:h-24 bg-amber-100 rounded-full flex justify-center items-center mb-5 p-2 sm:p-3 relative gap-1">
+                        <img src="assets/icons/icon-dino-egg-1.webp" alt="dino egg" class="w-9 h-9 sm:w-10 sm:h-10 inline-block object-contain" />
+                        <img src="assets/icons/icon-dino-egg-4.webp" alt="baby dino" class="w-9 h-9 sm:w-10 sm:h-10 inline-block object-contain" />
+                        <span class="absolute -bottom-2 -right-1 bg-amber-400 text-amber-950 text-[10px] sm:text-xs font-black px-2 py-0.5 rounded-lg border-2 border-white shadow flex items-center gap-1"><img src="assets/icons/icon-keyboard.webp" alt="key" class="w-3.5 h-3.5 inline-block object-contain" /> ปุ่มใดก็ได้</span>
                     </div>
-                    <h3 class="text-xl font-extrabold text-amber-600 mb-1">1. ฟักไข่หรรษา</h3>
+                    <h3 class="text-lg sm:text-xl font-extrabold text-amber-600 mb-1 leading-normal">1. ฟักไข่หรรษา</h3>
                     <p class="text-slate-500 text-xs font-bold mb-4">กดปุ่มอะไรก็ได้บนคีย์บอร์ด 3 ครั้ง ให้ไข่กะเทาะออก!</p>
                     <span class="mt-auto bg-amber-500 text-white font-bold text-xs sm:text-sm px-5 py-2 rounded-full shadow flex items-center justify-center gap-1.5">
                         เล่นเลย <img src="assets/icons/icon-arrow-right.webp" alt="arrow" class="w-4 h-4 inline-block object-contain" />
@@ -350,13 +364,13 @@
                 </button>
 
                 <!-- มินิเกม 2: กระต่ายกระโดด (Spacebar) -->
-                <button onclick="startKeyMiniGame('space')" class="bounce-hover bg-white hover:bg-emerald-50 border-4 border-emerald-300 rounded-3xl p-6 shadow-xl flex flex-col items-center text-center transition">
-                    <div class="w-24 h-24 bg-emerald-100 rounded-full flex justify-center items-center mb-3 p-3 relative gap-1">
-                        <img src="assets/icons/bunny-jump.webp" alt="rabbit jump" class="w-12 h-12 inline-block object-contain" />
-                        <img src="assets/icons/icon-rock.webp" alt="rock" class="w-8 h-8 inline-block object-contain" />
-                        <span class="absolute -bottom-1 bg-yellow-300 text-amber-950 text-[11px] font-black px-3 py-0.5 rounded-md border-2 border-amber-500 shadow">SPACE</span>
+                <button onclick="startKeyMiniGame('space')" class="bounce-hover bg-white hover:bg-emerald-50 border-4 border-emerald-300 rounded-3xl p-5 sm:p-6 shadow-xl flex flex-col items-center text-center transition">
+                    <div class="w-20 h-20 sm:w-24 sm:h-24 bg-emerald-100 rounded-full flex justify-center items-center mb-5 p-2 sm:p-3 relative gap-1">
+                        <img src="assets/icons/bunny-jump.webp" alt="rabbit jump" class="w-11 h-11 sm:w-12 sm:h-12 inline-block object-contain" />
+                        <img src="assets/icons/icon-rock.webp" alt="rock" class="w-7 h-7 sm:w-8 sm:h-8 inline-block object-contain" />
+                        <span class="absolute -bottom-2 bg-yellow-300 text-amber-950 text-[10px] sm:text-[11px] font-black px-2.5 sm:px-3 py-0.5 rounded-md border-2 border-amber-500 shadow">SPACE</span>
                     </div>
-                    <h3 class="text-xl font-extrabold text-emerald-600 mb-1">2. กระต่ายกระโดด</h3>
+                    <h3 class="text-lg sm:text-xl font-extrabold text-emerald-600 mb-1 leading-normal">2. กระต่ายกระโดด</h3>
                     <p class="text-slate-500 text-xs font-bold mb-4">กดปุ่มยาว Spacebar พากระต่ายกระโดดข้ามก้อนหิน!</p>
                     <span class="mt-auto bg-emerald-500 text-white font-bold text-xs sm:text-sm px-5 py-2 rounded-full shadow flex items-center justify-center gap-1.5">
                         เล่นเลย <img src="assets/icons/icon-arrow-right.webp" alt="arrow" class="w-4 h-4 inline-block object-contain" />
@@ -364,18 +378,18 @@
                 </button>
 
                 <!-- มินิเกม 3: ผึ้งน้อยเก็บดอกไม้ (Arrow Keys) -->
-                <button onclick="startKeyMiniGame('arrows')" class="bounce-hover bg-white hover:bg-amber-50 border-4 border-amber-300 rounded-3xl p-6 shadow-xl flex flex-col items-center text-center transition">
-                    <div class="w-24 h-24 bg-amber-100 rounded-full flex justify-center items-center mb-3 p-3 relative">
-                        <img src="assets/icons/icon-bee.webp" alt="bee" class="w-12 h-12 inline-block object-contain" />
-                        <img src="assets/icons/icon-flower.webp" alt="flower" class="w-8 h-8 inline-block object-contain" />
-                        <span class="absolute -bottom-1 bg-amber-500 text-white text-[11px] font-black px-2.5 py-0.5 rounded-lg border-2 border-white shadow flex items-center gap-1">
+                <button onclick="startKeyMiniGame('arrows')" class="bounce-hover bg-white hover:bg-amber-50 border-4 border-amber-300 rounded-3xl p-5 sm:p-6 shadow-xl flex flex-col items-center text-center transition">
+                    <div class="w-20 h-20 sm:w-24 sm:h-24 bg-amber-100 rounded-full flex justify-center items-center mb-5 p-2 sm:p-3 relative">
+                        <img src="assets/icons/icon-bee.webp" alt="bee" class="w-11 h-11 sm:w-12 sm:h-12 inline-block object-contain" />
+                        <img src="assets/icons/icon-flower.webp" alt="flower" class="w-7 h-7 sm:w-8 sm:h-8 inline-block object-contain" />
+                        <span class="absolute -bottom-2 bg-amber-500 text-white text-[10px] sm:text-[11px] font-black px-2.5 py-0.5 rounded-lg border-2 border-white shadow flex items-center gap-1">
                             <i class="fa-solid fa-arrow-left"></i>
                             <i class="fa-solid fa-arrow-up"></i>
                             <i class="fa-solid fa-arrow-down"></i>
                             <i class="fa-solid fa-arrow-right"></i>
                         </span>
                     </div>
-                    <h3 class="text-xl font-extrabold text-amber-600 mb-1">3. ผึ้งน้อยเก็บดอกไม้</h3>
+                    <h3 class="text-lg sm:text-xl font-extrabold text-amber-600 mb-1 leading-normal">3. ผึ้งน้อยเก็บดอกไม้</h3>
                     <p class="text-slate-500 text-xs font-bold mb-4">กดปุ่มลูกศร 4 ทิศทาง พาน้องผึ้งไปเก็บดอกไม้!</p>
                     <span class="mt-auto bg-amber-500 text-white font-bold text-xs sm:text-sm px-5 py-2 rounded-full shadow flex items-center justify-center gap-1.5">
                         เล่นเลย <img src="assets/icons/icon-arrow-right.webp" alt="arrow" class="w-4 h-4 inline-block object-contain" />
@@ -481,6 +495,22 @@
             </div>
 
             <div class="space-y-3">
+                <!-- 0. PWA Install Button -->
+                <button id="pwaInstallBtn" onclick="installAppToDevice()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold p-3.5 rounded-2xl flex items-center justify-between transition active:scale-98 shadow-md group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-white/20 text-white flex items-center justify-center p-2 group-hover:scale-105 transition">
+                            <i class="fa-solid fa-download text-lg"></i>
+                        </div>
+                        <div class="text-left">
+                            <div id="pwaInstallTitle" class="font-extrabold text-sm text-white">ติดตั้งลงเครื่อง (App)</div>
+                            <div id="pwaInstallDesc" class="text-[11px] text-emerald-100 font-bold">เล่นได้เต็มจอ ไม่ต้องเข้าผ่านเบราว์เซอร์</div>
+                        </div>
+                    </div>
+                    <span id="pwaInstallBadge" class="bg-white text-emerald-600 text-xs font-black px-3 py-1.5 rounded-xl shadow-sm flex items-center gap-1">
+                        <i class="fa-solid fa-arrow-down"></i> ติดตั้ง
+                    </span>
+                </button>
+
                 <!-- 1. Voice Reading Toggle -->
                 <div class="bg-slate-50 border-2 border-slate-200 rounded-2xl p-3.5 flex items-center justify-between">
                     <div class="flex items-center gap-3">
@@ -531,6 +561,39 @@
 
             <button onclick="hideSettingsModal()" class="w-full mt-2 bg-slate-700 hover:bg-slate-800 text-white font-extrabold py-3 rounded-2xl shadow transition active:scale-95 text-sm">
                 ตกลง / ปิดหน้าต่าง
+            </button>
+        </div>
+    </div>
+
+    <!-- iOS PWA Install Guide Modal -->
+    <div id="pwaIosGuideModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex justify-center items-center z-50 hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-3xl p-6 sm:p-7 max-w-sm w-11/12 shadow-2xl border-4 border-emerald-300 pop-anim relative text-center">
+            <button onclick="hideIosGuideModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl font-bold w-8 h-8 rounded-full flex items-center justify-center hover:bg-slate-100 transition" title="ปิด">
+                ✕
+            </button>
+            <div class="w-16 h-16 mx-auto mb-3 bg-emerald-100 rounded-2xl flex items-center justify-center p-3 text-emerald-600 shadow-inner">
+                <i class="fa-solid fa-arrow-up-from-bracket text-3xl"></i>
+            </div>
+            <h3 class="text-xl font-black text-slate-700 mb-2">วิธีติดตั้งบน iPhone / iPad</h3>
+            <p class="text-xs sm:text-sm text-slate-600 font-bold mb-4 leading-relaxed">
+                ทำตาม 3 ขั้นตอนง่ายๆ เพื่อเพิ่มแอปลงหน้าจอโฮม:
+            </p>
+            <div class="text-left bg-slate-50 border-2 border-slate-200 rounded-2xl p-3.5 space-y-2 text-xs sm:text-sm font-bold text-slate-700 mb-5">
+                <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 bg-emerald-500 text-white rounded-full flex items-center justify-center shrink-0 text-xs font-black">1</span>
+                    <span>กดปุ่ม <b>แชร์ (Share)</b> <i class="fa-solid fa-arrow-up-from-bracket text-emerald-600 mx-1"></i> ด้านล่าง</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 bg-emerald-500 text-white rounded-full flex items-center justify-center shrink-0 text-xs font-black">2</span>
+                    <span>เลื่อนลงมาแล้วเลือก <b>"เพิ่มไปยังหน้าจอโฮม"</b> <i class="fa-regular fa-square-plus text-emerald-600 mx-1"></i></span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 bg-emerald-500 text-white rounded-full flex items-center justify-center shrink-0 text-xs font-black">3</span>
+                    <span>กด <b>"เพิ่ม (Add)"</b> ที่มุมขวาบน</span>
+                </div>
+            </div>
+            <button onclick="hideIosGuideModal()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-black py-3 rounded-2xl shadow-md transition active:scale-95 text-sm">
+                เข้าใจแล้ว
             </button>
         </div>
     </div>

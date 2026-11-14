@@ -283,4 +283,42 @@ body.is-dragging *,
     animation: spacebarFlash 0.9s ease-in-out infinite;
 }
 
+/* ==========================================
+   Mobile Responsive & Touch Optimization
+   ========================================== */
+@media (max-width: 640px) {
+    #gameBoard {
+        min-height: 380px !important;
+        padding: 0.75rem !important;
+    }
+
+    /* Prevent horizontal overflow during mobile play */
+    body {
+        overflow-x: hidden;
+    }
+
+    /* Modal padding and width */
+    .pop-anim {
+        max-width: 95vw !important;
+        padding: 1.25rem !important;
+    }
+
+    /* Canvas full-width scaling */
+    #tracingCanvas,
+    .paint-canvas {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}
+
+/* Standalone PWA adjustments (iOS notch & safe area padding) */
+@supports (padding: env(safe-area-inset-top)) {
+    body {
+        padding-top: max(0.5rem, env(safe-area-inset-top));
+        padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+        padding-left: max(0.5rem, env(safe-area-inset-left));
+        padding-right: max(0.5rem, env(safe-area-inset-right));
+    }
+}
+
 
