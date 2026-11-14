@@ -41,10 +41,12 @@ export const KEY_MINIGAMES_SETTINGS = {
     jumpDuration: 680,        // ระยะเวลาที่กระต่ายลอยตัวกลางอากาศ (หน่วย: ms)
     totalJumpsRequired: 5,    // จำนวนครั้งที่กระโดดข้ามสิ่งกีดขวางเพื่อผ่านด่าน
 
-    // เกมที่ 3: ผึ้งน้อยเก็บน้ำผึ้ง (Arrow Keys 4 ทิศ)
-    gridSize: 4,              // ขนาดตารางสวนดอกไม้ (4x4 ช่อง เพื่อให้มีพื้นที่บินและเกิดน้ำผึ้งไกลตัว)
-    totalHoneyRequired: 5,    // จำนวนโถน้ำผึ้งที่ต้องบินไปเก็บให้ครบ
-    minHoneyDistance: 2       // ระยะห่างขั้นต่ำที่น้ำผึ้งจะเกิด ห้ามเกิดติดกับตัวผึ้ง (Manhattan distance >= 2)
+    // เกมที่ 3: ผึ้งน้อยเก็บดอกไม้ (Arrow Keys 4 ทิศ)
+    gridSize: 4,              // ขนาดตารางสวนดอกไม้ (4x4 ช่อง เพื่อให้มีพื้นที่บินและเกิดดอกไม้ไกลตัว)
+    totalFlowersRequired: 5,  // จำนวนดอกไม้ที่ต้องบินไปเก็บให้ครบ
+    totalHoneyRequired: 5,    // รองรับ fallback ตัวแปรเดิม
+    minFlowerDistance: 2,     // ระยะห่างขั้นต่ำที่ดอกไม้จะเกิด ห้ามเกิดติดกับตัวผึ้ง (Manhattan distance >= 2)
+    minHoneyDistance: 2       // รองรับ fallback ตัวแปรเดิม
 };
 
 /**

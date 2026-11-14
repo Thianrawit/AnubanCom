@@ -584,6 +584,28 @@
 - Commit: `feat: use icon-pencil for Paint mini-game drawing cursor`
 - Push ขึ้น Branch `main` บน Remote Repository สำเร็จเรียบร้อย
 
+---
+
+## 18. บันทึกการเปลี่ยนไอเทมเป้าหมายในมินิเกมผึ้งน้อยเป็นดอกไม้ `icon-flower.webp` (15 พฤศจิกายน 2026)
+
+### 1. การเปลี่ยนแอสเซทเป้าหมายในมินิเกมคีย์บอร์ดที่ 3 (`src/levels/keyboard/keyMiniGames.js`):
+- **เปลี่ยนจากโถน้ำผึ้ง (`icon-honey.webp`) เป็นดอกไม้ (`icon-flower.webp`)**:
+  - เปลี่ยนชื่อมินิเกมเป็น *"มินิเกม 3: ผึ้งน้อยเก็บดอกไม้"*
+  - เปลี่ยนคำอธิบายเป็น *"กดปุ่มลูกศรพาน้องผึ้งบินไปเก็บดอกไม้ให้ครบนะ!"*
+  - อัปเดตแถบความคืบหน้า (Progress Row): เมื่อเก็บดอกไม้สำเร็จแสดงรูปดอกไม้สีชมพูสดใส `GameIcon('flower', 'w-6 h-6')` พร้อมพื้นหลังสีชมพูอ่อน และเมื่อยังไม่เก็บแสดงรูปดอกไม้สีเทา
+  - อัปเดตวัตถุเป้าหมายในตารางสวนดอกไม้ให้เรนเดอร์รูปดอกไม้ 3 มิติ `GameIcon('flower', flowerIconClass)`
+  - ปรับปรุงฟังก์ชันการสุ่มตำแหน่งเกิด `spawnNewFlower()` รองรับการคำนวณระยะห่างขั้นต่ำ `minFlowerDistance >= 2` (ห้ามเกิดติดตัวผึ้ง)
+  - เพิ่ม Export ทั้ง `renderBeeFlowerGame` และคงชื่อเดิม `renderBeeHoneyGame`, `renderTrainArrowsGame` เพื่อความเข้ากันได้ย้อนหลัง 100%
+
+### 2. การอัปเดตการ์ดเมนูและการตั้งค่า (`index.html`, `settings.js`, `Settings.md`):
+- ใน `index.html`: อัปเดตการ์ดมินิเกม 3 ให้แสดงไอคอนคู่ระหว่าง `icon-bee.webp` กับ `icon-flower.webp` พร้อมหัวข้อ *"3. ผึ้งน้อยเก็บดอกไม้"*
+- ใน `src/config/settings.js`: เพิ่มการตั้งค่า `totalFlowersRequired: 5` และ `minFlowerDistance: 2` (คงตัวแปรเก่าเป็น Fallback)
+- ใน `Settings.md`: ปรับปรุงตารางคู่มือเอกสารตัวแปรคอนฟิกมินิเกมให้ตรงกับเกมดอกไม้
+
+### 3. การตรวจสอบและการบิลด์ (Verification):
+- คอมไพล์โปรเจกต์ด้วยคำสั่ง `npm.cmd run build` ผ่าน 100% ไร้ Error (Singlefile Bundle: `dist/index.html` 1,771.82 kB ใน 701ms)
+
+
 
 
 

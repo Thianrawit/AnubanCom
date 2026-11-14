@@ -36,7 +36,7 @@ export function initKeyMiniGame(board, subGame, onComplete) {
     } else if (subGame === 'space') {
         activeCleanupFn = renderRabbitSpaceGame(board, onComplete);
     } else if (subGame === 'arrows') {
-        activeCleanupFn = renderBeeHoneyGame(board, onComplete);
+        activeCleanupFn = renderBeeFlowerGame(board, onComplete);
     }
 
     return function cleanup() {
@@ -510,36 +510,36 @@ function renderRabbitSpaceGame(board, onComplete) {
 }
 
 // ==========================================
-// Mini-Game 3: ผึ้งน้อยเก็บน้ำผึ้ง (Arrow Keys 4 ทิศ)
-// ใช้ icon-bee.webp และ icon-honey.webp
+// Mini-Game 3: ผึ้งน้อยเก็บดอกไม้ (Arrow Keys 4 ทิศ)
+// ใช้ icon-bee.webp และ icon-flower.webp
 // ==========================================
-function renderBeeHoneyGame(board, onComplete) {
-    document.getElementById('levelTitle').innerText = 'มินิเกม 3: ผึ้งน้อยเก็บน้ำผึ้ง';
-    document.getElementById('levelDesc').innerText = 'กดปุ่มลูกศรพาน้องผึ้งบินไปเก็บโถน้ำผึ้งให้ครบนะ!';
+function renderBeeFlowerGame(board, onComplete) {
+    document.getElementById('levelTitle').innerText = 'มินิเกม 3: ผึ้งน้อยเก็บดอกไม้';
+    document.getElementById('levelDesc').innerText = 'กดปุ่มลูกศรพาน้องผึ้งบินไปเก็บดอกไม้ให้ครบนะ!';
 
     const gridSize = KEY_MINIGAMES_SETTINGS.gridSize || 4;
-    const totalHoneyNeeded = KEY_MINIGAMES_SETTINGS.totalHoneyRequired || KEY_MINIGAMES_SETTINGS.totalApplesRequired || 5;
+    const totalFlowersNeeded = KEY_MINIGAMES_SETTINGS.totalFlowersRequired || KEY_MINIGAMES_SETTINGS.totalHoneyRequired || KEY_MINIGAMES_SETTINGS.totalApplesRequired || 5;
 
-    let honeyCollected = 0;
+    let flowersCollected = 0;
     let beePos = { r: Math.floor(gridSize / 2), c: Math.floor(gridSize / 2) };
-    let honeyPos = { r: 0, c: 0 };
+    let flowerPos = { r: 0, c: 0 };
     let finished = false;
     let idleTimer = null;
 
     board.innerHTML = `
         <div class="relative w-full h-[450px] sm:h-[480px] bg-gradient-to-b from-amber-50 via-emerald-50 to-sky-50 rounded-3xl overflow-hidden flex flex-col items-center justify-between p-3 sm:p-4 border-4 border-amber-300 shadow-inner select-none">
-            <!-- Honey Progress Row -->
-            <div id="trainProgressRow" class="flex items-center gap-2.5 bg-white/90 px-5 py-1.5 rounded-full shadow-md border-2 border-amber-200 z-20"></div>
+            <!-- Flower Progress Row -->
+            <div id="trainProgressRow" class="flex items-center gap-2.5 bg-white/90 px-5 py-1.5 rounded-full shadow-md border-2 border-pink-200 z-20"></div>
 
             <!-- Main Play Area: Meadow Grid + Big Direction Compass + Virtual Arrow Keypad -->
             <div class="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 my-auto w-full">
-                <!-- Honeycomb Meadow Grid -->
+                <!-- Flower Meadow Grid -->
                 <div id="trainGridBoard" class="grid ${gridSize === 4 ? 'grid-cols-4' : 'grid-cols-3'} gap-2 bg-emerald-200 p-3 rounded-3xl border-4 border-emerald-400 shadow-xl"></div>
 
                 <!-- Direction Cue + Virtual 4-Arrow Keypad -->
                 <div class="flex flex-col items-center gap-3">
                     <!-- Giant Direction Indicator (Guidance Compass) -->
-                    <div id="bigDirectionBox" class="w-20 h-20 rounded-3xl bg-white border-4 border-amber-400 shadow-lg flex items-center justify-center text-4xl text-amber-500 animate-bounce" title="ทิศทางของน้ำผึ้ง">
+                    <div id="bigDirectionBox" class="w-20 h-20 rounded-3xl bg-white border-4 border-amber-400 shadow-lg flex items-center justify-center text-4xl text-amber-500 animate-bounce" title="ทิศทางของดอกไม้">
                         <i class="fa-solid fa-arrow-up"></i>
                     </div>
 
@@ -574,22 +574,22 @@ function renderBeeHoneyGame(board, onComplete) {
     function updateProgressUI() {
         if (!progressRow) return;
         progressRow.innerHTML = '';
-        for (let i = 0; i < totalHoneyNeeded; i++) {
+        for (let i = 0; i < totalFlowersNeeded; i++) {
             const d = document.createElement('div');
-            if (i < honeyCollected) {
-                d.className = 'w-9 h-9 rounded-full bg-amber-100 border-2 border-amber-400 flex items-center justify-center p-1 pop-anim';
-                d.innerHTML = GameIcon('honey', 'w-6 h-6');
+            if (i < flowersCollected) {
+                d.className = 'w-9 h-9 rounded-full bg-pink-100 border-2 border-pink-400 flex items-center justify-center p-1 pop-anim';
+                d.innerHTML = GameIcon('flower', 'w-6 h-6');
             } else {
                 d.className = 'w-9 h-9 rounded-full bg-slate-100 border-2 border-slate-300 flex items-center justify-center opacity-45';
-                d.innerHTML = GameIcon('honey', 'w-5 h-5 grayscale');
+                d.innerHTML = GameIcon('flower', 'w-5 h-5 grayscale');
             }
             progressRow.appendChild(d);
         }
     }
 
-    // น้ำผึ้งเกิดไกลตัวผึ้งประมาณนึง ห้ามชิดกับผึ้ง (Manhattan distance >= 2)
-    function spawnNewHoney() {
-        const minDistance = KEY_MINIGAMES_SETTINGS.minHoneyDistance || 2;
+    // ดอกไม้เกิดไกลตัวผึ้งประมาณนึง ห้ามชิดกับผึ้ง (Manhattan distance >= 2)
+    function spawnNewFlower() {
+        const minDistance = KEY_MINIGAMES_SETTINGS.minFlowerDistance || KEY_MINIGAMES_SETTINGS.minHoneyDistance || 2;
         const candidates = [];
         for (let r = 0; r < gridSize; r++) {
             for (let c = 0; c < gridSize; c++) {
@@ -618,12 +618,12 @@ function renderBeeHoneyGame(board, onComplete) {
         const finalPool = farPool.length > 0 ? farPool : candidates;
 
         const pick = finalPool[Math.floor(Math.random() * finalPool.length)] || { r: 0, c: 0 };
-        honeyPos = { r: pick.r, c: pick.c };
+        flowerPos = { r: pick.r, c: pick.c };
     }
 
     function getSuggestedArrow() {
-        const dr = honeyPos.r - beePos.r;
-        const dc = honeyPos.c - beePos.c;
+        const dr = flowerPos.r - beePos.r;
+        const dc = flowerPos.c - beePos.c;
         if (Math.abs(dr) >= Math.abs(dc)) {
             return dr < 0 ? 'ArrowUp' : 'ArrowDown';
         } else {
@@ -637,7 +637,7 @@ function renderBeeHoneyGame(board, onComplete) {
             ? 'w-16 h-16 sm:w-20 sm:h-20' 
             : 'w-20 h-20 sm:w-24 sm:h-24';
         const beeIconClass = gridSize >= 4 ? 'w-12 h-12 sm:w-16 sm:h-16' : 'w-16 h-16 sm:w-18 sm:h-18';
-        const honeyIconClass = gridSize >= 4 ? 'w-12 h-12 sm:w-14 sm:h-14' : 'w-14 h-14 sm:w-16 sm:h-16';
+        const flowerIconClass = gridSize >= 4 ? 'w-12 h-12 sm:w-14 sm:h-14' : 'w-14 h-14 sm:w-16 sm:h-16';
 
         for (let r = 0; r < gridSize; r++) {
             for (let c = 0; c < gridSize; c++) {
@@ -649,11 +649,11 @@ function renderBeeHoneyGame(board, onComplete) {
                     beeWrap.className = 'z-10 pop-anim flex items-center justify-center';
                     beeWrap.innerHTML = GameIcon('bee', beeIconClass);
                     cell.appendChild(beeWrap);
-                } else if (r === honeyPos.r && c === honeyPos.c) {
-                    const honeyWrap = document.createElement('div');
-                    honeyWrap.className = 'z-10 kb-bounce drop-shadow-md flex items-center justify-center';
-                    honeyWrap.innerHTML = GameIcon('honey', honeyIconClass);
-                    cell.appendChild(honeyWrap);
+                } else if (r === flowerPos.r && c === flowerPos.c) {
+                    const flowerWrap = document.createElement('div');
+                    flowerWrap.className = 'z-10 kb-bounce drop-shadow-md flex items-center justify-center';
+                    flowerWrap.innerHTML = GameIcon('flower', flowerIconClass);
+                    cell.appendChild(flowerWrap);
                 }
 
                 gridBoard.appendChild(cell);
@@ -670,7 +670,7 @@ function renderBeeHoneyGame(board, onComplete) {
 
         bigDirBox.innerHTML = `<i class="fa-solid ${iconMap[suggestedArrow]}"></i>`;
 
-        // แสดงเข็มทิศและนิ้วแนะนำทิศทางไปยังน้ำผึ้ง
+        // แสดงเข็มทิศและนิ้วแนะนำทิศทางไปยังดอกไม้
         arrowButtons.forEach(btn => {
             const oldFinger = btn.querySelector('.mini-arrow-finger');
             if (oldFinger) oldFinger.remove();
@@ -713,14 +713,14 @@ function renderBeeHoneyGame(board, onComplete) {
             return;
         }
 
-        // ตรวจสอบว่าบินมาเก็บน้ำผึ้งได้สำเร็จหรือไม่
-        if (beePos.r === honeyPos.r && beePos.c === honeyPos.c) {
-            honeyCollected++;
+        // ตรวจสอบว่าบินมาเก็บดอกไม้ได้สำเร็จหรือไม่
+        if (beePos.r === flowerPos.r && beePos.c === flowerPos.c) {
+            flowersCollected++;
             updateProgressUI();
             playSound('drop-success');
             createStarBurst(gridBoard);
 
-            if (honeyCollected >= totalHoneyNeeded) {
+            if (flowersCollected >= totalFlowersNeeded) {
                 finished = true;
                 renderGridAndHints(false);
                 setTimeout(() => {
@@ -728,7 +728,7 @@ function renderBeeHoneyGame(board, onComplete) {
                 }, 700);
                 return;
             }
-            spawnNewHoney();
+            spawnNewFlower();
         } else {
             playSound('correct-key');
         }
@@ -751,7 +751,7 @@ function renderBeeHoneyGame(board, onComplete) {
     };
 
     updateProgressUI();
-    spawnNewHoney();
+    spawnNewFlower();
     renderGridAndHints(true);
 
     return function cleanup() {
@@ -760,4 +760,6 @@ function renderBeeHoneyGame(board, onComplete) {
     };
 }
 
-export const renderTrainArrowsGame = renderBeeHoneyGame;
+export { renderBeeFlowerGame };
+export const renderBeeHoneyGame = renderBeeFlowerGame;
+export const renderTrainArrowsGame = renderBeeFlowerGame;
