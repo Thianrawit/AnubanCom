@@ -40,7 +40,7 @@ export function renderMouseLevel5(board, config, onComplete) {
             </div>
 
             <div class="relative bg-white rounded-3xl border-4 border-purple-200 shadow-inner p-2">
-                <canvas id="tracingCanvas" width="340" height="300" class="rounded-2xl"></canvas>
+                <canvas id="tracingCanvas" width="340" height="300" class="rounded-2xl paint-canvas" style="cursor: var(--cursor-pencil);"></canvas>
             </div>
 
             <p class="text-xs sm:text-sm text-slate-500 font-bold mt-2 flex items-center gap-1.5">

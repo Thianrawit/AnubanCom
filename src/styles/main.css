@@ -20,7 +20,6 @@ button, a, select, input, [role="button"], .cursor-pointer {
 .cursor-grab,
 #pathHeroToken,
 #wateringCanBtn,
-#tracingCanvas,
 .catcher-cursor,
 .drop-zone {
     cursor: var(--cursor-drag-idle);
@@ -35,7 +34,6 @@ body.is-dragging *,
 .cursor-grabbing,
 #pathHeroToken:active,
 #wateringCanBtn:active,
-#tracingCanvas:active,
 .catcher-cursor:active,
 .catcher-fist {
     cursor: var(--cursor-drag-active) !important;
@@ -190,8 +188,11 @@ body.is-dragging *,
 }
 
 /* Canvas Tracing / Paint Styling */
-#tracingCanvas {
+#tracingCanvas,
+#tracingCanvas:active,
+.paint-canvas {
     touch-action: none;
+    cursor: var(--cursor-pencil) !important;
 }
 
 .color-btn.active {

@@ -555,6 +555,36 @@
   - บิลด์ผ่านคำสั่ง `npm.cmd run build` ผ่าน 100% ไร้ Error
   - ทำการ Git Commit และ `git push origin main` สำเร็จ 100%
 
+---
+
+## 17. บันทึกการเปลี่ยนเคอร์เซอร์เมาส์ในมินิเกม Paint เป็น `icon-pencil.webp` และอัปเดตขึ้น GitHub (15 พฤศจิกายน 2026)
+
+### 1. การเตรียมและปรับแต่งแอสเซทเคอร์เซอร์ดินสอ (`cursor-pencil`):
+- **การแยกชิ้นส่วนและ Crop ขอบชิ้นงาน**:
+  - ประมวลผลภาพต้นฉบับ `public/assets/icons/icon-pencil.webp` (ดินสอ 3 มิติดินน้ำมัน Claymation สีชมพู-ส้ม พร้อมยางลบและปลอกโลหะ) ด้วย `scipy.ndimage` ตัดเศษขอบแผ่นสปรินต์ออกอย่างหมดจด
+  - บันทึกเป็นรูปความละเอียดสูงสะอาดตาลงใน `public/assets/icons/icon-pencil.webp` และ `assets/icons/icon-pencil.webp`
+- **การสร้างเคอร์เซอร์ขนาดกะทัดรัด (Cursor Spec)**:
+  - ขนาดเคอร์เซอร์ปรับให้อยู่ในสเปกมาตรฐานของบราวเซอร์ที่ไม่เกิน 128x128px (ปรับสัดส่วนพอเหมาะที่ 36x44px) บันทึกทั้งรูปแบบ PNG (`cursor-pencil.png`) และ WebP (`cursor-pencil.webp`)
+  - คำนวณหาตำแหน่งหัวไส้ดินสอที่แหลมคมที่สุดเพื่อใช้เป็น Hotspot การวาด: พิกัด `(32, 43)` อยู่ตรงปลายหัวดินสอพอดิบพอดี ทำให้เวลาลากเส้นหรือจิ้มสี จุดที่หมึกออกจะตรงกับปลายดินสอจริง 100%
+  - ฝัง Base64 Data URI ลงในตัวแปร CSS `--cursor-pencil` ใน `src/styles/cursor.css` เพื่อให้เคอร์เซอร์ปรากฏขึ้นทันทีโดยไม่มีอาการกระพริบหรือรอโหลดเน็ตเวิร์ก
+
+### 2. การเชื่อมโยงสไตล์และการแสดงผลในมินิเกม Paint (`src/levels/mouse/lv10-paint.js`):
+- **การแยกเคอร์เซอร์ออกจากกลุ่ม Drag & Drop**:
+  - ถอด `#tracingCanvas` และ `#tracingCanvas:active` ออกจากเคอร์เซอร์มือหยิบจับเดิมใน `src/styles/main.css`
+  - กำหนดสไตล์เฉพาะเจาะจงให้ `#tracingCanvas`, `#tracingCanvas:active` และคลาส `.paint-canvas` บังคับใช้ `cursor: var(--cursor-pencil) !important;`
+  - เพิ่มสไตล์แบบ Inline ที่แท็ก `<canvas id="tracingCanvas" class="... paint-canvas" style="cursor: var(--cursor-pencil);">` เพื่อความแม่นยำและไม่ถูกสไตล์อื่นทับ
+- **อัปเดตพจนานุกรมไอคอน (`iconMap.js` & `iconMap.ts`)**:
+  - เพิ่มคีย์ `"pencil": "assets/icons/icon-pencil.webp"` ในทั้ง 2 ไฟล์อย่างสมบูรณ์
+
+### 3. การตรวจสอบและการบิลด์ (Verification):
+- รันคอมไพล์โปรเจกต์ด้วยคำสั่ง `npm.cmd run build` ผ่าน 100% ไร้ข้อผิดพลาด สร้างไฟล์ Singlefile Bundle: `dist/index.html` (1,775.07 kB) สำเร็จ
+
+### 4. การส่งมอบงานขึ้น GitHub Repository (`origin/main`):
+- Stage การเปลี่ยนแปลงทั้งหมดด้วย `git add -A`
+- Commit: `feat: use icon-pencil for Paint mini-game drawing cursor`
+- Push ขึ้น Branch `main` บน Remote Repository สำเร็จเรียบร้อย
+
+
 
 
 

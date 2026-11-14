@@ -127,5 +127,6 @@ export const ICON_ASSETS = {
   "puddle": "assets/icons/water.webp",
   "train": "assets/icons/icon-train.webp",
   "flag": "assets/icons/icon-flag.webp",
-  "sun": "assets/icons/icon-star-face.webp"
+  "sun": "assets/icons/icon-star-face.webp",
+  "pencil": "assets/icons/icon-pencil.webp"
 };
