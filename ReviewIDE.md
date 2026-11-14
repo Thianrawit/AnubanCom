@@ -528,7 +528,20 @@
   - รับประกัน 100% ว่าน้ำผึ้งจะไม่มีวันเกิดในช่องที่ติดกับตัวผึ้ง (ห้ามชิดกับผึ้ง) ต้องกดลูกศรบินเดินทางอย่างน้อย 2–4 ก้าวเสมอ
 
 ### 3. การตรวจสอบและการบิลด์ (Verification):
-- คอมไพล์โปรเจกต์ด้วยคำสั่ง `npm.cmd run build` ผ่าน 100% ไร้ Error (Singlefile Bundle: `dist/index.html` 1,765.11 kB ใน 881ms)
+- คอมไพล์โปรเจกต์ด้วยคำสั่ง `npm.cmd run build` ผ่าน 100% ไr้ Error (Singlefile Bundle: `dist/index.html` 1,765.11 kB ใน 881ms)
+
+---
+
+## 15. บันทึกการส่งมอบงานขึ้น GitHub Repository (`origin/main`) (15 พฤศจิกายน 2026)
+
+- **การเตรียมความพร้อมก่อน Deploy**:
+  - ทำความสะอาดไฟล์เสียงทดสอบชั่วคราว (`temp*.mp3`, `test*.mp3`, `niwat_*.mp3`) ออกจากโฟลเดอร์ `public/audio/voice/`
+  - ตรวจสอบความถูกต้องของการคอมไพล์โปรเจกต์ `dist/index.html` แบบ Singlefile Standalone ออฟไลน์ 100%
+- **ผลการ Push ขึ้น GitHub**:
+  - ดำเนินการ Stage และ Commit โค้ดทั้งหมด: `feat: complete visual overhaul with 3D claymation icons, custom hand cursors, Edge-TTS locked voice, and bee honey mini-game`
+  - สรุปการเปลี่ยนแปลง: 138 files changed, 4,118 insertions(+), 966 deletions(-)
+  - ดำเนินการ `git push origin main` สำเร็จลุล่วง 100% ขึ้นสู่ `https://github.com/Thianrawit/AnubanCom.git`
+
 
 
 
