@@ -5,6 +5,7 @@ import { initDragAndDrop, cleanupDragAndDrop } from '../../core/dragDrop.js';
 import { playSound } from '../../core/audio.js';
 import { createStarBurst } from '../../core/ui.js';
 import { startMouseHint, stopMouseHint } from './mouseHint.js';
+import { GameIcon } from '../../components/GameIcon.js';
 
 export function renderMouseLevel3(board, config, onComplete) {
     let matchedCount = 0;
@@ -22,8 +23,8 @@ export function renderMouseLevel3(board, config, onComplete) {
         box.className = `drop-zone w-full min-h-[140px] sm:min-h-[160px] rounded-3xl border-4 ${cat.color} p-3 flex flex-col items-center justify-start relative shadow-sm`;
         box.dataset.match = cat.type;
         box.innerHTML = `
-            <div class="text-sm sm:text-base font-extrabold text-slate-700 bg-white/90 px-4 py-1.5 rounded-full shadow-sm mb-2 border border-slate-200">
-                ${cat.name} ${cat.icon}
+            <div class="text-sm sm:text-base font-extrabold text-slate-700 bg-white/90 px-4 py-1.5 rounded-full shadow-sm mb-2 border border-slate-200 flex items-center gap-2">
+                <span>${cat.name}</span> ${GameIcon(cat.icon, 'w-6 h-6')}
             </div>
             <div class="box-content flex flex-wrap justify-center gap-2 w-full"></div>
         `;
@@ -33,10 +34,11 @@ export function renderMouseLevel3(board, config, onComplete) {
     const shuffledItems = [...config.items].sort(() => Math.random() - 0.5);
     shuffledItems.forEach(item => {
         const elem = document.createElement('div');
-        elem.className = `drag-item text-4xl sm:text-5xl p-3 bg-white rounded-2xl shadow-md border-2 border-slate-100 flex justify-center items-center hover:scale-110 transition`;
+        elem.className = `drag-item p-3 bg-white rounded-2xl shadow-md border-2 border-slate-100 flex justify-center items-center hover:scale-110 transition`;
         elem.dataset.type = item.type;
         elem.dataset.id = item.id;
-        elem.innerText = item.icon;
+        elem.dataset.icon = item.icon;
+        elem.innerHTML = GameIcon(item.icon, 'w-14 h-14 sm:w-16 sm:h-16');
         itemsContainer.appendChild(elem);
     });
 
@@ -52,8 +54,8 @@ export function renderMouseLevel3(board, config, onComplete) {
 
             const boxContent = zone.querySelector('.box-content');
             const miniItem = document.createElement('span');
-            miniItem.className = "text-3xl sm:text-4xl pop-anim p-1";
-            miniItem.innerText = dragElem.innerText;
+            miniItem.className = "pop-anim p-1 flex items-center justify-center";
+            miniItem.innerHTML = GameIcon(dragElem.dataset.icon, 'w-10 h-10 sm:w-12 sm:h-12');
             boxContent.appendChild(miniItem);
             dragElem.remove();
 

@@ -52,6 +52,23 @@ body {
     animation: float 3s ease-in-out infinite;
 }
 
+/* Gentle Kid-Friendly Bounce Animation (Slow & Low, Fully Configurable via CSS Variables) */
+@keyframes kidBounce {
+    0%, 100% {
+        transform: translateY(0);
+        animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    50% {
+        transform: translateY(var(--kb-bounce-height, -8px));
+        animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+}
+
+.kb-bounce {
+    animation: kidBounce var(--kb-bounce-duration, 2.0s) ease-in-out infinite;
+    will-change: transform;
+}
+
 @keyframes pulse-glow {
     0%, 100% { transform: scale(1); box-shadow: 0 0 0px rgba(245, 158, 11, 0); }
     50% { transform: scale(1.15); box-shadow: 0 0 20px rgba(245, 158, 11, 0.9); }

@@ -2,6 +2,8 @@
 // Mouse Level 5: Paint Tracing Game 🎨
 // ==========================================
 import { playSound } from '../../core/audio.js';
+import { GameIcon } from '../../components/GameIcon.js';
+import { PAINT_SETTINGS } from '../../config/settings.js';
 
 let paintHintTimer = null;
 let paintHintAnimId = null;
@@ -9,7 +11,7 @@ let paintHintAnimId = null;
 export function renderMouseLevel5(board, config, onComplete) {
     let currentShapeIndex = 0;
     let currentColor = '#ec4899';
-    let brushSize = 12;
+    let brushSize = PAINT_SETTINGS.brushSize || 14;
     let isEraser = false;
     let tracingPoints = [];
     let completedPoints = 0;
@@ -20,8 +22,8 @@ export function renderMouseLevel5(board, config, onComplete) {
     board.innerHTML = `
         <div class="flex flex-col items-center justify-center w-full">
             <div class="flex flex-wrap items-center justify-between w-full max-w-md gap-2 mb-3 bg-slate-100/90 p-2 rounded-2xl border-2 border-slate-200">
-                <span id="shapeNameTitle" class="text-base font-extrabold text-purple-600 bg-white px-3 py-1 rounded-xl shadow-sm border border-slate-200">
-                    รูปทรง: ${config.shapes[0].name}
+                <span id="shapeNameTitle" class="text-base font-extrabold text-purple-600 bg-white px-3 py-1 rounded-xl shadow-sm border border-slate-200 flex items-center gap-1.5">
+                    รูปทรง: ${config.shapes[0].name} ${GameIcon(config.shapes[0].icon, 'w-5 h-5')}
                 </span>
 
                 <div class="flex items-center gap-1.5" id="colorPaletteBar">
@@ -151,7 +153,7 @@ export function renderMouseLevel5(board, config, onComplete) {
 
         if (isEraser) {
             ctx.strokeStyle = '#ffffff';
-            ctx.lineWidth = 24;
+            ctx.lineWidth = PAINT_SETTINGS.eraserSize || 28;
         } else {
             ctx.strokeStyle = currentColor;
             ctx.lineWidth = brushSize;
@@ -191,7 +193,7 @@ export function renderMouseLevel5(board, config, onComplete) {
             setTimeout(() => {
                 const titleElem = document.getElementById('shapeNameTitle');
                 if (titleElem) {
-                    titleElem.innerText = `รูปทรง: ${config.shapes[currentShapeIndex].name}`;
+                    titleElem.innerHTML = `รูปทรง: ${config.shapes[currentShapeIndex].name} ${GameIcon(config.shapes[currentShapeIndex].icon, 'w-5 h-5')}`;
                 }
                 initPaintCanvas(config.shapes[currentShapeIndex].path);
                 startPaintHintTimer();
@@ -252,7 +254,7 @@ export function renderMouseLevel5(board, config, onComplete) {
         stopPaintDemo();
         paintHintTimer = setTimeout(() => {
             triggerPaintDemo();
-        }, 5000);
+        }, PAINT_SETTINGS.idleHintDelay || 6500);
     }
 
     function stopPaintDemo() {

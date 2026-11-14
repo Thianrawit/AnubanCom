@@ -163,6 +163,24 @@
 
 ---
 
+## 5. บันทึกการจัดทำเอกสารแนวคิดการออกแบบ (Design.md) (14 พฤศจิกายน 2026)
+
+### รายละเอียดการจัดทำ:
+1. **การวิเคราะห์อัตลักษณ์ทางดีไซน์ (Design Identity & Mood Tone):**
+   - รวบรวมแนวคิดการออกแบบสำหรับเด็กปฐมวัย 3-6 ขวบ (Playful, Safe, Warm, High Contrast, Extra-large Touch Targets)
+   - สรุปการเลือกใช้ Google Fonts: `Mali` (ลายมือน่ารัก ลดความกดดัน) และ `Prompt` (คมชัด ถูกต้องตามสรีระตัวอักษร)
+2. **ระบบชุดสี (Color Palette & Semantic Tokens):**
+   - ระบุรหัสสี HEX และ Tailwind classes ของทุกส่วนในระบบ ตั้งแต่พื้นหลังหลัก (`#f0fdf4` / Mint Milk), โหมดเมาส์ (`#0284c7`), โหมดคีย์บอร์ด (`#059669`), โหมดไฟฉายราตรี (`#020617` + `#f59e0b`), โหมดจับสัตว์ (`#f43f5e`), และป้ายล็อคความปลอดภัย
+3. **พจนานุกรม Emoji และไอคอนครบทุกจุด (Visual Element Glossary):**
+   - แจกแจง Emoji และไอคอนทุกตัวที่ปรากฏบนเว็บไซต์ พร้อมระบุตำแหน่ง ความหมายทางจิตวิทยาเด็ก และแนวทางการวาดภาพประกอบแทน
+   - ครอบคลุม: Header (🎮, ✨, ⚙️, 🔄, 🏠), Menu Cards (🌟, 🖱️, ⌨️, ➔), ด่านเมาส์ 1-10 (รูปทรง, เงาสัตว์, แยกหมวด, จิ๊กซอว์, Paint, ไฟฉาย, วิ่งจับ), แป้นพิมพ์ 3 หมวด (ไทย 24 ตัว, อังกฤษ 26 ตัว, ตัวเลข 0-9), และหน้าต่าง Modals/HUD (🔒, ⭐, 🎉, 🔊/🔇, 🖐️/✊)
+4. **คู่มือคำแนะนำและ Prompt สำหรับสร้างภาพประกอบ (Illustration & AI Prompt Guide):**
+   - กำหนด Master Style Keywords (3D cute claymation, chibi kawaii aesthetic, soft rounded edges)
+   - จัดทำตัวอย่าง Prompt พร้อมนำไปเจนภาพด้วย Midjourney / DALL-E / Flux ได้ทันที
+   - ตารางข้อควรทำ (DO) และข้อห้ามทำ (DON'T) สำหรับการคุมโทนภาพเด็กอนุบาล
+
+---
+
 ## 6. บันทึกการแก้ไขปัญหาการรันเกมบน GitHub Pages (14 พฤศจิกายน 2026)
 
 ### ปัญหาที่พบ (Issue Analysis):
@@ -192,20 +210,105 @@
 
 ---
 
-## 5. บันทึกการจัดทำเอกสารแนวคิดการออกแบบ (Design.md) (14 พฤศจิกายน 2026)
+## 7. บันทึกการสร้างระบบ GameIcon และการแทนที่ Emoji ด้วยชุดภาพไอคอน 3D (14 พฤศจิกายน 2026)
 
-### รายละเอียดการจัดทำ:
-1. **การวิเคราะห์อัตลักษณ์ทางดีไซน์ (Design Identity & Mood Tone):**
-   - รวบรวมแนวคิดการออกแบบสำหรับเด็กปฐมวัย 3-6 ขวบ (Playful, Safe, Warm, High Contrast, Extra-large Touch Targets)
-   - สรุปการเลือกใช้ Google Fonts: `Mali` (ลายมือน่ารัก ลดความกดดัน) และ `Prompt` (คมชัด ถูกต้องตามสรีระตัวอักษร)
-2. **ระบบชุดสี (Color Palette & Semantic Tokens):**
-   - ระบุรหัสสี HEX และ Tailwind classes ของทุกส่วนในระบบ ตั้งแต่พื้นหลังหลัก (`#f0fdf4` / Mint Milk), โหมดเมาส์ (`#0284c7`), โหมดคีย์บอร์ด (`#059669`), โหมดไฟฉายราตรี (`#020617` + `#f59e0b`), โหมดจับสัตว์ (`#f43f5e`), และป้ายล็อคความปลอดภัย
-3. **พจนานุกรม Emoji และไอคอนครบทุกจุด (Visual Element Glossary):**
-   - แจกแจง Emoji และไอคอนทุกตัวที่ปรากฏบนเว็บไซต์ พร้อมระบุตำแหน่ง ความหมายทางจิตวิทยาเด็ก และแนวทางการวาดภาพประกอบแทน
-   - ครอบคลุม: Header (🎮, ✨, ⚙️, 🔄, 🏠), Menu Cards (🌟, 🖱️, ⌨️, ➔), ด่านเมาส์ 1-10 (รูปทรง, เงาสัตว์, แยกหมวด, จิ๊กซอว์, Paint, ไฟฉาย, วิ่งจับ), แป้นพิมพ์ 3 หมวด (ไทย 24 ตัว, อังกฤษ 26 ตัว, ตัวเลข 0-9), และหน้าต่าง Modals/HUD (🔒, ⭐, 🎉, 🔊/🔇, 🖐️/✊)
-4. **คู่มือคำแนะนำและ Prompt สำหรับสร้างภาพประกอบ (Illustration & AI Prompt Guide):**
-   - กำหนด Master Style Keywords (3D cute claymation, chibi kawaii aesthetic, soft rounded edges)
-   - จัดทำตัวอย่าง Prompt พร้อมนำไปเจนภาพด้วย Midjourney / DALL-E / Flux ได้ทันที
-   - ตารางข้อควรทำ (DO) และข้อห้ามทำ (DON'T) สำหรับการคุมโทนภาพเด็กอนุบาล
+### วัตถุประสงค์และการดำเนินการ:
+ตามข้อกำหนดใน `Design.md` และ `src/constants/iconMap.ts` ได้ทำการสร้าง Component `<GameIcon name="..." className="..." />` เพื่อโหลดภาพ WebP คุณภาพสูงจาก `ICON_ASSETS` (90 ชิ้น) และไล่แทนที่ Emoji แบบเดิมทั้งหมดในทุกส่วนของแอปพลิเคชันอย่างครบถ้วน
+
+### 1. ระบบ GameIcon Component (`src/components/GameIcon.js`):
+- ฟังก์ชัน `GameIcon(nameOrEmoji, className)`: คืนค่าเป็น HTML string `<img>` พร้อมคลาส `inline-block object-contain pointer-events-none select-none ${className}` และ fallback สู่ชื่อเดิมหากไม่พบ
+- ฟังก์ชัน `createGameIcon(nameOrEmoji, className)`: คืนค่าเป็น `HTMLImageElement` สำหรับ DOM manipulation
+- ตารางแปลงแบบย้อนหลัง `EMOJI_TO_ICON_NAME`: แมป Emoji เก่าทุกตัวสู่คีย์ไอคอน asset โดยอัตโนมัติ (เช่น `'🐱'` ➔ `'cat'`, `'🍎'` ➔ `'apple'`, `'⭐'` ➔ `'star-gold'`)
+- Custom Web Component `<game-icon name="..." class="..."></game-icon>`: ลงทะเบียนกับเบราว์เซอร์ให้สามารถเรียกใช้แบบ Custom Tag ได้ทันที
+- Window Globals: เชื่อมต่อเข้ากับ `window.GameIcon`, `window.createGameIcon`, `window.ICON_ASSETS` เพื่อให้ inline scripts หรือ runtime เรียกใช้ได้สะดวก
+- พาธของภาพ: แปลงพาธใน `iconMap.js` เป็น Relative Path (`assets/icons/icon-*.webp`) เพื่อรองรับทั้ง GitHub Pages subpath (`/AnubanCom/`), Vite Dev, Vite Singlefile Build และ Local `file://`
+
+### 2. ขอบเขตการแทนที่ Emoji ทั้งหมด (100% Complete Replacement):
+1. **ส่วนหัวและเมนูหลัก (Header & Navigation):**
+   - โลโก้เกมหลัก: `icon-gamepad.webp` (พร้อมอัปเดตไดนามิกตามโหมดใน `src/main.js`)
+   - ประกายเวทมนตร์: `icon-sparkles.webp` (แอนิเมชัน `animate-pulse`)
+   - ปุ่มตั้งค่า: `icon-gear.webp`
+   - เมนูหลักการ์ดเมาส์/คีย์บอร์ด: `icon-star-face.webp` (`animate-bounce`), `icon-mouse-device.webp`, `icon-keyboard.webp`, `icon-arrow-right.webp`
+2. **การ์ดเลือกด่านเมาส์ 1-10 (`index.html`):**
+   - ด่าน 1: `icon-shape-triangle.webp`
+   - ด่าน 2: `icon-cat.webp`
+   - ด่าน 3: `icon-apple.webp`
+   - ด่าน 4: `icon-bear.webp`
+   - ด่าน 5: `icon-palette.webp`
+   - ด่าน 6: `icon-flashlight.webp` + `icon-apple.webp`
+   - ด่าน 7: `icon-flashlight.webp` + `icon-dog.webp`
+   - ด่าน 8: `icon-mouse-animal.webp`
+   - ด่าน 9: `icon-rabbit.webp`
+   - ด่าน 10: `icon-chicken.webp`
+   - ปุ่มกลับหน้าหลัก: `icon-house.webp`
+3. **การ์ดเลือกโหมดคีย์บอร์ด (`index.html`):**
+   - ภาษาไทย: `icon-chicken.webp` (ก ไก่)
+   - ภาษาอังกฤษ: `icon-ant.webp` (A Ant)
+   - ตัวเลข: `icon-num-1.webp` (ลูกโป่ง 1 ใบ)
+4. **โหมดฝึกเมาส์ ด่าน 1 - 10 (Mouse Game Engines):**
+   - `lv1-shapes.js`: เงารูปทรงและชิ้นส่วนลากวงกลม สี่เหลี่ยม สามเหลี่ยม ดาว ด้วย `GameIcon`
+   - `lv2-animals.js`: เงาสัตว์และชิ้นส่วนการ์ดลากแมว หมา ไก่ กบ ด้วย `GameIcon`
+   - `lv3-categories.js`: ตะกร้าผลไม้ (`basket-fruit`), ตะกร้าสัตว์เลี้ยง (`basket-pet`), ผลไม้และสัตว์เลี้ยง 6 ชิ้น ด้วย `GameIcon`
+   - `lv4-puzzle.js`: กรอบจิ๊กซอว์เงา และชิ้นส่วนหมี น้ำผึ้ง ดอกไม้ ต้นสน ด้วย `GameIcon`
+   - `lv5-paint.js`: หัวเรื่องรูปทรง (หัวใจ, ดาว, แอปเปิล, บ้าน), ปุ่มยางลบ, ปุ่มล้างกระดาน, ป้ายบอกทางวาดเส้น ด้วย `GameIcon`
+   - `lv6-7-flashlight.js`: ป้ายภารกิจไฟฉาย, HUD badges นับจำนวนคงเหลือ, ผลไม้และสัตว์ในความมืด ด้วย `GameIcon`
+   - `lv8-10-catch.js`: สัตว์วิ่งเด้งดึ๋งบนจอ (หนู, กระต่าย, ไก่) และ HUD badges ด้วย `GameIcon`
+   - `mouseHint.js`: ป้ายสาธิตการลากเมาส์อัตโนมัติด้วย `GameIcon('mouse-device')`
+5. **โหมดคีย์บอร์ด (Keyboard Mode):**
+   - `keyData.js`: ปรับปรุงข้อมูลพยัญชนะไทย 24 ตัว, อักษรภาษาอังกฤษ 26 ตัว (A-Z) และตัวเลข 0-9 ทั้งหมดให้ใช้ asset keys ตรงตามตารางใน `Design.md`
+   - `keyboardEngine.js`: `#targetPic` แสดงผลรูปภาพเป้าหมายด้วย `GameIcon(data.icon, 'w-20 h-20 sm:w-24 sm:h-24 animate-bounce')` คมชัดสวยงามไร้ Emoji ตกค้าง
+6. **หน้าต่างป๊อปอัปทั้งหมด (Modals & HUDs):**
+   - `victoryModal`: ดาวทองฉลองชัย (`icon-star-gold.webp`, `animate-bounce`), พลุกระดาษ (`icon-party-popper.webp`), ปุ่มเล่นอีกครั้ง (`icon-rotate.webp`), ปุ่มด่านถัดไป (`icon-arrow-right.webp`)
+   - `lockedLevelModal`: แม่กุญแจทอง (`icon-lock.webp`, `animate-bounce`), หัวข้อล็อค (`icon-lock.webp`)
+   - `settingsModal`: ไอคอนเกียร์ (`icon-gear.webp`), ไอคอนลำโพงเปิด/ปิดเสียง (`icon-speaker-on.webp`, `icon-speaker-off.webp`), ไอคอนปลดล็อคด่าน (`icon-trophy.webp`), ไอคอนล็อคด่าน (`icon-lock.webp`)
+   - ข้อความ Toast: แสดงไอคอนลำโพง, พลุฉลอง, และกุญแจด้วย `GameIcon`
+
+### 3. ผลการตรวจสอบความถูกต้อง (Verification Matrix):
+| รายการตรวจสอบ | สถานะ | หมายเหตุ |
+|---|---|---|
+| การแทนที่ Emoji ใน `index.html` | ✅ ผ่าน 100% | ตรวจสอบผ่าน Python Regex พบเหลือ 0 Emoji |
+| การแทนที่ Emoji ในโค้ด JavaScript `src/` | ✅ ผ่าน 100% | เหลือเพียงตาราง lookup backward compatibility ใน `GameIcon.js` |
+| ความเข้ากันได้กับคลาส Tailwind CSS | ✅ ผ่าน 100% | ใช้ `inline-block object-contain` ทุกรูปภาพ |
+| การคงแอนิเมชันเด้งดึ๋ง (Bounce / Pop) | ✅ ผ่าน 100% | คง `animate-bounce`, `pop-anim`, `bounce-hover`, `float-anim` ครบถ้วน |
+| การบิลด์ด้วย Vite (`npm.cmd run build`) | ✅ สำเร็จ 100% | คอมไพล์ได้ `dist/index.html` (1,038 KB) ภายใน 557ms |
+| การคัดลอก Asset ไอคอนสู่ `dist/` | ✅ ผ่าน 100% | โฟลเดอร์ `dist/assets/icons/` บรรจุ 90 ไฟล์ WebP ครบถ้วน |
+| การทำงานแบบ Standalone และ GitHub Pages | ✅ ผ่าน 100% | ใช้งานพาธสัมพัทธ์ `assets/icons/icon-*.webp` ปราศจาก Broken Link |
+
+---
+
+## 8. บันทึกการปรับปรุงแอนิเมชันคีย์บอร์ดและการแยกไฟล์รวมศูนย์ Setting (14 พฤศจิกายน 2026)
+
+### รายละเอียดการดำเนินการ:
+1. **แก้ปัญหาแอนิเมชันรูปภาพเป้าหมายในเกมคีย์บอร์ดเด้งสูงและรัวเกินไป:**
+   - เดิมทีโค้ดมีการใส่คลาส `animate-bounce` ซ้ำซ้อนทั้งที่ตัวคอนเทนเนอร์ `#targetPic` และในแท็ก `<img>` ภายใน `GameIcon` ส่งผลให้รูปภาพเด้งทวีคูณ (Double Bounce) สูงถึง 24px+ และเด้งรวดเร็วทุก 1 วินาที
+   - ทำการยกเลิกการใช้ `animate-bounce` แบบเดิม และสร้างคลาสแอนิเมชันเฉพาะตัว `.kb-bounce` คู่กับ `@keyframes kidBounce` ใน `src/styles/main.css`
+   - แอนิเมชันใหม่ทำงานผ่าน CSS Custom Properties: `--kb-bounce-height` และ `--kb-bounce-duration`
+   - กำหนดค่าเริ่มต้นใหม่ให้เด้งต่ำๆ เพียง **8px** (`bounceHeight: 8`) และเด้งช้าๆ นุ่มนวลรอบละ **2.0 วินาที** (`bounceDuration: 2.0`) ช่วยให้เด็กอนุบาลไม่ตาลายและมีสมาธิจดจ่อกับตัวอักษรได้ดียิ่งขึ้น
+
+2. **สร้างไฟล์รวมศูนย์ Setting (`src/config/settings.js`):**
+   - แยกหมวดหมู่การตั้งค่าพารามิเตอร์ของทุกเกมออกมาเป็นโมดูลกลางอย่างเป็นระเบียบ:
+     - `KEYBOARD_SETTINGS`: ควบคุม `bounceHeight`, `bounceDuration`, `idleHintDelay`, `totalQuestions`, `shakeDuration`
+     - `MOUSE_DRAG_SETTINGS`: ควบคุม `idleHintDelay` (5000ms), `hintLoopDuration` (3200ms), `snapDistance` (65px)
+     - `PAINT_SETTINGS`: ควบคุม `brushSize` (14px), `eraserSize` (28px), `idleHintDelay` (6500ms), `completionThreshold` (0.60)
+     - `FLASHLIGHT_SETTINGS`: ควบคุม `torchRadius` (85px), `feather` (40px), `detectRadius` (65px), `requiredHoverTime` (0.25s)
+     - `CATCH_ME_SETTINGS`: ควบคุม `speedMultiplier` (0.5x), ความเร็วแยกตามชนิดสัตว์ (`mouse`, `rabbit`, `chicken`)
+     - `SYSTEM_SETTINGS`: ควบคุม `lockedVoiceRate` (0.7), `defaultVoiceEnabled` (true), `toastDuration` (2500ms)
+   - เชื่อมต่อ `src/config/gameConfig.js`, `src/core/audio.js`, `src/core/ui.js`, `src/levels/mouse/mouseHint.js`, `src/levels/mouse/lv5-paint.js`, และ `src/levels/keyboard/keyboardEngine.js` ให้ดึงค่าจาก `settings.js` เป็น Single Source of Truth
+
+3. **จัดทำคู่มือและคำอธิบายตัวแปรอย่างละเอียด (`Settings.md`):**
+   - อธิบายชื่อตัวแปร หน้าที่การทำงาน หน่วยของค่า ค่าเริ่มต้น และช่วงค่าที่แนะนำครบทุกตัว
+   - อธิบายข้อดีและข้อควรระวังในการปรับค่า พร้อมแนวทางผลกระทบต่อพัฒนาการเด็ก
+   - จัดเตรียมสูตรสำเร็จ (Presets) สำหรับ "โหมดเด็กเล็กพิเศษ (Toddler Friendly Mode)" และ "โหมดพี่อนุบาล 3 สุดไว (Challenger Mode)"
+
+### การตรวจสอบความถูกต้อง (Verification Matrix):
+| รายการตรวจสอบ | สถานะ | หมายเหตุ |
+|---|---|---|
+| แอนิเมชันภาพคีย์บอร์ดเด้งต่ำและช้า | ✅ ผ่าน 100% | เด้งสูงเพียง 8px ในเวลา 2.0s นุ่มนวล สบายตา |
+| การผูกตัวแปร `bounceHeight` และ `bounceDuration` | ✅ ผ่าน 100% | อัปเดตผ่าน CSS Variables แบบไดนามิก |
+| การแยกไฟล์ `src/config/settings.js` | ✅ ผ่าน 100% | จัดหมวดหมู่แยกตามแต่ละเกมชัดเจน |
+| การสร้างคู่มือ `Settings.md` | ✅ ผ่าน 100% | มีตารางอธิบายชื่อ หน้าที่ และข้อแนะนำครบถ้วน |
+| การบิลด์ด้วย Vite (`npm.cmd run build`) | ✅ สำเร็จ 100% | คอมไพล์ได้ `dist/index.html` (1,039 KB) ภายใน 572ms |
+
+
 
 

@@ -1,6 +1,8 @@
 // ==========================================
 // Mouse Drag Hint Overlay (Auto 5s Idle Demo for Levels 1-4)
 // ==========================================
+import { GameIcon } from '../../components/GameIcon.js';
+import { MOUSE_DRAG_SETTINGS } from '../../config/settings.js';
 
 let mouseHintTimer = null;
 let mouseHintAnimId = null;
@@ -10,7 +12,7 @@ export function startMouseHint(getRemainingCheckFn) {
 
     mouseHintTimer = setTimeout(() => {
         triggerMouseDragDemo(getRemainingCheckFn);
-    }, 5000);
+    }, MOUSE_DRAG_SETTINGS.idleHintDelay || 5000);
 }
 
 export function stopMouseHint() {
@@ -74,8 +76,8 @@ function triggerMouseDragDemo(getRemainingCheckFn) {
                 </defs>
             </svg>
 
-            <div id="demoMouseBadge" class="bg-indigo-600 text-white font-extrabold text-xs px-2.5 py-1 rounded-full shadow-md whitespace-nowrap absolute -top-7 -left-4 border-2 border-white opacity-0 transition-opacity">
-                🖱️ คลิกซ้ายค้างแล้วลาก
+            <div id="demoMouseBadge" class="bg-indigo-600 text-white font-extrabold text-xs px-2.5 py-1 rounded-full shadow-md whitespace-nowrap absolute -top-7 -left-4 border-2 border-white opacity-0 transition-opacity flex items-center gap-1.5">
+                ${GameIcon('mouse-device', 'w-4 h-4')} <span>คลิกซ้ายค้างแล้วลาก</span>
             </div>
         </div>
     `;
@@ -99,7 +101,7 @@ function triggerMouseDragDemo(getRemainingCheckFn) {
     ghostElem.style.width = `${itemRect.width}px`;
     ghostElem.style.height = `${itemRect.height}px`;
 
-    const totalDuration = 3200; // 3.2s ต่อ 1 loop
+    const totalDuration = MOUSE_DRAG_SETTINGS.hintLoopDuration || 3200;
     const loopStartTime = performance.now();
 
     function animateDemo(now) {

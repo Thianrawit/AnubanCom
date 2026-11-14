@@ -3,6 +3,7 @@
 // ==========================================
 import { FLASHLIGHT_CONFIG } from '../../config/gameConfig.js';
 import { playSound } from '../../core/audio.js';
+import { GameIcon } from '../../components/GameIcon.js';
 
 let hideSeekActive = false;
 let hideSeekAnimId = null;
@@ -33,7 +34,7 @@ export function renderHideAndSeekLevel(board, config, onComplete) {
         <div class="relative w-full h-[460px] sm:h-[500px] bg-slate-950 rounded-3xl overflow-hidden select-none cursor-default shadow-2xl border-4 border-slate-800">
             <div class="absolute top-3 left-3 right-3 flex flex-wrap justify-between items-center z-30 pointer-events-none gap-2">
                 <div class="bg-slate-900/90 text-amber-300 font-extrabold text-xs sm:text-sm px-4 py-1.5 rounded-full border border-amber-400/40 shadow-lg flex items-center gap-2">
-                    <span>🔦 ภารกิจ: ${config.questText}</span>
+                    <span class="flex items-center gap-1.5">${GameIcon('flashlight', 'w-4 h-4')} ภารกิจ: ${config.questText}</span>
                 </div>
                 
                 <div id="hsBadgesContainer" class="flex flex-wrap items-center gap-2"></div>
@@ -62,7 +63,7 @@ export function renderHideAndSeekLevel(board, config, onComplete) {
                         : 'bg-slate-900/90 text-amber-300 border-amber-400/50'
                 }`;
                 badge.innerHTML = `
-                    <span class="text-base">${info.icon}</span>
+                    <span>${GameIcon(info.icon, 'w-5 h-5')}</span>
                     <span>${info.name}:</span>
                     <span class="${isDone ? 'text-slate-500' : 'text-amber-400'}">${info.remaining} ชิ้น</span>
                 `;
@@ -117,7 +118,7 @@ export function renderHideAndSeekLevel(board, config, onComplete) {
         elem.style.transform = `translate(-50%, -50%) scale(1)`;
 
         elem.innerHTML = `
-            <div class="text-5xl sm:text-6xl drop-shadow-lg">${tgt.icon}</div>
+            <div class="drop-shadow-lg flex items-center justify-center">${GameIcon(tgt.icon, 'w-14 h-14 sm:w-16 sm:h-16')}</div>
             <div class="text-[11px] font-bold text-amber-200 bg-slate-900/80 px-2 py-0.5 rounded-full mt-1 border border-amber-400/30">${tgt.name}</div>
         `;
 

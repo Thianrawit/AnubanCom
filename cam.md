@@ -42,7 +42,10 @@ AnubanCom/
 ├── cam.md                       # เอกสารอธิบายการทำงานทั้งหมดของโปรแกรมอย่างละเอียด
 ├── ReviewIDE.md                 # บันทึกประวัติการปรับปรุงระบบและการทดสอบ
 │
+├── assets/                      # ภาพไอคอนและกราฟิก 3D Claymation ประจำโปรเจกต์
+│   └── icons/                   # ไอคอน 3D คุณภาพสูง 90 ชิ้น (WebP) สำหรับ UI และทุกด่าน
 ├── public/                      # Static Assets (Vite เสิร์ฟตรงและก็อปปี้ไปยัง dist)
+│   ├── assets/icons/            # สำเนาไอคอนสำหรับ Vite Bundler
 │   ├── images/                  # ไฟล์ภาพเวกเตอร์ประกอบ
 │   │   ├── hand_open.svg        # รูปมือนิ้วชี้สำหรับอนิเมชันคำแนะนำ
 │   │   └── hand_fist.svg        # รูปมือกำสำหรับอนิเมชันคำแนะนำ
@@ -52,6 +55,11 @@ AnubanCom/
 │
 ├── src/                         # ซอร์สโค้ดระบบแบบแยกโมดูล (ES6 Modules)
 │   ├── main.js                  # Main Application Entry Point, Menu Routing & State Management
+│   ├── components/
+│   │   └── GameIcon.js          # คอมโพเนนต์ <GameIcon> และ Custom Element <game-icon> โหลดภาพไอคอน 3D
+│   ├── constants/
+│   │   ├── iconMap.js           # แมปปิ้งพาธภาพไอคอน 90 ชิ้น (JavaScript)
+│   │   └── iconMap.ts           # แมปปิ้งพาธภาพไอคอน 90 ชิ้น (TypeScript)
 │   ├── config/
 │   │   └── gameConfig.js        # คอนฟิกส่วนกลาง (ความเร็วสัตว์, วงไฟฉาย, ข้อมูลด่าน, ไฟล์ SFX)
 │   ├── core/

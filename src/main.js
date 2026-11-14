@@ -1,6 +1,7 @@
 // ==========================================
 // AnubanCom: Main Entry Point & Router
 // ==========================================
+import { GameIcon } from './components/GameIcon.js';
 import { mouseLevelConfigs } from './config/gameConfig.js';
 import { initSecurity, registerKeyHandler } from './core/security.js';
 import {
@@ -88,7 +89,7 @@ export function updateLevelSelectOptions() {
         if (k <= unlockedMouseLevel) {
             opt.innerText = mouseLevelConfigs[k].title;
         } else {
-            opt.innerText = `🔒 ${mouseLevelConfigs[k].title} (ล็อค)`;
+            opt.innerText = `[ล็อค] ${mouseLevelConfigs[k].title}`;
         }
         select.appendChild(opt);
     });
@@ -120,6 +121,9 @@ export function showMainMenu() {
 
     document.getElementById('levelSelect').classList.add('hidden');
     document.getElementById('resetBtn').classList.add('hidden');
+
+    const headerIcon = document.getElementById('headerIcon');
+    if (headerIcon) headerIcon.src = 'assets/icons/icon-gamepad.webp';
 }
 
 export function openSubmenu(menuType) {
@@ -162,7 +166,8 @@ export function startSpecificLevel(mode, lvlNum) {
     select.classList.remove('hidden');
     updateLevelSelectOptions();
 
-    document.getElementById('headerIcon').className = 'fa-solid font-bold text-2xl fa-mouse-pointer';
+    const headerIcon = document.getElementById('headerIcon');
+    if (headerIcon) headerIcon.src = 'assets/icons/icon-mouse-device.webp';
     loadLevel(currentLevel);
 }
 
@@ -180,7 +185,8 @@ export function startSpecificKeyboard(submode) {
     document.getElementById('resetBtn').classList.remove('hidden');
     document.getElementById('levelSelect').classList.add('hidden');
 
-    document.getElementById('headerIcon').className = 'fa-solid font-bold text-2xl fa-keyboard';
+    const headerIcon = document.getElementById('headerIcon');
+    if (headerIcon) headerIcon.src = 'assets/icons/icon-keyboard.webp';
     loadLevel(1);
 }
 
@@ -284,7 +290,7 @@ export function toggleVoiceSetting() {
     const newState = !isVoiceEnabled();
     setVoiceEnabled(newState);
     updateSettingsVoiceUI();
-    showSettingsToast(newState ? 'เปิดเสียงอ่านแล้ว 🔊' : 'ปิดเสียงอ่านแล้ว 🔇');
+    showSettingsToast(newState ? `เปิดเสียงอ่านแล้ว ${GameIcon('speaker-on', 'w-4 h-4')}` : `ปิดเสียงอ่านแล้ว ${GameIcon('speaker-off', 'w-4 h-4')}`);
 }
 
 export function unlockAllMouseLevels() {
@@ -292,7 +298,7 @@ export function unlockAllMouseLevels() {
     updateMouseCardsUI();
     updateLevelSelectOptions();
     playSound('win');
-    showSettingsToast('ปลดล็อคด่านทั้งหมดเรียบร้อยแล้ว! 🎉');
+    showSettingsToast(`ปลดล็อคด่านทั้งหมดเรียบร้อยแล้ว! ${GameIcon('party-popper', 'w-4 h-4')}`);
 }
 
 export function lockAllMouseLevels() {
@@ -300,7 +306,7 @@ export function lockAllMouseLevels() {
     updateMouseCardsUI();
     updateLevelSelectOptions();
     playSound('correct-key');
-    showSettingsToast('ล็อคด่านทั้งหมดแล้ว เริ่มเล่นที่ด่าน 1 🔒');
+    showSettingsToast(`ล็อคด่านทั้งหมดแล้ว เริ่มเล่นที่ด่าน 1 ${GameIcon('lock', 'w-4 h-4')}`);
 }
 
 // Bind to window for global inline event handlers in HTML

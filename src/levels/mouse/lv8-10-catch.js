@@ -3,6 +3,7 @@
 // ==========================================
 import { CATCH_ME_CONFIG } from '../../config/gameConfig.js';
 import { playSound } from '../../core/audio.js';
+import { GameIcon } from '../../components/GameIcon.js';
 
 let catchMeActive = false;
 let catchAnimId = null;
@@ -55,7 +56,7 @@ export function renderCatchMeLevel(board, config, onComplete) {
                     : 'bg-white text-slate-800 border-emerald-400'
             }`;
             badge.innerHTML = `
-                <span class="text-lg ${isAllCaught ? 'filter grayscale brightness-50' : ''}">${info.icon}</span>
+                <span class="${isAllCaught ? 'filter grayscale brightness-50' : ''}">${GameIcon(info.icon, 'w-6 h-6')}</span>
                 <span>${info.name}:</span>
                 <span class="font-black ${isAllCaught ? 'text-slate-500' : 'text-emerald-600'}">${info.remaining} ตัว</span>
             `;
@@ -80,9 +81,9 @@ export function renderCatchMeLevel(board, config, onComplete) {
         for (let i = 0; i < group.count; i++) {
             const aId = `animal_${animalIdCounter++}`;
             const elem = document.createElement('div');
-            elem.className = "absolute flex justify-center items-center text-4xl sm:text-5xl select-none cursor-pointer transition-transform duration-75 active:scale-90";
+            elem.className = "absolute flex justify-center items-center select-none cursor-pointer transition-transform duration-75 active:scale-90";
             elem.style.transform = `translate(-50%, -50%)`;
-            elem.innerHTML = `<span>${group.icon}</span>`;
+            elem.innerHTML = GameIcon(group.icon, 'w-14 h-14 sm:w-16 sm:h-16 object-contain pointer-events-none drop-shadow-md');
 
             container.appendChild(elem);
 

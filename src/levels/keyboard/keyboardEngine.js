@@ -3,6 +3,8 @@
 // ==========================================
 import { keyboardLayoutRows, keyboardLevelConfigs, keyCodeToCharMap } from './keyData.js';
 import { playSound, playLetterSound } from '../../core/audio.js';
+import { GameIcon } from '../../components/GameIcon.js';
+import { KEYBOARD_SETTINGS } from '../../config/settings.js';
 
 let hintTimer = null;
 let currentSubmode = 'thai';
@@ -26,7 +28,7 @@ export function initKeyboardLevel(board, submode, onComplete) {
     const allKeys = Object.keys(config.dict);
     currentLetterList = [...allKeys].sort(() => Math.random() - 0.5);
 
-    totalTargets = Math.min(10, currentLetterList.length);
+    totalTargets = Math.min(KEYBOARD_SETTINGS.totalQuestions || 10, currentLetterList.length);
     currentLetterIndex = 0;
     matchedCount = 0;
 
@@ -62,7 +64,7 @@ function renderKeyboardLayout(board) {
             <button id="speakerAudioBtn" class="absolute top-3 right-3 bg-indigo-500 hover:bg-indigo-600 text-white w-10 h-10 rounded-2xl flex justify-center items-center shadow transition active:scale-90" title="ฟังเสียงอ่าน">
                 <i class="fa-solid fa-volume-high text-lg"></i>
             </button>
-            <div id="targetPic" class="text-5xl sm:text-6xl mb-1 animate-bounce">🐔</div>
+            <div id="targetPic" class="w-20 h-20 sm:w-24 sm:h-24 mb-1 kb-bounce flex items-center justify-center" style="--kb-bounce-height: -${KEYBOARD_SETTINGS.bounceHeight}px; --kb-bounce-duration: ${KEYBOARD_SETTINGS.bounceDuration}s;">${GameIcon('chicken', 'w-20 h-20 sm:w-24 sm:h-24')}</div>
             <div id="targetChar" class="text-5xl sm:text-6xl font-extrabold text-indigo-700 tracking-wider">ก</div>
             <div id="targetName" class="text-base font-bold text-indigo-500 mt-1">ก ไก่</div>
             <div id="progressDots" class="flex gap-1.5 mt-3"></div>
@@ -166,7 +168,10 @@ function nextKeyboardPrompt() {
 
     targetCharElem.className = 'text-5xl sm:text-6xl font-extrabold text-indigo-700 tracking-wider pop-anim';
     targetCharElem.innerText = targetLetter;
-    targetPicElem.innerText = data.icon;
+    targetPicElem.className = 'w-20 h-20 sm:w-24 sm:h-24 mb-1 kb-bounce flex items-center justify-center';
+    targetPicElem.style.setProperty('--kb-bounce-height', `-${KEYBOARD_SETTINGS.bounceHeight}px`);
+    targetPicElem.style.setProperty('--kb-bounce-duration', `${KEYBOARD_SETTINGS.bounceDuration}s`);
+    targetPicElem.innerHTML = GameIcon(data.icon, 'w-20 h-20 sm:w-24 sm:h-24');
     targetNameElem.innerText = data.name;
 
     const lang = (currentSubmode === 'english') ? 'en-US' : 'th-TH';
@@ -192,7 +197,7 @@ function nextKeyboardPrompt() {
             targetKeyElem.classList.add('key-hint');
             showFingerHint(targetKeyElem);
         }
-    }, 5000);
+    }, KEYBOARD_SETTINGS.idleHintDelay || 5000);
 }
 
 export function handleInputChar(inputChar) {

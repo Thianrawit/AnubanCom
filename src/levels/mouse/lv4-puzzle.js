@@ -5,6 +5,7 @@ import { initDragAndDrop, cleanupDragAndDrop } from '../../core/dragDrop.js';
 import { playSound } from '../../core/audio.js';
 import { createStarBurst } from '../../core/ui.js';
 import { startMouseHint, stopMouseHint } from './mouseHint.js';
+import { GameIcon } from '../../components/GameIcon.js';
 
 export function renderMouseLevel4(board, config, onComplete) {
     let matchedCount = 0;
@@ -21,7 +22,7 @@ export function renderMouseLevel4(board, config, onComplete) {
         const slot = document.createElement('div');
         slot.className = `drop-zone w-24 h-24 sm:w-28 sm:h-28 bg-white/60 rounded-2xl border-2 border-dashed border-amber-300 flex justify-center items-center relative overflow-hidden`;
         slot.dataset.match = p.pos;
-        slot.innerHTML = `<span class="text-4xl opacity-20 grayscale">${p.icon}</span>`;
+        slot.innerHTML = `<div class="opacity-25 grayscale brightness-0 flex items-center justify-center">${GameIcon(p.icon, 'w-14 h-14 sm:w-16 sm:h-16')}</div>`;
         puzzleFrame.appendChild(slot);
     });
 
@@ -32,10 +33,10 @@ export function renderMouseLevel4(board, config, onComplete) {
 
     shuffledPieces.forEach(p => {
         const piece = document.createElement('div');
-        piece.className = `drag-item w-20 h-20 sm:w-24 sm:h-24 ${p.bg} rounded-2xl shadow-md border-2 border-white flex justify-center items-center text-4xl sm:text-5xl`;
+        piece.className = `drag-item w-20 h-20 sm:w-24 sm:h-24 ${p.bg} rounded-2xl shadow-md border-2 border-white flex justify-center items-center`;
         piece.dataset.type = p.pos;
         piece.dataset.id = p.id;
-        piece.innerHTML = `<span>${p.icon}</span>`;
+        piece.innerHTML = GameIcon(p.icon, 'w-14 h-14 sm:w-16 sm:h-16');
         piecesContainer.appendChild(piece);
     });
 

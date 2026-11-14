@@ -4,6 +4,7 @@
 import { initDragAndDrop, cleanupDragAndDrop } from '../../core/dragDrop.js';
 import { createStarBurst } from '../../core/ui.js';
 import { startMouseHint, stopMouseHint } from './mouseHint.js';
+import { GameIcon } from '../../components/GameIcon.js';
 
 export function renderMouseLevel1(board, config, onComplete) {
     let matchedCount = 0;
@@ -24,7 +25,7 @@ export function renderMouseLevel1(board, config, onComplete) {
         zone.className = `drop-zone w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border-4 border-dashed border-slate-300 bg-slate-100 flex flex-col justify-center items-center relative`;
         zone.dataset.match = item.type;
         zone.innerHTML = `
-            <svg width="60" height="60" viewBox="0 0 80 80" class="opacity-20 filter grayscale">${item.svg}</svg>
+            <div class="opacity-25 grayscale brightness-0 flex items-center justify-center">${GameIcon(item.icon || item.type, 'w-14 h-14 sm:w-16 sm:h-16')}</div>
             <span class="text-xs text-slate-400 font-bold mt-1">${item.name}</span>
         `;
         targetsContainer.appendChild(zone);
@@ -35,7 +36,7 @@ export function renderMouseLevel1(board, config, onComplete) {
         dragElem.className = `drag-item w-20 h-20 sm:w-24 sm:h-24 bg-white rounded-2xl shadow-lg border-2 border-slate-100 flex justify-center items-center cursor-grab active:scale-105 transition-transform`;
         dragElem.dataset.type = item.type;
         dragElem.dataset.id = item.id;
-        dragElem.innerHTML = `<svg width="70" height="70" viewBox="0 0 80 80">${item.svg}</svg>`;
+        dragElem.innerHTML = GameIcon(item.icon || item.type, 'w-14 h-14 sm:w-16 sm:h-16');
         itemsContainer.appendChild(dragElem);
     });
 

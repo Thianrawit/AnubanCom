@@ -2,6 +2,8 @@
 // UI & Visual Effects Helper
 // ==========================================
 import { playSound, playLetterSound, speakLockedLevelMessage, isVoiceEnabled } from './audio.js';
+import { GameIcon } from '../components/GameIcon.js';
+import { SYSTEM_SETTINGS } from '../config/settings.js';
 
 export function createStarBurst(element) {
     if (!element || typeof confetti !== 'function') return;
@@ -33,9 +35,9 @@ export function showVictoryModal(options = {}) {
     if (!modal) return;
 
     if (isLastLevel || mode === 'keyboard') {
-        nextBtn.innerText = "กลับหน้าหลัก 🏠";
+        nextBtn.innerHTML = `<span class="flex items-center justify-center gap-1.5">กลับหน้าหลัก ${GameIcon('house', 'w-5 h-5')}</span>`;
     } else {
-        nextBtn.innerText = "ด่านถัดไป ➔";
+        nextBtn.innerHTML = `<span class="flex items-center justify-center gap-1.5">ด่านถัดไป ${GameIcon('arrow-right', 'w-5 h-5')}</span>`;
     }
 
     modal.classList.remove('hidden');
@@ -101,15 +103,15 @@ export function updateSettingsVoiceUI() {
 
     if (isEnabled) {
         btn.className = 'bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm py-2 px-3.5 rounded-xl shadow-sm transition active:scale-95 flex items-center gap-1.5';
-        text.innerText = 'เปิดอยู่ 🔊';
+        text.innerHTML = `<span class="flex items-center gap-1">เปิดอยู่ ${GameIcon('speaker-on', 'w-4 h-4')}</span>`;
         icon.className = 'w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg';
-        icon.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+        icon.innerHTML = GameIcon('speaker-on', 'w-6 h-6');
         desc.innerText = 'เปิดอยู่ (มีเสียงพากย์)';
     } else {
         btn.className = 'bg-slate-400 hover:bg-slate-500 text-white font-bold text-xs sm:text-sm py-2 px-3.5 rounded-xl shadow-sm transition active:scale-95 flex items-center gap-1.5';
-        text.innerText = 'ปิดอยู่ 🔇';
+        text.innerHTML = `<span class="flex items-center gap-1">ปิดอยู่ ${GameIcon('speaker-off', 'w-4 h-4')}</span>`;
         icon.className = 'w-10 h-10 rounded-xl bg-slate-200 text-slate-500 flex items-center justify-center text-lg';
-        icon.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+        icon.innerHTML = GameIcon('speaker-off', 'w-6 h-6');
         desc.innerText = 'ปิดอยู่ (ไม่มีเสียงพากย์)';
     }
 }
@@ -118,10 +120,10 @@ let toastTimer = null;
 export function showSettingsToast(msg) {
     const toast = document.getElementById('settingsToast');
     if (!toast) return;
-    toast.innerText = msg;
+    toast.innerHTML = `<span class="flex items-center justify-center gap-1.5">${msg}</span>`;
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => {
-        toast.innerText = '';
-    }, 2500);
+        toast.innerHTML = '';
+    }, SYSTEM_SETTINGS.toastDuration || 2500);
 }
 

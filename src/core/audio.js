@@ -2,6 +2,7 @@
 // Audio & Speech Synthesis Engine
 // ==========================================
 import { sfxFiles } from '../config/gameConfig.js';
+import { SYSTEM_SETTINGS } from '../config/settings.js';
 
 let audioCtx = null;
 const sfxCache = {};
@@ -36,7 +37,7 @@ export function speakLockedLevelMessage(unlockedLevel) {
     const text = `ต้องเล่นด่าน ${unlockedLevel} ให้จบก่อนครับ ถ้าพร้อมแล้วกดปุ่มสีเขียวเลยครับ`;
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'th-TH';
-    utterance.rate = 0.7; // พูดช้าๆ ประมาณ 0.7 สำหรับเด็ก
+    utterance.rate = SYSTEM_SETTINGS.lockedVoiceRate || 0.7; // ปรับได้ใน settings.js
     utterance.pitch = 1.05;
     window.speechSynthesis.speak(utterance);
 }
