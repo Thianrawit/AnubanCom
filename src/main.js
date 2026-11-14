@@ -1,7 +1,6 @@
 // ==========================================
 // AnubanCom: Main Entry Point & Router
 // ==========================================
-import './styles/main.css';
 import { mouseLevelConfigs } from './config/gameConfig.js';
 import { initSecurity, registerKeyHandler } from './core/security.js';
 import {

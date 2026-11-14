@@ -181,6 +181,13 @@
      4. อัปโหลดและนำโฟลเดอร์ `dist/` ส่งมอบขึ้น GitHub Pages ผ่าน `actions/deploy-pages@v4` โดยตรง
 2. **การตั้งค่าฝั่งผู้ใช้:**
    - เพียงแค่เข้าไปที่ **Settings ➔ Pages ➔ Source** และเลือกเป็น **`GitHub Actions`** เว็บไซต์จะถูกบิลด์และใช้งานได้ 100% โดยอัตโนมัติทุกครั้งที่มีการ push โค้ด
+3. **การแก้ไขให้รันได้แบบ Hybrid (Direct Root Execution Fallback):**
+   - ย้ายการโหลด CSS จาก `import './styles/main.css'` ใน `src/main.js` ออกมาใส่เป็นแท็ก `<link rel="stylesheet" href="./src/styles/main.css">` ใน `index.html` เพื่อแก้ปัญหาเบราว์เซอร์ติดบล็อก Strict MIME Type checking
+   - ก๊อปปี้โฟลเดอร์ `audio/` และ `images/` มาไว้ที่รูทไดเรกทอรี เพื่อให้เบราว์เซอร์สามารถเรียกไฟล์เสียงและรูปภาพได้ทันที แม้จะเปิดจากโหมด "Deploy from a branch" (main / root) โดยไม่ต้องผ่านการบิลด์
+   - ระบบรองรับทั้ง 2 รูปแบบอย่างสมบูรณ์แบบ:
+     1. เปิดผ่าน **GitHub Actions** (บิลด์ `dist/` อัตโนมัติ)
+     2. เปิดตรงๆ ผ่าน **Deploy from a branch (`main` / root)** โดยตรงได้ทันที ไร้ข้อผิดพลาด MIME type หรือ ReferenceError อีกต่อไป
+
 
 
 ---
