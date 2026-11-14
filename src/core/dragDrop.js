@@ -51,6 +51,7 @@ export function cleanupDragAndDrop() {
     if (activeDragElem) {
         activeDragElem.style.opacity = '1';
     }
+    document.body.classList.remove('is-dragging');
     cloneElem = null;
     activeDragElem = null;
 }
@@ -99,6 +100,7 @@ function onTouchEnd(e) {
 function startDragging(elem, clientX, clientY) {
     if (dragStartCallback) dragStartCallback(elem);
     activeDragElem = elem;
+    document.body.classList.add('is-dragging');
     playSound('drag');
 
     const rect = elem.getBoundingClientRect();
@@ -138,6 +140,7 @@ function highlightDropZones(x, y) {
 }
 
 function endDragging(x, y) {
+    document.body.classList.remove('is-dragging');
     if (!activeDragElem || !cloneElem) return;
 
     activeDragElem.style.opacity = '1';

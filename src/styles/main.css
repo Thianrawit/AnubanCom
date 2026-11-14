@@ -1,9 +1,54 @@
-body {
+@import './cursor.css';
+
+html, body {
     font-family: 'Mali', 'Prompt', sans-serif;
     background-color: #f0fdf4;
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+    cursor: var(--cursor-point);
+}
+
+/* 1. Normal pointer everywhere across the site (icon-hand-point.webp) */
+button, a, select, input, [role="button"], .cursor-pointer {
+    cursor: var(--cursor-point) !important;
+}
+
+/* 2. Drag & Grasp Mini-Games: Idle State (icon-hand-ignore.webp) */
+.drag-game-active #gameBoard,
+.drag-item,
+.cursor-grab,
+#pathHeroToken,
+#wateringCanBtn,
+#tracingCanvas,
+.catcher-cursor,
+.drop-zone {
+    cursor: var(--cursor-drag-idle);
+}
+
+/* 3. While Dragging, Grasping or Holding: Active State (icon-hand-grab.webp) */
+.drag-item:active,
+.dragging,
+body.is-dragging,
+body.is-dragging *,
+.cursor-grab:active,
+.cursor-grabbing,
+#pathHeroToken:active,
+#wateringCanBtn:active,
+#tracingCanvas:active,
+.catcher-cursor:active,
+.catcher-fist {
+    cursor: var(--cursor-drag-active) !important;
+}
+
+/* Ensure UI buttons in drag games maintain the normal pointing hand */
+.drag-game-active button,
+.drag-game-active select,
+.drag-game-active .cursor-pointer,
+#backToMenuBtn,
+#resetBtn,
+#nextBtn {
+    cursor: var(--cursor-point) !important;
 }
 
 .bounce-hover:hover {
@@ -11,13 +56,11 @@ body {
 }
 
 .drag-item {
-    cursor: grab;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
     touch-action: none;
 }
 
 .drag-item:active, .dragging {
-    cursor: grabbing;
     transform: scale(1.15) rotate(-3deg);
     z-index: 50;
 }
@@ -146,19 +189,9 @@ body {
     z-index: 20;
 }
 
-/* Catch Me Animal Game Real Native Cursor */
-.catcher-cursor {
-    cursor: default !important;
-}
-
-.catcher-cursor:active, .catcher-fist {
-    cursor: default !important;
-}
-
 /* Canvas Tracing / Paint Styling */
 #tracingCanvas {
     touch-action: none;
-    cursor: crosshair;
 }
 
 .color-btn.active {
@@ -166,4 +199,87 @@ body {
     ring: 4px;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
+
+/* ==========================================
+   Pre-Literacy Mini-Games & Instant Ghost Demo
+   ========================================== */
+
+/* Ghost Wipe Back & Forth */
+@keyframes ghostWipeAnim {
+    0% { transform: translate(-90px, -20px) rotate(-10deg); }
+    25% { transform: translate(90px, -10px) rotate(12deg); }
+    50% { transform: translate(-80px, 30px) rotate(-10deg); }
+    75% { transform: translate(85px, 20px) rotate(12deg); }
+    100% { transform: translate(-90px, -20px) rotate(-10deg); }
+}
+
+.ghost-wipe-anim {
+    animation: ghostWipeAnim 2.6s ease-in-out infinite;
+    filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.28));
+}
+
+/* Balloon Hover Ring Pulse */
+@keyframes balloonRingPulse {
+    0%, 100% { transform: scale(1); opacity: 0.85; }
+    50% { transform: scale(1.14); opacity: 1; }
+}
+
+.balloon-hover-ring:hover {
+    animation: balloonRingPulse 0.9s ease-in-out infinite;
+    box-shadow: 0 0 0 6px rgba(251, 191, 36, 0.75), 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Parachute Gentle Sway */
+@keyframes parachuteSway {
+    0%, 100% { transform: translateX(-8px) rotate(-6deg); }
+    50% { transform: translateX(8px) rotate(6deg); }
+}
+
+.parachute-sway {
+    animation: parachuteSway 1.6s ease-in-out infinite;
+}
+
+/* Water Droplet Fall */
+@keyframes waterDropFall {
+    0% { transform: translateY(0) scale(0.8); opacity: 0.95; }
+    100% { transform: translateY(95px) scale(1.1); opacity: 0; }
+}
+
+.water-drop-anim {
+    animation: waterDropFall 0.55s linear infinite;
+}
+
+/* Thought Bubble Float */
+@keyframes thoughtFloat {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-6px) scale(1.03); }
+}
+
+.thought-bubble-anim {
+    animation: thoughtFloat 2.4s ease-in-out infinite;
+}
+
+/* Egg Wobble & Crack */
+@keyframes eggWobble {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    20% { transform: rotate(-12deg) scale(1.06); }
+    40% { transform: rotate(12deg) scale(1.06); }
+    60% { transform: rotate(-8deg) scale(1.03); }
+    80% { transform: rotate(8deg) scale(1.03); }
+}
+
+.egg-wobble-anim {
+    animation: eggWobble 0.45s ease-in-out;
+}
+
+/* Spacebar Prompt Flash */
+@keyframes spacebarFlash {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.7); }
+    50% { transform: scale(1.07); box-shadow: 0 0 0 12px rgba(251, 191, 36, 0); }
+}
+
+.spacebar-glow-anim {
+    animation: spacebarFlash 0.9s ease-in-out infinite;
+}
+
 

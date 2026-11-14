@@ -36,7 +36,7 @@
 
         <!-- Controls & Level Selector -->
         <div class="flex items-center gap-2">
-            <!-- Settings Button (Replaced from 'หน้าหลัก') -->
+            <!-- Settings Button -->
             <button id="settingsBtn" onclick="openSettingsModal()" class="bg-white hover:bg-slate-100 text-slate-700 border-2 border-slate-200 p-2 sm:px-3 rounded-2xl font-bold shadow-sm transition active:scale-95 flex items-center gap-1.5" title="ตั้งค่าระบบ">
                 <img src="assets/icons/icon-gear.webp" alt="gear" class="w-5 h-5 inline-block object-contain" />
                 <span class="hidden sm:inline text-sm">ตั้งค่า</span>
@@ -75,7 +75,7 @@
                         <img src="assets/icons/icon-mouse-device.webp" alt="mouse" class="w-16 h-16 sm:w-20 sm:h-20 inline-block object-contain pop-anim" />
                     </div>
                     <h3 class="text-2xl font-extrabold text-sky-600 mb-1">ฝึกใช้เมาส์</h3>
-                    <p class="text-slate-500 text-xs sm:text-sm font-bold">ลากวาง, จิ๊กซอว์, ระบายสี, ไฟฉายซ่อนแอบ และเกมจับสัตว์ (10 ด่าน)</p>
+                    <p class="text-slate-500 text-xs sm:text-sm font-bold">ปัดฟองสบู่, จิ้มลูกโป่ง, รดน้ำ, ลากวาง, ระบายสี, ไฟฉาย และจับสัตว์ (15 ด่าน)</p>
                     <span class="mt-4 bg-sky-500 text-white font-bold text-sm sm:text-base px-6 py-2.5 rounded-full shadow-md flex items-center gap-2">
                         เลือกด่านเลย <img src="assets/icons/icon-arrow-right.webp" alt="arrow" class="w-4 h-4 inline-block object-contain" />
                     </span>
@@ -87,7 +87,7 @@
                         <img src="assets/icons/icon-keyboard.webp" alt="keyboard" class="w-16 h-16 sm:w-20 sm:h-20 inline-block object-contain pop-anim" />
                     </div>
                     <h3 class="text-2xl font-extrabold text-emerald-600 mb-1">ฝึกคีย์บอร์ด</h3>
-                    <p class="text-slate-500 text-xs sm:text-sm font-bold">ฝึกพิมพ์ภาษาไทย, ภาษาอังกฤษ A-Z และตัวเลข 0-9 (3 หมวดหมู่)</p>
+                    <p class="text-slate-500 text-xs sm:text-sm font-bold">มินิเกมภาพล้วน, ภาษาไทย, ภาษาอังกฤษ A-Z และตัวเลข 0-9 (4 หมวดหมู่)</p>
                     <span class="mt-4 bg-emerald-500 text-white font-bold text-sm sm:text-base px-6 py-2.5 rounded-full shadow-md flex items-center gap-2">
                         เลือกโหมดเลย <img src="assets/icons/icon-arrow-right.webp" alt="arrow" class="w-4 h-4 inline-block object-contain" />
                     </span>
@@ -95,98 +95,157 @@
             </div>
         </div>
 
-        <!-- MOUSE LEVEL SELECTION CARDS MENU -->
-        <div id="mouseMenuScreen" class="w-full flex flex-col items-center justify-center py-3 pop-anim hidden">
-            <div class="text-center mb-4">
-                <span class="bg-sky-100 text-sky-700 text-xs font-extrabold px-3 py-1 rounded-full border border-sky-300">หมวดหมู่: ฝึกใช้เมาส์</span>
+        <!-- MOUSE LEVEL SELECTION CARDS MENU (15 LEVELS) -->
+        <div id="mouseMenuScreen" class="w-full flex flex-col items-center justify-center py-2 pop-anim hidden">
+            <div class="text-center mb-3">
+                <span class="bg-sky-100 text-sky-700 text-xs font-extrabold px-3 py-1 rounded-full border border-sky-300">หมวดหมู่: ฝึกใช้เมาส์ (15 ด่าน)</span>
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-700 mt-1 flex items-center justify-center gap-1.5">
                     เลือกด่านที่ต้องการเล่น
                     <img src="assets/icons/icon-mouse-device.webp" alt="mouse" class="w-7 h-7 inline-block object-contain" />
                 </h2>
             </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4 w-full max-w-4xl px-2">
-                <!-- ด่าน 1 -->
-                <button id="mouseCard-1" onclick="startSpecificLevel('mouse', 1)" class="bounce-hover bg-white hover:bg-sky-50 border-2 border-sky-300 rounded-2xl p-3 flex flex-col items-center text-center shadow-md relative transition">
-                    <div class="mb-1 h-12 flex items-center justify-center">
-                        <img src="assets/icons/icon-shape-triangle.webp" alt="triangle" class="w-11 h-11 inline-block object-contain" />
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5 sm:gap-3 w-full max-w-5xl px-2">
+                <!-- ด่าน 1: เช็ดฟองสบู่ (Hover & Wipe) -->
+                <button id="mouseCard-1" onclick="startSpecificLevel('mouse', 1)" class="bounce-hover bg-gradient-to-b from-cyan-50 to-sky-100 hover:from-cyan-100 hover:to-sky-200 border-2 border-cyan-400 rounded-2xl p-2.5 flex flex-col items-center text-center shadow-md relative transition">
+                    <div class="mb-1 h-11 flex items-center justify-center gap-1">
+                        <img src="assets/icons/icon-sponge.webp" alt="sponge" class="w-8 h-8 inline-block object-contain animate-pulse" />
+                        <img src="assets/icons/icon-cat.webp" alt="cat" class="w-9 h-9 inline-block object-contain" />
                     </div>
-                    <div class="font-extrabold text-slate-700 text-sm">ด่าน 1: รูปทรง</div>
-                    <span class="text-[11px] text-slate-400 font-bold">ลากวางรูปทรง</span>
+                    <div class="font-extrabold text-sky-900 text-xs sm:text-sm">ด่าน 1: ฟองสบู่</div>
+                    <span class="text-[10px] bg-cyan-200/80 text-cyan-900 px-2 py-0.5 rounded-full font-extrabold mt-0.5 flex items-center gap-1"><img src="assets/icons/icon-sponge.webp" alt="wipe" class="w-3.5 h-3.5 inline-block object-contain" /> ขยับเมาส์ปัด</span>
                 </button>
-                <!-- ด่าน 2 -->
-                <button id="mouseCard-2" onclick="startSpecificLevel('mouse', 2)" class="bounce-hover bg-white hover:bg-sky-50 border-2 border-sky-300 rounded-2xl p-3 flex flex-col items-center text-center shadow-md relative transition">
-                    <div class="mb-1 h-12 flex items-center justify-center">
-                        <img src="assets/icons/icon-cat.webp" alt="cat" class="w-11 h-11 inline-block object-contain" />
+
+                <!-- ด่าน 2: จิ้มลูกโป่ง (Single Click) -->
+                <button id="mouseCard-2" onclick="startSpecificLevel('mouse', 2)" class="bounce-hover bg-gradient-to-b from-cyan-50 to-sky-100 hover:from-cyan-100 hover:to-sky-200 border-2 border-cyan-400 rounded-2xl p-2.5 flex flex-col items-center text-center shadow-md relative transition">
+                    <div class="mb-1 h-11 flex items-center justify-center gap-1">
+                        <img src="assets/icons/icon-balloon-red.webp" alt="balloon" class="w-8 h-8 inline-block object-contain" />
+                        <img src="assets/icons/icon-chick-parachute.webp" alt="chick parachute" class="w-9 h-9 inline-block object-contain" />
                     </div>
-                    <div class="font-extrabold text-slate-700 text-sm">ด่าน 2: เงาสัตว์</div>
-                    <span class="text-[11px] text-slate-400 font-bold">จับคู่ภาพกับเงา</span>
+                    <div class="font-extrabold text-sky-900 text-xs sm:text-sm">ด่าน 2: ลูกโป่ง</div>
+                    <span class="text-[10px] bg-rose-200/80 text-rose-900 px-2 py-0.5 rounded-full font-extrabold mt-0.5 flex items-center gap-1"><img src="assets/icons/icon-hand-point.webp" alt="click" class="w-3.5 h-3.5 inline-block object-contain" /> คลิกซ้าย 1 ที</span>
                 </button>
-                <!-- ด่าน 3 -->
-                <button id="mouseCard-3" onclick="startSpecificLevel('mouse', 3)" class="bounce-hover bg-white hover:bg-sky-50 border-2 border-sky-300 rounded-2xl p-3 flex flex-col items-center text-center shadow-md relative transition">
-                    <div class="mb-1 h-12 flex items-center justify-center">
-                        <img src="assets/icons/icon-apple.webp" alt="apple" class="w-11 h-11 inline-block object-contain" />
+
+                <!-- ด่าน 3: รดน้ำต้นไม้ (Click & Hold) -->
+                <button id="mouseCard-3" onclick="startSpecificLevel('mouse', 3)" class="bounce-hover bg-gradient-to-b from-cyan-50 to-sky-100 hover:from-cyan-100 hover:to-sky-200 border-2 border-cyan-400 rounded-2xl p-2.5 flex flex-col items-center text-center shadow-md relative transition">
+                    <div class="mb-1 h-11 flex items-center justify-center gap-1">
+                        <img src="assets/icons/icon-watering-can.webp" alt="watering can" class="w-9 h-9 inline-block object-contain" />
+                        <img src="assets/icons/icon-plant-flower.webp" alt="plant flower" class="w-9 h-9 inline-block object-contain" />
                     </div>
-                    <div class="font-extrabold text-slate-700 text-sm">ด่าน 3: แยกหมวด</div>
-                    <span class="text-[11px] text-slate-400 font-bold">ผลไม้ & สัตว์</span>
+                    <div class="font-extrabold text-sky-900 text-xs sm:text-sm">ด่าน 3: รดน้ำ</div>
+                    <span class="text-[10px] bg-emerald-200/80 text-emerald-900 px-2 py-0.5 rounded-full font-extrabold mt-0.5 flex items-center gap-1"><img src="assets/icons/icon-water-drop.webp" alt="drop" class="w-3.5 h-3.5 inline-block object-contain" /> กดซ้ายค้าง</span>
                 </button>
-                <!-- ด่าน 4 -->
-                <button id="mouseCard-4" onclick="startSpecificLevel('mouse', 4)" class="bounce-hover bg-white hover:bg-sky-50 border-2 border-sky-300 rounded-2xl p-3 flex flex-col items-center text-center shadow-md relative transition">
-                    <div class="mb-1 h-12 flex items-center justify-center">
-                        <img src="assets/icons/icon-bear.webp" alt="bear" class="w-11 h-11 inline-block object-contain" />
+
+                <!-- ด่าน 4: รูปทรง -->
+                <button id="mouseCard-4" onclick="startSpecificLevel('mouse', 4)" class="bounce-hover bg-white hover:bg-sky-50 border-2 border-sky-300 rounded-2xl p-2.5 flex flex-col items-center text-center shadow-md relative transition">
+                    <div class="mb-1 h-11 flex items-center justify-center">
+                        <img src="assets/icons/icon-shape-triangle.webp" alt="triangle" class="w-10 h-10 inline-block object-contain" />
                     </div>
-                    <div class="font-extrabold text-slate-700 text-sm">ด่าน 4: จิ๊กซอว์</div>
-                    <span class="text-[11px] text-slate-400 font-bold">ต่อภาพหมีน้อย</span>
+                    <div class="font-extrabold text-slate-700 text-xs sm:text-sm">ด่าน 4: รูปทรง</div>
+                    <span class="text-[10px] text-slate-400 font-bold">ลากวางรูปทรง</span>
                 </button>
-                <!-- ด่าน 5 -->
-                <button id="mouseCard-5" onclick="startSpecificLevel('mouse', 5)" class="bounce-hover bg-white hover:bg-sky-50 border-2 border-sky-300 rounded-2xl p-3 flex flex-col items-center text-center shadow-md relative transition">
-                    <div class="mb-1 h-12 flex items-center justify-center">
-                        <img src="assets/icons/icon-palette.webp" alt="palette" class="w-11 h-11 inline-block object-contain" />
+
+                <!-- ด่าน 5: เงาสัตว์ -->
+                <button id="mouseCard-5" onclick="startSpecificLevel('mouse', 5)" class="bounce-hover bg-white hover:bg-sky-50 border-2 border-sky-300 rounded-2xl p-2.5 flex flex-col items-center text-center shadow-md relative transition">
+                    <div class="mb-1 h-11 flex items-center justify-center">
+                        <img src="assets/icons/icon-cat.webp" alt="cat" class="w-10 h-10 inline-block object-contain" />
                     </div>
-                    <div class="font-extrabold text-slate-700 text-sm">ด่าน 5: Paint</div>
-                    <span class="text-[11px] text-slate-400 font-bold">วาดตามรอยประ</span>
+                    <div class="font-extrabold text-slate-700 text-xs sm:text-sm">ด่าน 5: เงาสัตว์</div>
+                    <span class="text-[10px] text-slate-400 font-bold">จับคู่ภาพกับเงา</span>
                 </button>
-                <!-- ด่าน 6: ซ่อนแอบ 1 -->
-                <button id="mouseCard-6" onclick="startSpecificLevel('mouse', 6)" class="bounce-hover bg-gradient-to-b from-amber-50 to-amber-100 hover:from-amber-100 hover:to-amber-200 border-2 border-amber-400 rounded-2xl p-3 flex flex-col items-center text-center shadow-md relative transition">
-                    <div class="mb-1 h-12 flex items-center justify-center gap-1">
-                        <img src="assets/icons/icon-flashlight.webp" alt="flashlight" class="w-9 h-9 inline-block object-contain" />
-                        <img src="assets/icons/icon-apple.webp" alt="apple" class="w-9 h-9 inline-block object-contain" />
-                    </div>
-                    <div class="font-extrabold text-amber-900 text-sm">ด่าน 6: ซ่อนแอบ 1</div>
-                    <span class="text-[11px] text-amber-700 font-bold">ส่องไฟหาผลไม้</span>
-                </button>
-                <!-- ด่าน 7: ซ่อนแอบ 2 -->
-                <button id="mouseCard-7" onclick="startSpecificLevel('mouse', 7)" class="bounce-hover bg-gradient-to-b from-amber-50 to-amber-100 hover:from-amber-100 hover:to-amber-200 border-2 border-amber-400 rounded-2xl p-3 flex flex-col items-center text-center shadow-md relative transition">
-                    <div class="mb-1 h-12 flex items-center justify-center gap-1">
-                        <img src="assets/icons/icon-flashlight.webp" alt="flashlight" class="w-9 h-9 inline-block object-contain" />
+
+                <!-- ด่าน 6: พาน้องกลับบ้าน (Wide-Path Drag) -->
+                <button id="mouseCard-6" onclick="startSpecificLevel('mouse', 6)" class="bounce-hover bg-gradient-to-b from-cyan-50 to-sky-100 hover:from-cyan-100 hover:to-sky-200 border-2 border-cyan-400 rounded-2xl p-2.5 flex flex-col items-center text-center shadow-md relative transition">
+                    <div class="mb-1 h-11 flex items-center justify-center gap-1">
                         <img src="assets/icons/icon-dog.webp" alt="dog" class="w-9 h-9 inline-block object-contain" />
+                        <img src="assets/icons/icon-doghouse.webp" alt="doghouse" class="w-8 h-8 inline-block object-contain" />
                     </div>
-                    <div class="font-extrabold text-amber-900 text-sm">ด่าน 7: ซ่อนแอบ 2</div>
-                    <span class="text-[11px] text-amber-700 font-bold">ส่องไฟหาสัตว์</span>
+                    <div class="font-extrabold text-sky-900 text-xs sm:text-sm">ด่าน 6: พากลับบ้าน</div>
+                    <span class="text-[10px] bg-amber-200/80 text-amber-900 px-2 py-0.5 rounded-full font-extrabold mt-0.5 flex items-center gap-1"><img src="assets/icons/icon-bone.webp" alt="bone" class="w-3.5 h-3.5 inline-block object-contain" /> ลากตามทาง</span>
                 </button>
-                <!-- ด่าน 8: จับให้ได้ 1 -->
-                <button id="mouseCard-8" onclick="startSpecificLevel('mouse', 8)" class="bounce-hover bg-gradient-to-b from-rose-50 to-rose-100 hover:from-rose-100 hover:to-rose-200 border-2 border-rose-400 rounded-2xl p-3 flex flex-col items-center text-center shadow-md relative transition">
-                    <div class="mb-1 h-12 flex items-center justify-center">
-                        <img src="assets/icons/icon-mouse-animal.webp" alt="mouse" class="w-11 h-11 inline-block object-contain" />
+
+                <!-- ด่าน 7: แยกหมวด -->
+                <button id="mouseCard-7" onclick="startSpecificLevel('mouse', 7)" class="bounce-hover bg-white hover:bg-sky-50 border-2 border-sky-300 rounded-2xl p-2.5 flex flex-col items-center text-center shadow-md relative transition">
+                    <div class="mb-1 h-11 flex items-center justify-center">
+                        <img src="assets/icons/icon-apple.webp" alt="apple" class="w-10 h-10 inline-block object-contain" />
                     </div>
-                    <div class="font-extrabold text-rose-900 text-sm">ด่าน 8: จับให้ได้ 1</div>
-                    <span class="text-[11px] text-rose-700 font-bold">คลิกจับหนู 3 ตัว</span>
+                    <div class="font-extrabold text-slate-700 text-xs sm:text-sm">ด่าน 7: แยกหมวด</div>
+                    <span class="text-[10px] text-slate-400 font-bold">ผลไม้ & สัตว์</span>
                 </button>
-                <!-- ด่าน 9: จับให้ได้ 2 -->
-                <button id="mouseCard-9" onclick="startSpecificLevel('mouse', 9)" class="bounce-hover bg-gradient-to-b from-rose-50 to-rose-100 hover:from-rose-100 hover:to-rose-200 border-2 border-rose-400 rounded-2xl p-3 flex flex-col items-center text-center shadow-md relative transition">
-                    <div class="mb-1 h-12 flex items-center justify-center">
-                        <img src="assets/icons/icon-rabbit.webp" alt="rabbit" class="w-11 h-11 inline-block object-contain" />
+
+                <!-- ด่าน 8: ป้อนอาหารสัตว์ (Thought-Bubble) -->
+                <button id="mouseCard-8" onclick="startSpecificLevel('mouse', 8)" class="bounce-hover bg-gradient-to-b from-cyan-50 to-sky-100 hover:from-cyan-100 hover:to-sky-200 border-2 border-cyan-400 rounded-2xl p-2.5 flex flex-col items-center text-center shadow-md relative transition">
+                    <div class="mb-1 h-11 flex items-center justify-center gap-1">
+                        <img src="assets/icons/icon-rabbit.webp" alt="rabbit" class="w-9 h-9 inline-block object-contain" />
+                        <img src="assets/icons/icon-carrot.webp" alt="carrot" class="w-8 h-8 inline-block object-contain" />
                     </div>
-                    <div class="font-extrabold text-rose-900 text-sm">ด่าน 9: จับให้ได้ 2</div>
-                    <span class="text-[11px] text-rose-700 font-bold">หนู 3 + กระต่าย 2</span>
+                    <div class="font-extrabold text-sky-900 text-xs sm:text-sm">ด่าน 8: ป้อนอาหาร</div>
+                    <span class="text-[10px] bg-purple-200/80 text-purple-900 px-2 py-0.5 rounded-full font-extrabold mt-0.5 flex items-center gap-1"><img src="assets/icons/icon-cloud.webp" alt="thought" class="w-3.5 h-3.5 inline-block object-contain" /> ลากตามที่คิด</span>
                 </button>
-                <!-- ด่าน 10: จับให้ได้ 3 -->
-                <button id="mouseCard-10" onclick="startSpecificLevel('mouse', 10)" class="bounce-hover bg-gradient-to-b from-rose-50 to-rose-100 hover:from-rose-100 hover:to-rose-200 border-2 border-rose-400 rounded-2xl p-3 flex flex-col items-center text-center shadow-md relative transition">
-                    <div class="mb-1 h-12 flex items-center justify-center">
-                        <img src="assets/icons/icon-chicken.webp" alt="chicken" class="w-11 h-11 inline-block object-contain" />
+
+                <!-- ด่าน 9: จิ๊กซอว์ -->
+                <button id="mouseCard-9" onclick="startSpecificLevel('mouse', 9)" class="bounce-hover bg-white hover:bg-sky-50 border-2 border-sky-300 rounded-2xl p-2.5 flex flex-col items-center text-center shadow-md relative transition">
+                    <div class="mb-1 h-11 flex items-center justify-center">
+                        <img src="assets/icons/icon-bear.webp" alt="bear" class="w-10 h-10 inline-block object-contain" />
                     </div>
-                    <div class="font-extrabold text-rose-900 text-sm">ด่าน 10: จับให้ได้ 3</div>
-                    <span class="text-[11px] text-rose-700 font-bold">แก๊งซ่า 10 ตัว</span>
+                    <div class="font-extrabold text-slate-700 text-xs sm:text-sm">ด่าน 9: จิ๊กซอว์</div>
+                    <span class="text-[10px] text-slate-400 font-bold">ต่อภาพหมีน้อย</span>
+                </button>
+
+                <!-- ด่าน 10: Paint -->
+                <button id="mouseCard-10" onclick="startSpecificLevel('mouse', 10)" class="bounce-hover bg-white hover:bg-sky-50 border-2 border-sky-300 rounded-2xl p-2.5 flex flex-col items-center text-center shadow-md relative transition">
+                    <div class="mb-1 h-11 flex items-center justify-center">
+                        <img src="assets/icons/icon-palette.webp" alt="palette" class="w-10 h-10 inline-block object-contain" />
+                    </div>
+                    <div class="font-extrabold text-slate-700 text-xs sm:text-sm">ด่าน 10: Paint</div>
+                    <span class="text-[10px] text-slate-400 font-bold">วาดตามรอยประ</span>
+                </button>
+
+                <!-- ด่าน 11: ซ่อนแอบ 1 -->
+                <button id="mouseCard-11" onclick="startSpecificLevel('mouse', 11)" class="bounce-hover bg-gradient-to-b from-amber-50 to-amber-100 hover:from-amber-100 hover:to-amber-200 border-2 border-amber-400 rounded-2xl p-2.5 flex flex-col items-center text-center shadow-md relative transition">
+                    <div class="mb-1 h-11 flex items-center justify-center gap-1">
+                        <img src="assets/icons/icon-flashlight.webp" alt="flashlight" class="w-8 h-8 inline-block object-contain" />
+                        <img src="assets/icons/icon-apple.webp" alt="apple" class="w-8 h-8 inline-block object-contain" />
+                    </div>
+                    <div class="font-extrabold text-amber-900 text-xs sm:text-sm">ด่าน 11: ซ่อนแอบ 1</div>
+                    <span class="text-[10px] text-amber-700 font-bold">ส่องไฟหาผลไม้</span>
+                </button>
+
+                <!-- ด่าน 12: ซ่อนแอบ 2 -->
+                <button id="mouseCard-12" onclick="startSpecificLevel('mouse', 12)" class="bounce-hover bg-gradient-to-b from-amber-50 to-amber-100 hover:from-amber-100 hover:to-amber-200 border-2 border-amber-400 rounded-2xl p-2.5 flex flex-col items-center text-center shadow-md relative transition">
+                    <div class="mb-1 h-11 flex items-center justify-center gap-1">
+                        <img src="assets/icons/icon-flashlight.webp" alt="flashlight" class="w-8 h-8 inline-block object-contain" />
+                        <img src="assets/icons/icon-dog.webp" alt="dog" class="w-8 h-8 inline-block object-contain" />
+                    </div>
+                    <div class="font-extrabold text-amber-900 text-xs sm:text-sm">ด่าน 12: ซ่อนแอบ 2</div>
+                    <span class="text-[10px] text-amber-700 font-bold">ส่องไฟหาสัตว์</span>
+                </button>
+
+                <!-- ด่าน 13: จับให้ได้ 1 -->
+                <button id="mouseCard-13" onclick="startSpecificLevel('mouse', 13)" class="bounce-hover bg-gradient-to-b from-rose-50 to-rose-100 hover:from-rose-100 hover:to-rose-200 border-2 border-rose-400 rounded-2xl p-2.5 flex flex-col items-center text-center shadow-md relative transition">
+                    <div class="mb-1 h-11 flex items-center justify-center">
+                        <img src="assets/icons/icon-mouse-animal.webp" alt="mouse" class="w-10 h-10 inline-block object-contain" />
+                    </div>
+                    <div class="font-extrabold text-rose-900 text-xs sm:text-sm">ด่าน 13: จับให้ได้ 1</div>
+                    <span class="text-[10px] text-rose-700 font-bold">คลิกจับหนู 3 ตัว</span>
+                </button>
+
+                <!-- ด่าน 14: จับให้ได้ 2 -->
+                <button id="mouseCard-14" onclick="startSpecificLevel('mouse', 14)" class="bounce-hover bg-gradient-to-b from-rose-50 to-rose-100 hover:from-rose-100 hover:to-rose-200 border-2 border-rose-400 rounded-2xl p-2.5 flex flex-col items-center text-center shadow-md relative transition">
+                    <div class="mb-1 h-11 flex items-center justify-center">
+                        <img src="assets/icons/icon-rabbit.webp" alt="rabbit" class="w-10 h-10 inline-block object-contain" />
+                    </div>
+                    <div class="font-extrabold text-rose-900 text-xs sm:text-sm">ด่าน 14: จับให้ได้ 2</div>
+                    <span class="text-[10px] text-rose-700 font-bold">หนู 3 + กระต่าย 2</span>
+                </button>
+
+                <!-- ด่าน 15: จับให้ได้ 3 -->
+                <button id="mouseCard-15" onclick="startSpecificLevel('mouse', 15)" class="bounce-hover bg-gradient-to-b from-rose-50 to-rose-100 hover:from-rose-100 hover:to-rose-200 border-2 border-rose-400 rounded-2xl p-2.5 flex flex-col items-center text-center shadow-md relative transition">
+                    <div class="mb-1 h-11 flex items-center justify-center">
+                        <img src="assets/icons/icon-chicken.webp" alt="chicken" class="w-10 h-10 inline-block object-contain" />
+                    </div>
+                    <div class="font-extrabold text-rose-900 text-xs sm:text-sm">ด่าน 15: จับให้ได้ 3</div>
+                    <span class="text-[10px] text-rose-700 font-bold">แก๊งซ่า 10 ตัว</span>
                 </button>
             </div>
 
@@ -195,47 +254,61 @@
             </button>
         </div>
 
-        <!-- KEYBOARD LEVEL SELECTION CARDS MENU -->
+        <!-- KEYBOARD LEVEL SELECTION CARDS MENU (4 CATEGORIES) -->
         <div id="keyboardMenuScreen" class="w-full flex flex-col items-center justify-center py-4 pop-anim hidden">
             <div class="text-center mb-6">
-                <span class="bg-emerald-100 text-emerald-700 text-xs font-extrabold px-3 py-1 rounded-full border border-emerald-300">หมวดหมู่: ฝึกคีย์บอร์ด</span>
+                <span class="bg-emerald-100 text-emerald-700 text-xs font-extrabold px-3 py-1 rounded-full border border-emerald-300">หมวดหมู่: ฝึกคีย์บอร์ด (4 หมวด)</span>
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-700 mt-1 flex items-center justify-center gap-1.5">
                     เลือกโหมดการพิมพ์
                     <img src="assets/icons/icon-keyboard.webp" alt="keyboard" class="w-7 h-7 inline-block object-contain" />
                 </h2>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 w-full max-w-3xl px-4">
-                <!-- การ์ดภาษาไทย -->
-                <button onclick="startSpecificKeyboard('thai')" class="bounce-hover bg-white hover:bg-emerald-50 border-4 border-emerald-300 rounded-3xl p-6 shadow-xl flex flex-col items-center text-center transition">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-4xl px-3">
+                <!-- 1. หมวดมินิเกม (ภาพล้วน) - แนะนำสำหรับผู้เริ่มต้น -->
+                <button onclick="openKeyMiniGamesMenu()" class="bounce-hover bg-gradient-to-b from-rose-50 to-amber-50 hover:from-rose-100 hover:to-amber-100 border-4 border-rose-300 rounded-3xl p-5 shadow-xl flex flex-col items-center text-center transition relative">
+                    <span class="absolute -top-3 bg-rose-500 text-white text-[10px] font-black px-3 py-0.5 rounded-full shadow flex items-center gap-1"><img src="assets/icons/icon-star-gold.webp" alt="star" class="w-3.5 h-3.5 inline-block object-contain" /> แนะนำสำหรับเริ่มต้น</span>
+                    <div class="w-20 h-20 bg-rose-100 rounded-full flex justify-center items-center mb-3 p-3 gap-1">
+                        <img src="assets/icons/icon-dino-egg-4.webp" alt="dino" class="w-10 h-10 inline-block object-contain bounce-hover" />
+                        <img src="assets/icons/icon-train.webp" alt="train" class="w-10 h-10 inline-block object-contain bounce-hover" />
+                    </div>
+                    <h3 class="text-lg font-extrabold text-rose-600 mb-1">มินิเกม (ภาพล้วน)</h3>
+                    <p class="text-slate-500 text-xs font-bold mb-4">ฟักไข่หรรษา, กระต่ายกระโดด Spacebar และรถไฟลูกศร 4 ทิศ</p>
+                    <span class="mt-auto bg-rose-500 text-white font-bold text-xs sm:text-sm px-4 py-2 rounded-full shadow flex items-center justify-center gap-1.5">
+                        เลือกเกมย่อย <img src="assets/icons/icon-arrow-right.webp" alt="arrow" class="w-4 h-4 inline-block object-contain" />
+                    </span>
+                </button>
+
+                <!-- 2. การ์ดภาษาไทย -->
+                <button onclick="startSpecificKeyboard('thai')" class="bounce-hover bg-white hover:bg-emerald-50 border-4 border-emerald-300 rounded-3xl p-5 shadow-xl flex flex-col items-center text-center transition">
                     <div class="w-20 h-20 bg-emerald-100 rounded-full flex justify-center items-center mb-3 p-3">
                         <img src="assets/icons/icon-chicken.webp" alt="thai chicken" class="w-14 h-14 inline-block object-contain bounce-hover" />
                     </div>
-                    <h3 class="text-xl font-extrabold text-emerald-600 mb-1">ภาษาไทย</h3>
+                    <h3 class="text-lg font-extrabold text-emerald-600 mb-1">ภาษาไทย</h3>
                     <p class="text-slate-500 text-xs font-bold mb-4">ฝึกพยัญชนะไทย 24 ตัว (ไม่ต้องกด Shift แป้นเกษมณี)</p>
                     <span class="mt-auto bg-emerald-500 text-white font-bold text-xs sm:text-sm px-4 py-2 rounded-full shadow flex items-center justify-center gap-1.5">
                         เข้าเล่นเลย <img src="assets/icons/icon-arrow-right.webp" alt="arrow" class="w-4 h-4 inline-block object-contain" />
                     </span>
                 </button>
 
-                <!-- การ์ดภาษาอังกฤษ -->
-                <button onclick="startSpecificKeyboard('english')" class="bounce-hover bg-white hover:bg-indigo-50 border-4 border-indigo-300 rounded-3xl p-6 shadow-xl flex flex-col items-center text-center transition">
+                <!-- 3. การ์ดภาษาอังกฤษ -->
+                <button onclick="startSpecificKeyboard('english')" class="bounce-hover bg-white hover:bg-indigo-50 border-4 border-indigo-300 rounded-3xl p-5 shadow-xl flex flex-col items-center text-center transition">
                     <div class="w-20 h-20 bg-indigo-100 rounded-full flex justify-center items-center mb-3 p-3">
                         <img src="assets/icons/icon-ant.webp" alt="english ant" class="w-14 h-14 inline-block object-contain bounce-hover" />
                     </div>
-                    <h3 class="text-xl font-extrabold text-indigo-600 mb-1">ภาษาอังกฤษ</h3>
+                    <h3 class="text-lg font-extrabold text-indigo-600 mb-1">ภาษาอังกฤษ</h3>
                     <p class="text-slate-500 text-xs font-bold mb-4">ฝึกอักษร A-Z พร้อมเสียงอ่านและคำแปลไทย 26 ตัว</p>
                     <span class="mt-auto bg-indigo-500 text-white font-bold text-xs sm:text-sm px-4 py-2 rounded-full shadow flex items-center justify-center gap-1.5">
                         เข้าเล่นเลย <img src="assets/icons/icon-arrow-right.webp" alt="arrow" class="w-4 h-4 inline-block object-contain" />
                     </span>
                 </button>
 
-                <!-- การ์ดตัวเลข -->
-                <button onclick="startSpecificKeyboard('number')" class="bounce-hover bg-white hover:bg-amber-50 border-4 border-amber-300 rounded-3xl p-6 shadow-xl flex flex-col items-center text-center transition">
+                <!-- 4. การ์ดตัวเลข -->
+                <button onclick="startSpecificKeyboard('number')" class="bounce-hover bg-white hover:bg-amber-50 border-4 border-amber-300 rounded-3xl p-5 shadow-xl flex flex-col items-center text-center transition">
                     <div class="w-20 h-20 bg-amber-100 rounded-full flex justify-center items-center mb-3 p-3">
                         <img src="assets/icons/icon-num-1.webp" alt="numbers" class="w-14 h-14 inline-block object-contain bounce-hover" />
                     </div>
-                    <h3 class="text-xl font-extrabold text-amber-600 mb-1">ตัวเลข 0-9</h3>
+                    <h3 class="text-lg font-extrabold text-amber-600 mb-1">ตัวเลข 0-9</h3>
                     <p class="text-slate-500 text-xs font-bold mb-4">ฝึกสายตาและความจำตัวเลข 0 ถึง 9 บนแป้นพิมพ์</p>
                     <span class="mt-auto bg-amber-500 text-white font-bold text-xs sm:text-sm px-4 py-2 rounded-full shadow flex items-center justify-center gap-1.5">
                         เข้าเล่นเลย <img src="assets/icons/icon-arrow-right.webp" alt="arrow" class="w-4 h-4 inline-block object-contain" />
@@ -245,6 +318,70 @@
 
             <button onclick="showMainMenu()" class="mt-6 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs sm:text-sm py-2 px-5 rounded-full transition flex items-center gap-1.5">
                 <img src="assets/icons/icon-house.webp" alt="house" class="w-4 h-4 inline-block object-contain" /> กลับหน้าหลัก
+            </button>
+        </div>
+
+        <!-- KEYBOARD VISUAL MINI-GAMES SUBMENU (3 MINI-GAMES) -->
+        <div id="keyboardMiniMenuScreen" class="w-full flex flex-col items-center justify-center py-4 pop-anim hidden">
+            <div class="text-center mb-6">
+                <span class="bg-rose-100 text-rose-700 text-xs font-extrabold px-3 py-1 rounded-full border border-rose-300">หมวดมินิเกมคีย์บอร์ด (ภาพล้วน)</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-700 mt-1 flex items-center justify-center gap-2">
+                    เลือกมินิเกมที่อยากเล่น
+                    <img src="assets/icons/icon-sparkles.webp" alt="sparkles" class="w-7 h-7 inline-block object-contain animate-pulse" />
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 w-full max-w-3xl px-4">
+                <!-- มินิเกม 1: ฟักไข่หรรษา (Any-Key) -->
+                <button onclick="startKeyMiniGame('egg')" class="bounce-hover bg-white hover:bg-amber-50 border-4 border-amber-300 rounded-3xl p-6 shadow-xl flex flex-col items-center text-center transition">
+                    <div class="w-24 h-24 bg-amber-100 rounded-full flex justify-center items-center mb-3 p-3 relative gap-1">
+                        <img src="assets/icons/icon-dino-egg-1.webp" alt="dino egg" class="w-10 h-10 inline-block object-contain" />
+                        <img src="assets/icons/icon-dino-egg-4.webp" alt="baby dino" class="w-10 h-10 inline-block object-contain" />
+                        <span class="absolute -bottom-1 -right-1 bg-amber-400 text-amber-950 text-xs font-black px-2 py-0.5 rounded-lg border-2 border-white shadow flex items-center gap-1"><img src="assets/icons/icon-keyboard.webp" alt="key" class="w-3.5 h-3.5 inline-block object-contain" /> ปุ่มใดก็ได้</span>
+                    </div>
+                    <h3 class="text-xl font-extrabold text-amber-600 mb-1">1. ฟักไข่หรรษา</h3>
+                    <p class="text-slate-500 text-xs font-bold mb-4">กดปุ่มอะไรก็ได้บนคีย์บอร์ด 3 ครั้ง ให้ไข่กะเทาะออก!</p>
+                    <span class="mt-auto bg-amber-500 text-white font-bold text-xs sm:text-sm px-5 py-2 rounded-full shadow flex items-center justify-center gap-1.5">
+                        เล่นเลย <img src="assets/icons/icon-arrow-right.webp" alt="arrow" class="w-4 h-4 inline-block object-contain" />
+                    </span>
+                </button>
+
+                <!-- มินิเกม 2: กระต่ายกระโดด (Spacebar) -->
+                <button onclick="startKeyMiniGame('space')" class="bounce-hover bg-white hover:bg-emerald-50 border-4 border-emerald-300 rounded-3xl p-6 shadow-xl flex flex-col items-center text-center transition">
+                    <div class="w-24 h-24 bg-emerald-100 rounded-full flex justify-center items-center mb-3 p-3 relative gap-1">
+                        <img src="assets/icons/bunny-jump.webp" alt="rabbit jump" class="w-12 h-12 inline-block object-contain" />
+                        <img src="assets/icons/icon-rock.webp" alt="rock" class="w-8 h-8 inline-block object-contain" />
+                        <span class="absolute -bottom-1 bg-yellow-300 text-amber-950 text-[11px] font-black px-3 py-0.5 rounded-md border-2 border-amber-500 shadow">━━ SPACE ━━</span>
+                    </div>
+                    <h3 class="text-xl font-extrabold text-emerald-600 mb-1">2. กระต่ายกระโดด</h3>
+                    <p class="text-slate-500 text-xs font-bold mb-4">กดปุ่มยาว Spacebar พากระต่ายกระโดดข้ามก้อนหิน!</p>
+                    <span class="mt-auto bg-emerald-500 text-white font-bold text-xs sm:text-sm px-5 py-2 rounded-full shadow flex items-center justify-center gap-1.5">
+                        เล่นเลย <img src="assets/icons/icon-arrow-right.webp" alt="arrow" class="w-4 h-4 inline-block object-contain" />
+                    </span>
+                </button>
+
+                <!-- มินิเกม 3: ผึ้งน้อยเก็บน้ำผึ้ง (Arrow Keys) -->
+                <button onclick="startKeyMiniGame('arrows')" class="bounce-hover bg-white hover:bg-amber-50 border-4 border-amber-300 rounded-3xl p-6 shadow-xl flex flex-col items-center text-center transition">
+                    <div class="w-24 h-24 bg-amber-100 rounded-full flex justify-center items-center mb-3 p-3 relative">
+                        <img src="assets/icons/icon-bee.webp" alt="bee" class="w-12 h-12 inline-block object-contain" />
+                        <img src="assets/icons/icon-honey.webp" alt="honey" class="w-8 h-8 inline-block object-contain" />
+                        <span class="absolute -bottom-1 bg-amber-500 text-white text-[11px] font-black px-2.5 py-0.5 rounded-lg border-2 border-white shadow flex items-center gap-1">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            <i class="fa-solid fa-arrow-up"></i>
+                            <i class="fa-solid fa-arrow-down"></i>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-extrabold text-amber-600 mb-1">3. ผึ้งน้อยเก็บน้ำผึ้ง</h3>
+                    <p class="text-slate-500 text-xs font-bold mb-4">กดปุ่มลูกศร 4 ทิศทาง พาน้องผึ้งไปเก็บโถน้ำผึ้ง!</p>
+                    <span class="mt-auto bg-amber-500 text-white font-bold text-xs sm:text-sm px-5 py-2 rounded-full shadow flex items-center justify-center gap-1.5">
+                        เล่นเลย <img src="assets/icons/icon-arrow-right.webp" alt="arrow" class="w-4 h-4 inline-block object-contain" />
+                    </span>
+                </button>
+            </div>
+
+            <button onclick="openSubmenu('keyboard')" class="mt-6 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs sm:text-sm py-2 px-5 rounded-full transition flex items-center gap-1.5">
+                <img src="assets/icons/icon-arrow-right.webp" alt="back" class="w-4 h-4 inline-block object-contain rotate-180" /> กลับหมวดคีย์บอร์ด
             </button>
         </div>
 
@@ -365,7 +502,7 @@
                         </div>
                         <div class="text-left">
                             <div class="font-extrabold text-sm text-amber-900">ปลดล็อคด่านทั้งหมด</div>
-                            <div class="text-[11px] text-amber-700 font-bold">เปิดให้เล่นได้ครบ 10 ด่าน</div>
+                            <div class="text-[11px] text-amber-700 font-bold">เปิดให้เล่นได้ครบ 15 ด่าน</div>
                         </div>
                     </div>
                     <span class="bg-amber-500 hover:bg-amber-600 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-sm">ปลดล็อค</span>
@@ -394,8 +531,6 @@
             </button>
         </div>
     </div>
-
-    <!-- JavaScript Logic -->
 
     <!-- Main Application Entry -->
     <script type="module" src="./src/main.js"></script>

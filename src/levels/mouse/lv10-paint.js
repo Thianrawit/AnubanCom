@@ -12,7 +12,6 @@ export function renderMouseLevel5(board, config, onComplete) {
     let currentShapeIndex = 0;
     let currentColor = '#ec4899';
     let brushSize = PAINT_SETTINGS.brushSize || 14;
-    let isEraser = false;
     let tracingPoints = [];
     let completedPoints = 0;
     let isTracing = false;
@@ -34,11 +33,8 @@ export function renderMouseLevel5(board, config, onComplete) {
                     <button data-color="#3b82f6" class="color-btn w-7 h-7 rounded-full bg-blue-500 border-2 border-white shadow-sm"></button>
                     <button data-color="#8b5cf6" class="color-btn w-7 h-7 rounded-full bg-purple-500 border-2 border-white shadow-sm"></button>
                     
-                    <button id="eraserBtn" class="w-8 h-8 rounded-xl bg-white border-2 border-slate-300 text-slate-600 flex justify-center items-center shadow-sm text-sm" title="ยางลบ">
-                        🧹
-                    </button>
-                    <button id="clearBoardBtn" class="w-8 h-8 rounded-xl bg-rose-100 border-2 border-rose-300 text-rose-600 flex justify-center items-center shadow-sm text-xs font-bold" title="ล้างกระดาน">
-                        🗑️
+                    <button id="clearBoardBtn" class="w-8 h-8 rounded-xl bg-rose-100 hover:bg-rose-200 border-2 border-rose-300 text-rose-600 flex justify-center items-center shadow-sm text-xs font-bold transition" title="ล้างกระดานใหม่">
+                        ${GameIcon('rotate', 'w-4 h-4')}
                     </button>
                 </div>
             </div>
@@ -47,8 +43,8 @@ export function renderMouseLevel5(board, config, onComplete) {
                 <canvas id="tracingCanvas" width="340" height="300" class="rounded-2xl"></canvas>
             </div>
 
-            <p class="text-xs sm:text-sm text-slate-500 font-bold mt-2">
-                🎨 กดเมาส์/ใช้นิ้วลากวาดเส้นทับเส้นประให้ครบนะครับ
+            <p class="text-xs sm:text-sm text-slate-500 font-bold mt-2 flex items-center gap-1.5">
+                ${GameIcon('palette', 'w-4 h-4 inline-block')} กดเมาส์/ใช้นิ้วลากวาดเส้นทับเส้นประให้ครบนะครับ
             </p>
         </div>
     `;
@@ -61,16 +57,9 @@ export function renderMouseLevel5(board, config, onComplete) {
     colorButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             currentColor = btn.dataset.color;
-            isEraser = false;
             colorButtons.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
         });
-    });
-
-    const eraserBtn = document.getElementById('eraserBtn');
-    eraserBtn.addEventListener('click', () => {
-        isEraser = true;
-        colorButtons.forEach(b => b.classList.remove('active'));
     });
 
     const clearBtn = document.getElementById('clearBoardBtn');
@@ -150,20 +139,12 @@ export function renderMouseLevel5(board, config, onComplete) {
         ctx.lineTo(x2, y2);
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
-
-        if (isEraser) {
-            ctx.strokeStyle = '#ffffff';
-            ctx.lineWidth = PAINT_SETTINGS.eraserSize || 28;
-        } else {
-            ctx.strokeStyle = currentColor;
-            ctx.lineWidth = brushSize;
-        }
+        ctx.strokeStyle = currentColor;
+        ctx.lineWidth = brushSize;
         ctx.stroke();
     }
 
     function checkPaintPoints(x, y) {
-        if (isEraser) return;
-
         tracingPoints.forEach(pt => {
             if (!pt.hit) {
                 const dist = Math.hypot(pt.x - x, pt.y - y);
@@ -382,3 +363,5 @@ export function renderMouseLevel5(board, config, onComplete) {
     };
 }
 
+
+export const initLevel = renderMouseLevel5;

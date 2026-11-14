@@ -84,3 +84,5 @@ export function renderMouseLevel4(board, config, onComplete) {
     };
 }
 
+
+export const initLevel = renderMouseLevel4;

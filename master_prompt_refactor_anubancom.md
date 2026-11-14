@@ -1,115 +1,118 @@
-# MASTER PROMPT: Refactor AnubanCom to Modular ES6 + Vite Singlefile Bundle
+# MASTER PROMPT: Refactor AnubanCom to Modular ES6 + Vite Singlefile & Add Pre-Literacy Mini-Games
 
 ## 1. บริบทและเป้าหมาย (Context & Objective)
-โปรเจกต์ **AnubanCom** เป็นเว็บแอปพลิเคชันเกมฝึกทักษะเมาส์และคีย์บอร์ดสำหรับเด็กอนุบาล ปัจจุบันโค้ดทั้งหมดถูกเขียนรวมอยู่ใน `index.html` ไฟล์เดียว (อ้างอิงโครงสร้างและรายละเอียดการทำงานทั้งหมดจากไฟล์ `cam.md` ในโปรเจกต์นี้)
+โปรเจกต์ **AnubanCom** เป็นเว็บแอปพลิเคชันเกมฝึกทักษะเมาส์และคีย์บอร์ดสำหรับเด็กอนุบาล ปัจจุบันโค้ดทั้งหมดรวมอยู่ใน `index.html` ไฟล์เดียว (อ้างอิงการทำงานเดิมทั้งหมดจากไฟล์ `cam.md`)
 
-**เป้าหมาย:** 
-ต้องการปรับโครงสร้าง (Refactor) โค้ดจากไฟล์เดียว ให้แยกออกเป็น **ES6 Modules** แยกตามระบบแกนกลางและแยกตามแต่ละด่าน เพื่อให้การแก้ไขและเพิ่มด่านในอนาคตทำได้รวดเร็ว ปลอดภัย และประหยัด Token แต่เมื่อสั่ง Build (`npm run build`) จะต้องมัดรวม (Bundle) กลับออกมาเป็น `dist/index.html` **ไฟล์เดียว** ที่สามารถดับเบิลคลิกเปิดเล่นผ่าน Local Filesystem (`file://`) แบบ Offline ได้ทันทีโดยไม่ต้องพึ่ง Web Server
-
----
-
-## 2. กฎเหล็ก: ห้ามเปลี่ยนแปลงพฤติกรรมเดิม (Zero Regression Rules)
-ระบบทั้งหมดที่ระบุใน `cam.md` ต้องทำงานได้เหมือนเดิม **100%** ทั้งหน้าตา UI, สี, แอนิเมชัน, เสียง และฟิสิกส์การเล่น:
-1. **Tech Stack & CDN:** คงการเรียกใช้ Tailwind CSS, Font Awesome 6 และ Canvas Confetti ผ่าน CDN เดิมไว้ทั้งหมด รวมถึงคงโฟลเดอร์ `scripts/` (Python TTS/SFX generators) ไว้เหมือนเดิม
-2. **Security & Input Guard (`security.js`):**
-   - บล็อกคลิกขวา (`disableContextMenu`) และบล็อกปุ่มเมาส์ที่ไม่ใช่คลิกซ้าย (`blockNonLeftMouse` เมื่อ `e.button !== 0`)
-   - บล็อกคีย์ลัดเบราว์เซอร์และ DevTools (`F12`, `Ctrl+Shift+I/J/C`, `Ctrl+U`, `Tab`, `Alt`, `Meta`) ผ่าน `handleGlobalKeydown`
-   - บล็อกการพิมพ์คีย์บอร์ดทั้งหมดเมื่อไม่อยู่ในโหมดคีย์บอร์ด (`currentMode !== 'keyboard'`)
-   - คงกฎ CSS `user-select: none` และ `-webkit-user-drag: none` ทั่วทั้งแอป
-3. **Audio & Speech Engine (`audio.js`):**
-   - คงระบบเสียงพากย์ `playLetterSound` (โหลดไฟล์ Edge-TTS `.mp3` จาก `audio/voice/` เป็นหลัก และ Fallback ไปที่ Web Speech API `SpeechSynthesis` ค่า Pitch `1.1`, Rate `0.85`)
-   - คงระบบเสียง SFX `playSound` (ใช้ `sfxCache` และ Fallback ไปที่ `playSynthSound` ผ่าน Web Audio API `AudioContext`)
-4. **Custom Drag & Drop Engine (`dragDrop.js`):**
-   - คงระบบลากวางที่เขียนเอง (`startDragging`, `endDragging`, Ghost element cloning, `getBoundingClientRect()` collision detection) ที่รองรับทั้ง Mouse และ Touch
-5. **โหมดฝึกเมาส์ครบทั้ง 10 ด่าน (`levels/mouse/`):**
-   - **ด่าน 1:** ลากวางรูปทรง + ระบบ Idle Hint จำลองเมาส์คลิกซ้ายลากอัตโนมัติเมื่อนิ่งเกิน 5 วินาที (`#mouseDragHintOverlay`)
-   - **ด่าน 2:** จับคู่รูปสัตว์กับเงา + เสียงร้องของสัตว์แต่ละชนิด
-   - **ด่าน 3:** แยกหมวดหมู่ภาพ (ผลไม้ VS สัตว์เลี้ยง)
-   - **ด่าน 4:** ต่อภาพจิ๊กซอว์ 2x2 (4 ชิ้นส่วน)
-   - **ด่าน 5:** กระดานวาดรูป Paint ลากตามรอยประ (หัวใจ, ดาว, แอปเปิล, บ้าน) + จานสี 6 สี + ยางลบ/ล้างกระดาน + Waypoints Collision + ระบบวาดตัวอย่างอัตโนมัติ (6.5 วิ) เมื่อนิ่งเกิน 5 วิ
-   - **ด่าน 6 & 7:** ไฟฉายส่องซ่อนแอบ (`FLASHLIGHT_CONFIG`) + Canvas `destination-out` masking สี `#050816` + ระบบบังคับจอมืดสนิททันทีตอนเริ่ม (`getBoardDimensions`) + เอฟเฟกต์ซูมขยาย `1.15x` ตอนส่องโดนและ Pop `1.25x` เมื่อเก็บสำเร็จ + HUD Badges
-   - **ด่าน 8, 9, 10:** เกมจับสัตว์วิ่งบนจอ (`CATCH_ME_CONFIG`) + Native Cursor + ลูป `catchLoop` สะท้อนขอบจอ + บังคับคลิกซ้ายโดนตัวเท่านั้น (ห้ามลากผ่าน) + เอฟเฟกต์สีดำล้วน (`brightness(0) grayscale(1)`) และเสียงร้องตอนถูกจับ
-6. **โหมดฝึกคีย์บอร์ด 3 หมวดหมู่ (`levels/keyboard/`):**
-   - หมวดภาษาไทย (24 พยัญชนะไม่ต้องกด Shift บนผังเกษมณี 4 แถว), หมวดภาษาอังกฤษ (A-Z ผัง QWERTY 3 แถว สปีด -25%), หมวดตัวเลข (0-9 แถวบนสุด)
-   - คงระบบจำลองมือกดแป้นพิมพ์อัตโนมัติ (`images/hand_open.svg` / CSS Pointer) เมื่อนิ่งเกิน 5 วินาที
-7. **Victory Modal & Controls:**
-   - คงหน้าต่างผ่านด่าน, พลุ `confetti()`, เสียง `phrase_win.mp3` + `win.wav`, ปุ่มเล่นอีกครั้ง (`resetCurrentLevel`) และปุ่มด่านถัดไป (`nextLevel`)
+**เป้าหมายหลัก 2 ประการ:**
+1. **Modular Architecture + Singlefile Bundle:** แยกโค้ดจากไฟล์เดียวออกเป็น **ES6 Modules** แยกตามระบบแกนกลางและแต่ละด่าน เพื่อความรวดเร็วในการพัฒนาใน Antigravity IDE และลดการใช้ Token แต่เมื่อรัน `npm run build` จะต้องมัดรวมกลับเป็น `dist/index.html` **ไฟล์เดียว** ที่ดับเบิลคลิกเปิดเล่นผ่าน Local Filesystem (`file://`) แบบ Offline ได้ 100%
+2. **ขยายหลักสูตรปูพื้นฐานสำหรับเด็กไม่เคยจับคอมและยังอ่านหนังสือไม่ออก (Zero-Text UX):** เพิ่มมินิเกมปูพื้นฐาน 8 เกม (เมาส์ 5 เกม + คีย์บอร์ด 3 เกม) โดยเรียงลำดับความยากใหม่ทั้งหมดตั้งแต่ระดับเริ่มต้น (ขยับเมาส์โดยไม่คลิก) ไปจนถึงระดับสูง และใช้ภาพสัญลักษณ์กับเสียงประกอบสื่อสาร 100% โดยไม่พึ่งพาตัวหนังสือ
 
 ---
 
-## 3. โครงสร้างโฟลเดอร์เป้าหมาย (Target Architecture)
-ให้จัดโครงสร้างโปรเจกต์ใหม่ดังนี้:
+## 2. กฎเหล็ก: คงระบบเดิม 100% + มาตรฐาน UX สำหรับเด็กอ่านไม่ออก
+1. **คงระบบเดิมทั้งหมด (`cam.md`):**
+   - **CDN & Scripts:** คง Tailwind CSS, Font Awesome 6, Canvas Confetti และโฟลเดอร์ `scripts/` ไว้ตามเดิม
+   - **Security Guard (`security.js`):** บล็อกคลิกขวา, บล็อกปุ่มเมาส์ที่ไม่ใช่คลิกซ้าย (`e.button !== 0`), บล็อกคีย์ลัด (`F12`, `Ctrl+Shift+I/J/C`, `Ctrl+U`, `Tab`, `Alt`, `Meta`), บล็อกการพิมพ์นอกโหมดคีย์บอร์ด และคง `user-select: none` / `-webkit-user-drag: none`
+   - **Audio Engine (`audio.js`):** คงระบบเสียงพากย์ Edge-TTS (`audio/voice/`) + Web Speech API Fallback และเสียง SFX (`sfxCache`) + Web Audio API Synth Fallback
+   - **Custom Drag & Drop (`dragDrop.js`):** คงระบบลากวางที่รองรับทั้ง Mouse และ Touch
+2. **กฎการออกแบบสำหรับเด็กอนุบาลที่อ่านหนังสือไม่ออก (Zero-Text Rules):**
+   - **ห้ามใช้ข้อความคำสั่งยาวๆ:** สื่อสารด้วยไอคอนภาพ แอนิเมชัน และเสียงประกอบเท่านั้น
+   - **Instant Ghost Demo (ตัวอย่างอัตโนมัติวินาทีที่ 0):** ในด่านใหม่ทั้งหมด ทันทีที่เข้าด่านให้เล่นแอนิเมชันมือจำลองสาธิตวิธีเล่นทันที 1 รอบ (เช่น มือปัดฟองสบู่, นิ้วคลิกลูกโป่ง, นิ้วกดแช่รดน้ำ, นิ้วกด Spacebar) และซ่อนตัวช่วยทันทีเมื่อเด็กเริ่มขยับเมาส์หรือกดปุ่ม (หากนิ่งเกิน 5 วินาทีให้กลับมาแสดงใหม่)
+   - **การ์ดเลือกด่านแบบสัญลักษณ์ล้วน:** ปุ่มเลือกด่านแสดงรูปตัวละครหลักคู่กับสัญลักษณ์การกระทำ (เช่น รูปเมาส์จุดแดงกระพริบที่ปุ่มซ้าย, รูปแถบยาว Spacebar, รูปลูกศร 4 ทิศ)
+   - **ไม่มี Game Over:** หากทำพลาด (ลากออกนอกเส้นทาง, ป้อนอาหารผิด, กดลูกศรผิด) ให้เล่นเสียง `wrong.wav` เบาๆ และคืนค่ากลับจุดเริ่มต้นอย่างนุ่มนวลโดยไม่หักคะแนน
+
+---
+
+## 3. การเรียงลำดับด่านใหม่ทั้งหมด (New Curriculum & Level Progression)
+
+### A. โหมดฝึกใช้เมาส์ (รวม 15 ด่าน — เรียงจากง่ายไปยาก)
+1. **ด่าน 1 [ใหม่ - Hover & Wipe]: เช็ดฟองสบู่หาสัตว์ซ่อนแอบ** — ขยับเมาส์ปัดฟองสบู่ (ใช้ Canvas `destination-out` เปิดค้างถาวรโดยไม่ต้องคลิก) เมื่อเปิดภาพสัตว์ครบ 75% ฟองสบู่ที่เหลือจะหายไปพร้อมเสียงร้องของสัตว์
+2. **ด่าน 2 [ใหม่ - Single Click]: จิ้มลูกโป่งลอยช้า** — ลูกโป่งขนาดใหญ่ที่มีเงาสัตว์อยู่ข้างในลอยขึ้นช้าๆ เมื่อชี้เมาส์ลูกโป่งจะขยายและมีวงแหวนกระพริบ คลิกซ้าย 1 ครั้งเพื่อทำให้แตกและปล่อยลูกสัตว์กางร่มชูชีพ
+3. **ด่าน 3 [ใหม่ - Click & Hold]: กดค้างรดน้ำต้นไม้** — ชี้เมาส์ที่บัวรดน้ำแล้ว **กดคลิกซ้ายค้างไว้** เพื่อรดน้ำในกระถาง มีเกจวงกลมวิ่งรอบบัวรดน้ำ ต้นไม้จะค่อยๆ งอกเป็นต้นกล้า แตกใบ และออกดอกบาน (หากปล่อยนิ้วก่อนดอกบาน น้ำจะหยุดไหลและต้นไม้จะหดกลับเล็กน้อย)
+4. **ด่าน 4 [เดิม ด่าน 1]: ลากวางรูปทรงลงบล็อก** — คลิกซ้ายค้างลากรูปทรงลงช่อง + ระบบ Idle Hint 5 วิ
+5. **ด่าน 5 [เดิม ด่าน 2]: จับคู่รูปภาพกับเงาสัตว์** — ลากรูปสัตว์วางทับเงา + เสียงร้องสัตว์
+6. **ด่าน 6 [ใหม่ - Wide-Path Dragging]: พาน้องเดินกลับบ้าน** — คลิกลากตัวละคร (เช่น ลูกหมา) เดินตามถนนเส้นกว้างสีเหลืองไปหาเป้าหมาย (บ้าน/กระดูก) หากลากหลุดออกนอกขอบถนน ตัวละครจะเด้งกลับจุดเริ่มต้น
+7. **ด่าน 7 [เดิม ด่าน 3]: แยกหมวดหมู่ภาพ** — ลากสิ่งของแยกใส่กล่องผลไม้ VS กล่องสัตว์เลี้ยง
+8. **ด่าน 8 [ใหม่ - Visual Thought-Bubble]: ให้อาหารสัตว์ตามใจนึก** — สัตว์ 2–3 ตัวมีก้อนเมฆความคิด (Thought Bubble) แสดงรูปอาหารและจำนวนที่ต้องการ เด็กลากอาหารจากตะกร้าไปป้อนให้ตรงตามภาพและจำนวน
+9. **ด่าน 9 [เดิม ด่าน 4]: ต่อภาพจิ๊กซอว์ 2x2** — ลากชิ้นส่วน 4 ชิ้นต่อในกรอบรูป
+10. **ด่าน 10 [เดิม ด่าน 5]: โปรแกรม Paint ลากเส้นตามรอยประ** — วาดตามเส้นประ 4 รูปทรง + จานสี 6 สี + Waypoints
+11. **ด่าน 11 [เดิม ด่าน 6]: ไฟฉายส่องซ่อนแอบ 1 (ผลไม้)** — Canvas Masking `#050816` ส่องค้างเก็บแอปเปิลและกล้วย
+12. **ด่าน 12 [เดิม ด่าน 7]: ไฟฉายส่องซ่อนแอบ 2 (สัตว์)** — ส่องค้างเก็บแมว หมา ไก่
+13. **ด่าน 13 [เดิม ด่าน 8]: จับสัตว์วิ่งบนจอ 1 (หนูซน)** — คลิกซ้ายจับหนูวิ่งสะท้อนขอบจอ 3 ตัว
+14. **ด่าน 14 [เดิม ด่าน 9]: จับสัตว์วิ่งบนจอ 2 (หนู + กระต่าย)** — คลิกซ้ายจับหนู 3 + กระต่าย 2
+15. **ด่าน 15 [เดิม ด่าน 10]: จับสัตว์วิ่งบนจอ 3 (แก๊งซ่า 10 ตัว)** — คลิกซ้ายจับหนู 4 + กระต่าย 4 + ไก่ 2
+
+### B. โหมดฝึกคีย์บอร์ด (เพิ่มหมวดที่ 4: "มินิเกม (ภาพล้วน)")
+ในหน้าเลือกหมวดหมู่ของโหมดคีย์บอร์ด ให้จัดเรียงปุ่มเลือกหมวดหมู่ 4 ปุ่มดังนี้:
+1. **หมวดมินิเกม (ภาพล้วน) [ใหม่ — แนะนำสำหรับผู้เริ่มต้น]:** มีเมนูย่อยให้เลือก 3 มินิเกม:
+   - **เกมที่ 1: ฟักไข่ไดโนเสาร์ (Any-Key Reaction)** — กดปุ่มใดก็ได้บนคีย์บอร์ด 3 ครั้ง (ครั้งที่ 1 ร้าวเล็กน้อย, ครั้งที่ 2 ร้าวมากขึ้น, ครั้งที่ 3 ไข่แตกมีลูกไดโนเสาร์ออกมาพร้อมเสียงร้องและพลุ)
+   - **เกมที่ 2: กระต่ายกระโดดข้ามก้อนหิน (Spacebar Jump)** — กระต่ายเดินไปข้างหน้าช้าๆ เมื่อใกล้ก้อนหิน/แอ่งน้ำ เกมจะชะลอความเร็วพร้อมแสดงภาพแถบยาวสีเหลืองกระพริบด้านล่างจอ กด `e.code === 'Space'` เพื่อกระโดดข้าม
+   - **เกมที่ 3: ขับรถไฟเก็บแอปเปิล (Arrow Keys 4 ทิศ)** — ตาราง 3x3 มีรถไฟและแอปเปิล แสดงลูกศรสีสดใสขนาดใหญ่ (`⬆️ ⬇️ ⬅️ ➡️`) ชี้ทิศทางพร้อมไฮไลต์ปุ่มลูกศรบนคีย์บอร์ดจำลอง กดปุ่มลูกศรจริงเพื่อบังคับรถไฟเก็บแอปเปิล
+2. **หมวดภาษาไทย [เดิม]:** 24 พยัญชนะไม่ต้องกด Shift บนผังเกษมณี 4 แถว + เสียงพากย์
+3. **หมวดภาษาอังกฤษ [เดิม]:** A-Z ผัง QWERTY 3 แถว + เสียงพากย์สปีด -25%
+4. **หมวดตัวเลข [เดิม]:** 0-9 แถวบนสุด + ภาพนับจำนวน
+
+---
+
+## 4. โครงสร้างโฟลเดอร์เป้าหมาย (Target Architecture)
 
 ```text
 AnubanCom/
-├── index.html                    # โครงสร้าง HTML หลัก, หน้าเมนูเลือกโหมด/ด่าน, Victory Modal
-├── vite.config.js                # ตั้งค่า vite-plugin-singlefile และ base: './'
+├── index.html                      # โครงสร้าง HTML หลัก, หน้าเมนู, Victory Modal
+├── vite.config.js                  # ตั้งค่า vite-plugin-singlefile และ base: './'
 ├── package.json
-├── public/                       # ย้ายโฟลเดอร์สื่อเดิมมาไว้ที่นี่เพื่อให้ Vite copy ไป dist/
-│   ├── images/                   # hand_open.svg, hand_fist.svg
-│   └── audio/                    # sfx/ และ voice/ ทั้งหมด
-├── scripts/                      # คงสคริปต์ Python เดิมไว้ที่ Root
+├── public/
+│   ├── images/                     # hand_open.svg, hand_fist.svg และไฟล์ภาพ Sprite ใหม่
+│   └── audio/                      # sfx/ และ voice/ ทั้งหมด
+├── scripts/                        # สคริปต์ Python เดิม
 └── src/
-    ├── main.js                   # Entry point, State management, Level router
+    ├── main.js                     # Entry point, State management, Level router
     ├── config/
-    │   └── gameConfig.js         # รวมค่าคงที่ทั้งหมด (FLASHLIGHT_CONFIG, CATCH_ME_CONFIG ฯลฯ)
+    │   └── gameConfig.js           # ค่าคงที่ทั้งหมด (FLASHLIGHT_CONFIG, CATCH_ME_CONFIG ฯลฯ)
     ├── core/
-    │   ├── security.js           # ระบบบล็อกคลิกขวา, คีย์ลัด, และการพิมพ์นอกโหมด
-    │   ├── audio.js              # ระบบเล่นเสียง Edge-TTS, sfxCache, Web Audio & Speech fallback
-    │   ├── dragDrop.js           # Custom Drag & Drop Engine
-    │   └── ui.js                 # จัดการ HUD, Confetti, Victory Modal, StarBurst
+    │   ├── security.js             # บล็อกคลิกขวา, คีย์ลัด, และการพิมพ์นอกโหมด
+    │   ├── audio.js                # ระบบเสียง Edge-TTS, sfxCache, Web Audio & Speech fallback
+    │   ├── dragDrop.js             # Custom Drag & Drop Engine
+    │   └── ui.js                   # HUD, Confetti, Victory Modal, StarBurst, Instant Ghost Demo
     ├── levels/
     │   ├── mouse/
-    │   │   ├── lv1-shapes.js
-    │   │   ├── lv2-animals.js
-    │   │   ├── lv3-categories.js
-    │   │   ├── lv4-puzzle.js
-    │   │   ├── lv5-paint.js
-    │   │   ├── lv6-7-flashlight.js
-    │   │   └── lv8-10-catch.js
+    │   │   ├── lv01-bubbles.js     # [ใหม่] เช็ดฟองสบู่ (Hover & Wipe)
+    │   │   ├── lv02-balloons.js    # [ใหม่] จิ้มลูกโป่ง (Single Click)
+    │   │   ├── lv03-watering.js    # [ใหม่] กดค้างรดน้ำต้นไม้ (Click & Hold)
+    │   │   ├── lv04-shapes.js      # [เดิม Lv1] ลากวางรูปทรง
+    │   │   ├── lv05-animals.js     # [เดิม Lv2] จับคู่เงาสัตว์
+    │   │   ├── lv06-path.js        # [ใหม่] พาน้องเดินกลับบ้าน (Wide-Path Drag)
+    │   │   ├── lv07-categories.js  # [เดิม Lv3] แยกหมวดหมู่ภาพ
+    │   │   ├── lv08-feeding.js     # [ใหม่] ให้อาหารสัตว์ตามใจนึก (Thought-Bubble)
+    │   │   ├── lv09-puzzle.js      # [เดิม Lv4] จิ๊กซอว์ 2x2
+    │   │   ├── lv10-paint.js       # [เดิม Lv5] วาดตามรอยประ Paint
+    │   │   ├── lv11-12-flashlight.js # [เดิม Lv6-7] ไฟฉายซ่อนแอบ
+    │   │   └── lv13-15-catch.js    # [เดิม Lv8-10] จับสัตว์วิ่งบนจอ
     │   └── keyboard/
-    │       ├── keyboardEngine.js # เรนเดอร์แป้นพิมพ์เสมือน, จับคีย์, มือชี้ปุ่มเมื่อ idle 5 วิ
-    │       └── keyData.js        # ข้อมูลตัวอักษรไทย 24 ตัว, A-Z, ตัวเลข 0-9 และผังแป้นพิมพ์
+    │       ├── keyboardEngine.js   # โหมดพิมพ์ไทย อังกฤษ ตัวเลข + มือชี้ปุ่ม
+    │       ├── keyData.js          # ข้อมูลแป้นพิมพ์และคำศัพท์
+    │       └── keyMiniGames.js     # [ใหม่] หมวดมินิเกมภาพล้วน (ฟักไข่, Spacebar, รถไฟลูกศร)
     └── styles/
-        └── main.css              # Custom CSS และ Keyframe Animations ทั้งหมดจาก index.html เดิม
+        └── main.css                # Custom CSS และ Keyframe Animations
 ```
 
 ---
 
-## 4. ข้อกำหนดทางเทคนิคสำหรับการแยก Module (Engineering Standards)
-1. **Standard Level Lifecycle (ป้องกัน Memory Leak):**
-   - ทุกไฟล์ด่านใน `src/levels/` ต้อง Export ฟังก์ชันมาตรฐานเดียวกัน เช่น `initLevel(container, context)` และ **ต้องคืนค่าฟังก์ชัน `cleanup()`** เพื่อล้าง `requestAnimationFrame` (`catchLoop`), `setTimeout`/`setInterval` (ตัวจับเวลา Idle Hint 5 วิ), และ `EventListener` ของด่านนั้นทิ้งทุกครั้งที่มีการเปลี่ยนด่านหรือกดกลับหน้าเมนูหลัก
-2. **Offline Relative Paths:**
-   - ใน `vite.config.js` ต้องใช้ `vite-plugin-singlefile` และกำหนด `base: './'`
-   - การอ้างอิงไฟล์ในโค้ด JS/CSS ทั้งหมดต้องใช้ Relative Path แบบ **ไม่มี `/` นำหน้า** (เช่น `'audio/voice/th_3585.mp3'`, `'images/hand_open.svg'`) เพื่อให้เปิดผ่าน `file://` บน Windows/macOS ได้โดยไม่ติด Path error
-3. **Centralized Config:**
-   - นำตัวแปรปรับแต่ง `FLASHLIGHT_CONFIG` และ `CATCH_ME_CONFIG` ไปไว้ใน `src/config/gameConfig.js` เพื่อให้แก้ไขค่าฟิสิกส์และความเร็วได้จากจุดเดียว
+## 5. ข้อกำหนดทางเทคนิค (Engineering Standards)
+1. **Standard Lifecycle (`cleanup()`):** ทุกไฟล์ด่านต้อง Export `initLevel(container, context)` และคืนค่าฟังก์ชัน `cleanup()` เพื่อล้าง `requestAnimationFrame`, `setTimeout`/`setInterval` และ `EventListener` ทุกครั้งที่เปลี่ยนด่านหรือกลับหน้าหลัก
+2. **Offline Relative Paths:** ใช้ `base: './'` ใน `vite.config.js` และห้ามมี `/` นำหน้า Path ของไฟล์เสียงหรือภาพในโค้ดเด็ดขาด (ต้องเขียนเป็น `'audio/...'` หรือ `'images/...'`) เพื่อให้เปิดผ่าน `file://` ได้
+3. **Fallback Graphics:** หากไฟล์ภาพ Sprite Sheet ใหม่ยังไม่ได้ถูกนำมาวางใน `public/images/` ให้ตัวเกมแสดง SVG Vector หรือ Emoji ขนาดใหญ่คมชัดทดแทนอัตโนมัติ เพื่อให้รันทดสอบได้ทันทีโดยไม่เกิดภาพแตก
 
 ---
 
-## 5. แผนการดำเนินงานทีละขั้นตอน (Mandatory Phased Execution)
-**คำสั่งสำคัญ:** ห้ามทำรวดเดียวทั้งหมด ให้ดำเนินการทีละ Phase ตามลำดับด้านล่าง เมื่อจบแต่ละ Phase ให้สรุปสิ่งที่ทำและ **หยุดรอคำยืนยันจากฉัน** ก่อนเริ่ม Phase ถัดไป:
+## 6. แผนการดำเนินงานทีละขั้นตอน (Mandatory Phased Execution)
+**คำสั่งสำคัญ:** ห้ามทำรวดเดียวทั้งหมด ให้ทำทีละ Phase ตามลำดับ เมื่อจบแต่ละ Phase ให้สรุปสิ่งที่ทำและ **หยุดรอคำยืนยันจากฉัน** ก่อนเริ่ม Phase ถัดไป:
 
-- **Phase 1: Backup & Project Setup**
-  1. คัดลอก `index.html` ปัจจุบันไปสำรองไว้ที่ `index.legacy.html`
-  2. ย้ายโฟลเดอร์ `audio/` และ `images/` เข้าไปไว้ใน `public/audio/` และ `public/images/`
-  3. สร้าง `package.json` และติดตั้ง `vite` กับ `vite-plugin-singlefile` พร้อมสร้างไฟล์ `vite.config.js`
-  4. สร้างโครงสร้างโฟลเดอร์ใน `src/` ให้ครบตามแบบ
-
-- **Phase 2: Extract Core Systems & Styles**
-  1. แยก CSS ทั้งหมดไปไว้ที่ `src/styles/main.css`
-  2. แยก `gameConfig.js`, `security.js`, `audio.js`, `dragDrop.js` และ `ui.js` ออกจาก `index.html` เดิม โดยตรวจสอบให้แน่ใจว่า Logic ทุกบรรทัดถูกย้ายมาครบถ้วน
-
-- **Phase 3: Extract Mouse Levels (1 - 10)**
-  1. แยกโค้ดด่านเมาส์ทั้ง 10 ด่านลงไฟล์ใน `src/levels/mouse/` พร้อมสร้างฟังก์ชัน `cleanup()` ให้ครบทุกด่าน (โดยเฉพาะด่าน 1 Idle Hint, ด่าน 5 Paint Canvas, ด่าน 6-7 Flashlight Masking, และด่าน 8-10 `catchLoop`)
-
-- **Phase 4: Extract Keyboard Mode & Main Router**
-  1. แยกข้อมูลตัวอักษรและผังแป้นพิมพ์ลง `src/levels/keyboard/keyData.js` และระบบเล่น/มือชี้ปุ่มลง `keyboardEngine.js`
-  2. เชื่อมต่อทุกระบบเข้าด้วยกันใน `src/main.js` และปรับ `index.html` ให้เหลือเฉพาะโครงสร้าง DOM หลักและ `<script type="module" src="/src/main.js"></script>`
-
-- **Phase 5: Production Build, Verification & Documentation Sync**
-  1. รันคำสั่ง `npm run build` เพื่อสร้าง `dist/index.html`
-  2. ตรวจสอบโค้ดใน `dist/` ว่าไฟล์เสียงและรูปภาพถูกคัดลอกไปครบและไม่มี Path ผิดพลาด
-  3. อัปเดตโครงสร้างไฟล์และสถาปัตยกรรมใหม่ลงใน `cam.md` และบันทึกการเปลี่ยนแปลงลงใน `ReviewIDE.md` ให้ตรงกับโค้ดปัจจุบัน 100%
+- **Phase 1: Backup & Vite Setup** — สำรอง `index.html` เป็น `index.legacy.html`, ย้าย `audio/` และ `images/` ไป `public/`, ติดตั้ง `vite` และ `vite-plugin-singlefile`, สร้าง `vite.config.js` และโครงสร้างโฟลเดอร์ `src/`
+- **Phase 2: Extract Core Systems & Styles** — แยก `main.css`, `gameConfig.js`, `security.js`, `audio.js`, `dragDrop.js`, `ui.js` (รวมฟังก์ชัน Instant Ghost Demo)
+- **Phase 3: Extract Existing Mouse Levels (Lv 4, 5, 7, 9, 10, 11–12, 13–15)** — ย้ายด่านเมาส์เดิมทั้ง 10 ด่านเข้าโครงสร้างไฟล์ใหม่พร้อม `cleanup()`
+- **Phase 4: Build New Foundation Mouse Levels (Lv 1, 2, 3, 6, 8)** — สร้างมินิเกมเมาส์ใหม่ 5 ด่านตามสเปก Zero-Text และ Instant Ghost Demo
+- **Phase 5: Extract Keyboard Mode & Build Visual Keyboard Mini-Games** — แยก `keyboardEngine.js` / `keyData.js` และสร้างหมวด "มินิเกม (ภาพล้วน)" ทั้ง 3 เกมใน `keyMiniGames.js`
+- **Phase 6: Main Router, Production Build & Docs Sync** — เชื่อมต่อทั้งหมดใน `src/main.js`, อัปเดตเมนูเลือกด่าน 1–15 และเมนูคีย์บอร์ด 4 หมวด, รัน `npm run build` ทดสอบ `dist/index.html` และอัปเดต `cam.md` กับ `ReviewIDE.md`
 
 เริ่มดำเนินการ **Phase 1** ได้ทันที

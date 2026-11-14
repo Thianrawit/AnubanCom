@@ -22,24 +22,40 @@ export function isVoiceEnabled() {
     return voiceEnabled;
 }
 
+let currentLockedAudio = null;
+
+export function stopLockedVoice() {
+    if (currentLockedAudio) {
+        currentLockedAudio.pause();
+        currentLockedAudio.currentTime = 0;
+        currentLockedAudio = null;
+    }
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+    }
+}
+
 export function setVoiceEnabled(enabled) {
     voiceEnabled = !!enabled;
     localStorage.setItem('anuban_voice_enabled', voiceEnabled ? 'true' : 'false');
-    if (!voiceEnabled && 'speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
+    if (!voiceEnabled) {
+        stopLockedVoice();
     }
 }
 
 export function speakLockedLevelMessage(unlockedLevel) {
     if (!voiceEnabled) return;
-    if (!('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
-    const text = `ต้องเล่นด่าน ${unlockedLevel} ให้จบก่อนครับ ถ้าพร้อมแล้วกดปุ่มสีเขียวเลยครับ`;
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'th-TH';
-    utterance.rate = SYSTEM_SETTINGS.lockedVoiceRate || 0.7; // ปรับได้ใน settings.js
-    utterance.pitch = 1.05;
-    window.speechSynthesis.speak(utterance);
+    stopLockedVoice();
+
+    const lv = parseInt(unlockedLevel, 10) || 1;
+    const soundUrl = `audio/voice/locked_lv_${lv}.mp3`;
+
+    currentLockedAudio = new Audio(soundUrl);
+    currentLockedAudio.play().catch(() => {
+        // Fallback to speech synthesis if audio file cannot be loaded
+        const text = `ต้องเล่นด่าน ${lv} ให้จบก่อนครับ ถ้าพร้อมแล้วกดปุ่มสีเขียวเลยครับ`;
+        playSpeechFallback(text, 'th-TH');
+    });
 }
 
 export function playLetterSound(text, lang = 'th-TH', soundUrl = '') {

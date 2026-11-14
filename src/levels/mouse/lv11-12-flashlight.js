@@ -285,3 +285,5 @@ function stopFlashlightGame() {
     }
 }
 
+
+export const initLevel = renderHideAndSeekLevel;
